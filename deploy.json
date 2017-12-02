@@ -1,0 +1,22 @@
+{
+    "machine": {
+        "host": "$host",
+        "username": "$username",
+        "password": "$password"
+    },
+    "commands": [
+        "sudo service nginx reload"
+    ],
+    "directories": [
+        {
+            "source": "$workspace/dist",
+            "destination": "/opt/world-of-rations-suite"
+        }
+    ],
+    "files": [
+        {
+            "source": "$workspace/nginx.conf",
+            "destination": "/etc/nginx/sites-enabled/world-of-rations-suite"
+        }
+    ]
+}

@@ -68,11 +68,10 @@
     <div class="row">
       <div class="col-lg-12 text-center welcome-message">
         <h2>
-          Welcome to World of Rations Suite
+          Manage Nutrients
         </h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sit amet augue lectus. Vestibulum pulvinar eros leo. Praesent
-          a odio nulla. Ut pulvinar lectus vel tellus lobortis, nec condimentum augue iaculis.
+          A nutrient is a component in foods that an organism uses to survive and grow. Macronutrients provide the bulk energy an organism's metabolic system needs to function while micronutrients provide the necessary cofactors for metabolism to be carried out. Both types of nutrients can be acquired from the environment.
         </p>
       </div>
     </div>
@@ -80,10 +79,31 @@
       <div class="col-lg-12">
         <div class="hpanel">
           <div class="panel-heading">
-            Dashboard
+            List of Nutrients
           </div>
           <div class="panel-body">
-
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Abbreviation</th>
+                  <th>Name</th>
+                  <th>Unit</th>
+                  <th>Sort Order</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let nutrient of nutrients">
+                  <td>{{nutrient.abbreviation}}</td>
+                  <td>{{nutrient.name}}</td>
+                  <td>{{nutrient.unit}}</td>
+                  <td>{{nutrient.sortOrder}}</td>
+                  <td>
+                    <a href="/nutrients/edit/{{nutrient.id}}" class="btn btn-default">Edit</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

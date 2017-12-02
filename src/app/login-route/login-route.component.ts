@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { environment } from './../../environments/environment';
 
 @Component({
   selector: 'app-login-route',
@@ -13,17 +14,22 @@ export class LoginRouteComponent implements OnInit {
   public ngOnInit(): void {
     if (this.activatedRoute) {
       this.activatedRoute.queryParams.subscribe((params: Params): void => {
-
-        const parameters = this.router.url.split('#')[1].split('&').map((x) => {
+        const parameters = this.router.url.split('#').length > 1 ? this.router.url.split('#')[1].split('&').map((x) => {
           return {
             key: x.split('=')[0],
             value: x.split('=')[1],
           };
-        });
+        }) : [];
 
-        const accessToken: string = parameters.find((x) => x.key === 'access_token').value;
-        localStorage.setItem('token', accessToken);
-        this.router.navigateByUrl('/');
+        const accessToken: string = parameters.find((x) => x.key === 'access_token') ? parameters.find((x) => x.key === 'access_token').value : null;
+
+        if (accessToken) {
+          localStorage.setItem('token', accessToken);
+          this.router.navigateByUrl('/');
+        } else {
+          localStorage.removeItem('token');
+          window.location.href = `https://developersworkspace.auth0.com/v2/logout?returnTo=${encodeURI(environment.application.uri)}&client_id=dEzOh3cW5PUCb2H0fLUp7LH3j5Tegzd8`;
+        }
       });
     }
   }

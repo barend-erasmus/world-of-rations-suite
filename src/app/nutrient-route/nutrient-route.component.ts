@@ -5,35 +5,34 @@ import { Http, Response, Headers } from '@angular/http';
 import { environment } from '../../environments/environment';
 
 @Component({
-  selector: 'app-rations-route',
-  templateUrl: './rations-route.component.html',
-  styleUrls: ['./rations-route.component.css']
+  selector: 'app-nutrient-route',
+  templateUrl: './nutrient-route.component.html',
+  styleUrls: ['./nutrient-route.component.css']
 })
-export class RationsRouteComponent implements OnInit {
+export class NutrientRouteComponent implements OnInit {
 
   public user: any = {};
 
-  public rations: any[] = [];
+  public nutrients: any[] = [];
 
   constructor(private http: Http) { }
 
   public ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
 
-    this.loadRations();
+    this.loadNutrients();
   }
 
-  private loadRations(): void {
+  private loadNutrients(): void {
+
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
 
-    this.http.get(`${environment.api.uri}/dietgroup/list`, {
+    this.http.get(`${environment.api.uri}/nutrient/list`, {
       headers,
     })
       .map((res: Response) => res.json()).subscribe((json) => {
-        this.rations = json;
-        console.log(this.rations);
+        this.nutrients = json;
       });
   }
-
 }

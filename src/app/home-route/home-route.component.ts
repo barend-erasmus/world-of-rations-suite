@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeRouteComponent implements OnInit {
 
-  public user: any;
+  public user: any = {};
 
   constructor() { }
 

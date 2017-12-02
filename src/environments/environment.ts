@@ -5,6 +5,10 @@
 
 export const environment = {
   production: false,
+  application: {
+    id: 1,
+    uri: 'http://localhost:4200',
+  },
   api: {
     uri: 'http://localhost:3000/api',
   }

@@ -1,0 +1,113 @@
+<div id="header">
+  <div class="color-line">
+  </div>
+  <div id="logo" class="light-version">
+    <span>
+      World of Rations Suite
+    </span>
+  </div>
+  <nav role="navigation">
+    <div class="header-link hide-menu">
+      <i class="fa fa-bars"></i>
+    </div>
+    <div class="small-logo">
+      <span class="text-primary">World of Rations Suite</span>
+    </div>
+    <form role="search" class="navbar-form-custom" method="post" action="#">
+      <div class="form-group">
+        <input type="text" placeholder="Search something special" class="form-control" name="search">
+      </div>
+    </form>
+    <div class="navbar-right">
+      <ul class="nav navbar-nav no-borders">
+        <li>
+          <a href="login.html">
+            <i class="pe-7s-upload pe-rotate-90"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+<aside id="menu">
+  <div id="navigation">
+    <div class="profile-picture">
+      <a href="/">
+        <img src="{{user.picture}}" class="img-circle m-b" alt="logo" width="75">
+      </a>
+      <div class="stats-label text-color">
+        <span class="font-extra-bold font-uppercase">{{user.name}}</span>
+        <div>
+          <label class="font-extra-bold m-b-xs">
+            {{user.email_verified? 'Verified' : 'Unverified'}}
+          </label>
+        </div>
+      </div>
+    </div>
+    <ul class="nav" id="side-menu">
+      <li>
+        <a href="/">
+          <span class="nav-label">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="/nutrients">
+          <span class="nav-label">Manage Nutrients</span>
+        </a>
+      </li>
+      <li>
+        <a href="/rations">
+          <span class="nav-label">Manage Rations</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</aside>
+<div id="wrapper">
+  <div class="content">
+    <div class="row">
+      <div class="col-lg-12 text-center welcome-message">
+        <h2>
+          Welcome to World of Rations Suite
+        </h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sit amet augue lectus. Vestibulum pulvinar eros leo. Praesent
+          a odio nulla. Ut pulvinar lectus vel tellus lobortis, nec condimentum augue iaculis.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="hpanel">
+          <div class="panel-heading">
+            List of Rations
+          </div>
+          <div class="panel-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let ration of rations">
+                  <td>{{ration.name}}</td>
+                  <td>
+                    <button class="btn btn-default">Edit</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <span class="pull-right">
+      World of Rations Suite
+    </span>
+    World of Rations Pty Ltd. 2017
+  </footer>
+</div>

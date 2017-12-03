@@ -13,7 +13,7 @@ export class RationsRouteComponent implements OnInit {
 
   public user: any = {};
 
-  public rations: any[] = [];
+  public dietGroups: any[] = [];
 
   constructor(private http: Http) { }
 
@@ -31,8 +31,7 @@ export class RationsRouteComponent implements OnInit {
       headers,
     })
       .map((res: Response) => res.json()).subscribe((json) => {
-        this.rations = json;
-        console.log(this.rations);
+        this.dietGroups = json;
       });
   }
 

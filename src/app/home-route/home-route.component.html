@@ -83,7 +83,11 @@
             Dashboard
           </div>
           <div class="panel-body">
-
+            <div *ngFor="let dietGroupDropdown of dietGroupDropdowns; let i = index">
+              <select [(ngModel)]="dietGroupDropdown.selectedItem" (change)="onChange_DietGroupDropdown(i)" class="form-control">
+                <option *ngFor="let dietGroup of dietGroupDropdown.dietGroups" [ngValue]="dietGroup">{{dietGroup.name}}</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>

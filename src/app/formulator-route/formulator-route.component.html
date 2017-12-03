@@ -52,11 +52,10 @@
     <div class="row">
       <div class="col-lg-12 text-center welcome-message">
         <h2>
-          Welcome to World of Rations Suite
+          Least-Cost Ration Formulator
         </h2>
         <p>
-          World of Rations Suite is an online cloud-based ration formulation program, structured in such a way as to suit the farmer, specialist
-          nutritionist, feed milling companies and academics alike.
+          Choose from our list of over 264 feedstuffs and over 900 rations.
         </p>
       </div>
     </div>
@@ -64,10 +63,28 @@
       <div class="col-lg-12">
         <div class="hpanel">
           <div class="panel-heading">
-            Dashboard
+            Least-Cost Ration Formulator
           </div>
           <div class="panel-body">
-
+            <div class="form-group">
+              <label>Ration Group</label>
+              <div *ngFor="let dietGroupDropdown of dietGroupDropdowns; let i = index">
+                <select [(ngModel)]="dietGroupDropdown.selectedItem" (change)="onChange_DietGroupDropdown(i)" class="form-control">
+                  <option [ngValue]="null" disabled>Select Ration Group</option>
+                  <option *ngFor="let dietGroup of dietGroupDropdown.dietGroups" [ngValue]="dietGroup">{{ dietGroup.name }}</option>
+                </select>
+                <br />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Ration</label>
+              <div>
+                <select [(ngModel)]="selectedRation" class="form-control">
+                  <option [ngValue]="null" disabled>Select Ration</option>
+                  <option *ngFor="let ration of rations" [ngValue]="ration">{{ ration.name }}</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </div>

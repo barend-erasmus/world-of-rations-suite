@@ -12,6 +12,9 @@ import { RationsRouteComponent } from './rations-route/rations-route.component';
 import { NutrientRouteComponent } from './nutrient-route/nutrient-route.component';
 import { NutrientEditRouteComponent } from './nutrient-edit-route/nutrient-edit-route.component';
 import { NutrientCreateRouteComponent } from './nutrient-create-route/nutrient-create-route.component';
+import { FormulatorRouteComponent } from './formulator-route/formulator-route.component';
+import { SideMenuComponent } from './side-menu/side-menu.component';
+import { RationGroupEditRouteComponent } from './ration-group-edit-route/ration-group-edit-route.component';
 
 const appRoutes: Routes = [
   {
@@ -50,6 +53,13 @@ const appRoutes: Routes = [
     ],
   },
   {
+    path: 'formulator',
+    component: FormulatorRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
     path: 'login',
     component: LoginRouteComponent,
   },
@@ -63,7 +73,10 @@ const appRoutes: Routes = [
     RationsRouteComponent,
     NutrientRouteComponent,
     NutrientEditRouteComponent,
-    NutrientCreateRouteComponent
+    NutrientCreateRouteComponent,
+    FormulatorRouteComponent,
+    SideMenuComponent,
+    RationGroupEditRouteComponent
   ],
   imports: [
     BrowserModule,

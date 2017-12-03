@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Http, Response, Headers } from '@angular/http';
 import { environment } from '../../environments/environment';
@@ -13,7 +13,7 @@ export class HomeRouteComponent implements OnInit {
 
   public user: any = {};
 
-  public dietGroupDropdowns: any[] = []
+  public dietGroupDropdowns: any[] = [];
 
   constructor(private http: Http) { }
 
@@ -24,7 +24,7 @@ export class HomeRouteComponent implements OnInit {
   }
 
   public onChange_DietGroupDropdown(index: number): void {
-    if (index + 1 != this.dietGroupDropdowns.length) {
+    if (index + 1 !== this.dietGroupDropdowns.length) {
       this.dietGroupDropdowns = this.dietGroupDropdowns.slice(0, index + 1);
     }
     this.loadDietGroupDropdown(this.dietGroupDropdowns[index].selectedItem.id);

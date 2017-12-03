@@ -36,10 +36,10 @@
         <img src="{{user.picture}}" class="img-circle m-b" alt="logo" width="75">
       </a>
       <div class="stats-label text-color">
-        <span class="font-extra-bold font-uppercase">{{user.name}}</span>
+        <span class="font-extra-bold font-uppercase">{{ user.name }}</span>
         <div>
           <label class="font-extra-bold m-b-xs">
-            {{user.email_verified? 'Verified' : 'Unverified'}}
+            {{ user.email_verified? 'Verified' : 'Unverified' }}
           </label>
         </div>
       </div>
@@ -68,7 +68,7 @@
     <div class="row">
       <div class="col-lg-12 text-center welcome-message">
         <h2>
-          Manage Nutrients - {{nutrient.name}}
+          Manage Nutrients - {{ nutrient.name }}
         </h2>
         <p>
           A nutrient is a component in foods that an organism uses to survive and grow. Macronutrients provide the bulk energy an organism's
@@ -81,11 +81,11 @@
       <div class="col-lg-12">
         <div class="hpanel">
           <div class="panel-heading">
-            Nutrient - {{nutrient.name}}
+            Nutrient - {{ nutrient.name }}
           </div>
           <div class="panel-body">
             <p>
-              <label class="text-danger" *ngFor="let message of messages">{{message}}</label>
+              <label class="text-danger" *ngFor="let message of messages">{{ message }}</label>
             </p>
             <div class="form-group">
               <label>Abbreviation</label>

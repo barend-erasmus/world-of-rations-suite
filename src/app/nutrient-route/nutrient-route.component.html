@@ -36,10 +36,10 @@
         <img src="{{user.picture}}" class="img-circle m-b" alt="logo" width="75">
       </a>
       <div class="stats-label text-color">
-        <span class="font-extra-bold font-uppercase">{{user.name}}</span>
+        <span class="font-extra-bold font-uppercase">{{ user.name }}</span>
         <div>
           <label class="font-extra-bold m-b-xs">
-            {{user.email_verified? 'Verified' : 'Unverified'}}
+            {{ user.email_verified? 'Verified' : 'Unverified' }}
           </label>
         </div>
       </div>
@@ -94,10 +94,10 @@
               </thead>
               <tbody>
                 <tr *ngFor="let nutrient of nutrients">
-                  <td>{{nutrient.abbreviation}}</td>
-                  <td>{{nutrient.name}}</td>
-                  <td>{{nutrient.unit}}</td>
-                  <td>{{nutrient.sortOrder}}</td>
+                  <td>{{ nutrient.abbreviation }}</td>
+                  <td>{{ nutrient.name }}</td>
+                  <td>{{ nutrient.unit }}</td>
+                  <td>{{ nutrient.sortOrder }}</td>
                   <td>
                     <a href="/nutrients/edit/{{nutrient.id}}" class="btn btn-default">Edit</a>
                   </td>

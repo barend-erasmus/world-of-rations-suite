@@ -21,14 +21,18 @@ export class LoginRouteComponent implements OnInit {
           };
         }) : [];
 
-        const accessToken: string = parameters.find((x) => x.key === 'access_token') ? parameters.find((x) => x.key === 'access_token').value : null;
+        const accessToken: string = parameters.find((x) => x.key === 'access_token') ?
+          parameters.find((x) => x.key === 'access_token').value :
+          null;
 
         if (accessToken) {
           localStorage.setItem('token', accessToken);
           this.router.navigateByUrl('/');
         } else {
           localStorage.removeItem('token');
-          window.location.href = `https://developersworkspace.auth0.com/v2/logout?returnTo=${encodeURI(environment.application.uri)}&client_id=dEzOh3cW5PUCb2H0fLUp7LH3j5Tegzd8`;
+          window.location.href = `https://developersworkspace.auth0.com/v2/logout` +
+            `?returnTo=${encodeURI(environment.application.uri)}&` +
+            `client_id=dEzOh3cW5PUCb2H0fLUp7LH3j5Tegzd8`;
         }
       });
     }

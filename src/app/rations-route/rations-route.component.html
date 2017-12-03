@@ -36,10 +36,10 @@
         <img src="{{user.picture}}" class="img-circle m-b" alt="logo" width="75">
       </a>
       <div class="stats-label text-color">
-        <span class="font-extra-bold font-uppercase">{{user.name}}</span>
+        <span class="font-extra-bold font-uppercase">{{ user.name }}</span>
         <div>
           <label class="font-extra-bold m-b-xs">
-            {{user.email_verified? 'Verified' : 'Unverified'}}
+            {{ user.email_verified? 'Verified' : 'Unverified' }}
           </label>
         </div>
       </div>
@@ -92,7 +92,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let dietGroup of dietGroups">
-                  <td>{{dietGroup.name}}</td>
+                  <td>{{ dietGroup.name }}</td>
                   <td>
                     <button class="btn btn-default">Edit</button>
                   </td>

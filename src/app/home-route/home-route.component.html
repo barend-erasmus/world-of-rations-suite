@@ -36,10 +36,10 @@
         <img src="{{user.picture}}" class="img-circle m-b" alt="logo" width="75">
       </a>
       <div class="stats-label text-color">
-        <span class="font-extra-bold font-uppercase">{{user.name}}</span>
+        <span class="font-extra-bold font-uppercase">{{ user.name }}</span>
         <div>
           <label class="font-extra-bold m-b-xs">
-            {{user.email_verified? 'Verified' : 'Unverified'}}
+            {{ user.email_verified? 'Verified' : 'Unverified' }}
           </label>
         </div>
       </div>
@@ -85,7 +85,7 @@
           <div class="panel-body">
             <div *ngFor="let dietGroupDropdown of dietGroupDropdowns; let i = index">
               <select [(ngModel)]="dietGroupDropdown.selectedItem" (change)="onChange_DietGroupDropdown(i)" class="form-control">
-                <option *ngFor="let dietGroup of dietGroupDropdown.dietGroups" [ngValue]="dietGroup">{{dietGroup.name}}</option>
+                <option *ngFor="let dietGroup of dietGroupDropdown.dietGroups" [ngValue]="dietGroup">{{ dietGroup.name }}</option>
               </select>
             </div>
           </div>

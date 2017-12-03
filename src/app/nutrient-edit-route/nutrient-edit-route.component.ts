@@ -4,7 +4,6 @@ import 'rxjs/add/operator/map';
 import { Http, Response, Headers } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { window } from 'rxjs/operator/window';
 
 @Component({
   selector: 'app-nutrient-edit-route',
@@ -42,7 +41,7 @@ export class NutrientEditRouteComponent implements OnInit {
     }
 
     if (!this.nutrient.name) {
-      this.messages.push('Abbreviation cannot be empty');
+      this.messages.push('Name cannot be empty');
     }
 
     if (!this.nutrient.unit) {

@@ -11,6 +11,7 @@ import { AuthGuard } from './auth.guard';
 import { RationsRouteComponent } from './rations-route/rations-route.component';
 import { NutrientRouteComponent } from './nutrient-route/nutrient-route.component';
 import { NutrientEditRouteComponent } from './nutrient-edit-route/nutrient-edit-route.component';
+import { NutrientCreateRouteComponent } from './nutrient-create-route/nutrient-create-route.component';
 
 const appRoutes: Routes = [
   {
@@ -42,6 +43,13 @@ const appRoutes: Routes = [
     ],
   },
   {
+    path: 'nutrients/create',
+    component: NutrientCreateRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
     path: 'login',
     component: LoginRouteComponent,
   },
@@ -54,7 +62,8 @@ const appRoutes: Routes = [
     LoginRouteComponent,
     RationsRouteComponent,
     NutrientRouteComponent,
-    NutrientEditRouteComponent
+    NutrientEditRouteComponent,
+    NutrientCreateRouteComponent
   ],
   imports: [
     BrowserModule,

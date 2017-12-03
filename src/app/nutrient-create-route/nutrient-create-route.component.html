@@ -1,0 +1,127 @@
+<div id="header">
+    <div class="color-line">
+    </div>
+    <div id="logo" class="light-version">
+      <span>
+        World of Rations Suite
+      </span>
+    </div>
+    <nav role="navigation">
+      <div class="header-link hide-menu">
+        <i class="fa fa-bars"></i>
+      </div>
+      <div class="small-logo">
+        <span class="text-primary">World of Rations Suite</span>
+      </div>
+      <form role="search" class="navbar-form-custom" method="post" action="#">
+        <div class="form-group">
+          <input type="text" placeholder="Search something special" class="form-control" name="search">
+        </div>
+      </form>
+      <div class="navbar-right">
+        <ul class="nav navbar-nav no-borders">
+          <li>
+            <a href="/login">
+              <i class="fa fa-sign-out"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <aside id="menu">
+    <div id="navigation">
+      <div class="profile-picture">
+        <a href="/">
+          <img src="{{user.picture}}" class="img-circle m-b" alt="logo" width="75">
+        </a>
+        <div class="stats-label text-color">
+          <span class="font-extra-bold font-uppercase">{{ user.name }}</span>
+          <div>
+            <label class="font-extra-bold m-b-xs">
+              {{ user.email_verified? 'Verified' : 'Unverified' }}
+            </label>
+          </div>
+        </div>
+      </div>
+      <ul class="nav" id="side-menu">
+        <li>
+          <a href="/">
+            <span class="nav-label">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="/nutrients">
+            <span class="nav-label">Manage Nutrients</span>
+          </a>
+        </li>
+        <li>
+          <a href="/rations">
+            <span class="nav-label">Manage Rations</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div id="wrapper">
+    <div class="content">
+      <div class="row">
+        <div class="col-lg-12 text-center welcome-message">
+          <h2>
+            Manage Nutrients - New Nutrient
+          </h2>
+          <p>
+            A nutrient is a component in foods that an organism uses to survive and grow. Macronutrients provide the bulk energy an organism's
+            metabolic system needs to function while micronutrients provide the necessary cofactors for metabolism to be carried
+            out. Both types of nutrients can be acquired from the environment.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="hpanel">
+            <div class="panel-heading">
+              Nutrient - New Nutrient
+            </div>
+            <div class="panel-body">
+              <p *ngFor="let message of messages">
+                <label class="text-danger">{{ message }}</label>
+                <br />
+              </p>
+              <div class="form-group">
+                <label>Abbreviation</label>
+                <input type="text" class="form-control" [(ngModel)]="nutrient.abbreviation">
+              </div>
+              <div class="form-group">
+                <label>Code</label>
+                <input type="text" class="form-control" [(ngModel)]="nutrient.code">
+              </div>
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" [(ngModel)]="nutrient.name">
+              </div>
+              <div class="form-group">
+                  <label>Description</label>
+                  <textarea class="form-control" rows="5" [(ngModel)]="nutrient.description"></textarea>
+                </div>
+              <div class="form-group">
+                <label>Unit</label>
+                <input type="text" class="form-control" [(ngModel)]="nutrient.unit">
+              </div>
+              <div class="form-group">
+                <label>Sort Order</label>
+                <input type="number" class="form-control" [(ngModel)]="nutrient.sortOrder">
+              </div>
+              <button (click)="onClick_Save()" class="btn btn-success">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <span class="pull-right">
+        World of Rations Suite
+      </span>
+      World of Rations Pty Ltd. 2017
+    </footer>
+  </div>

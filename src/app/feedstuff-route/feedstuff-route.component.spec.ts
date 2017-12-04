@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RationsRouteComponent } from './rations-route.component';
+import { FeedstuffRouteComponent } from './feedstuff-route.component';
 
-describe('RationsRouteComponent', () => {
-  let component: RationsRouteComponent;
-  let fixture: ComponentFixture<RationsRouteComponent>;
+describe('FeedstuffRouteComponent', () => {
+  let component: FeedstuffRouteComponent;
+  let fixture: ComponentFixture<FeedstuffRouteComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RationsRouteComponent ]
+      declarations: [ FeedstuffRouteComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RationsRouteComponent);
+    fixture = TestBed.createComponent(FeedstuffRouteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

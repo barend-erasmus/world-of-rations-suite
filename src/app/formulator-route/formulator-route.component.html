@@ -79,9 +79,9 @@
             <div class="form-group">
               <label>Ration</label>
               <div>
-                <select [(ngModel)]="selectedRation" class="form-control">
+                <select [(ngModel)]="selectedDiet" class="form-control">
                   <option [ngValue]="null" disabled>Select Ration</option>
-                  <option *ngFor="let ration of rations" [ngValue]="ration">{{ ration.name }}</option>
+                  <option *ngFor="let diet of diets" [ngValue]="ration">{{ diet.name }}</option>
                 </select>
               </div>
             </div>

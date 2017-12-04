@@ -8,13 +8,14 @@ import { AppComponent } from './app.component';
 import { HomeRouteComponent } from './home-route/home-route.component';
 import { LoginRouteComponent } from './login-route/login-route.component';
 import { AuthGuard } from './auth.guard';
-import { RationsRouteComponent } from './rations-route/rations-route.component';
 import { NutrientRouteComponent } from './nutrient-route/nutrient-route.component';
 import { NutrientEditRouteComponent } from './nutrient-edit-route/nutrient-edit-route.component';
 import { NutrientCreateRouteComponent } from './nutrient-create-route/nutrient-create-route.component';
 import { FormulatorRouteComponent } from './formulator-route/formulator-route.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { RationGroupEditRouteComponent } from './ration-group-edit-route/ration-group-edit-route.component';
+import { FeedstuffRouteComponent } from './feedstuff-route/feedstuff-route.component';
+import { RationGroupRouteComponent } from './ration-group-route/ration-group-route.component';
 
 const appRoutes: Routes = [
   {
@@ -25,8 +26,22 @@ const appRoutes: Routes = [
     ],
   },
   {
-    path: 'rations',
-    component: RationsRouteComponent,
+    path: 'ration/groups',
+    component: RationGroupRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
+    path: 'ration/groups/edit/:dietGroupId',
+    component: RationGroupEditRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
+    path: 'feedstuffs',
+    component: FeedstuffRouteComponent,
     canActivate: [
       AuthGuard,
     ],
@@ -70,13 +85,14 @@ const appRoutes: Routes = [
     AppComponent,
     HomeRouteComponent,
     LoginRouteComponent,
-    RationsRouteComponent,
     NutrientRouteComponent,
     NutrientEditRouteComponent,
     NutrientCreateRouteComponent,
     FormulatorRouteComponent,
     SideMenuComponent,
-    RationGroupEditRouteComponent
+    RationGroupEditRouteComponent,
+    FeedstuffRouteComponent,
+    RationGroupRouteComponent
   ],
   imports: [
     BrowserModule,

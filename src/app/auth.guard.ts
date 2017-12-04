@@ -28,23 +28,21 @@ export class AuthGuard implements CanActivate {
           headers
         })
           .map((x) => x.json()).subscribe((json) => {
-            if (json) {
-              this.user = json;
-              localStorage.setItem('user', JSON.stringify(this.user));
+            this.user = json;
+            localStorage.setItem('user', JSON.stringify(this.user));
 
-              observer.next(true);
-              observer.complete();
-            } else {
-              window.location.href =
-                `https://developersworkspace.auth0.com/authorize?` +
-                `scope=openid%20email%20profile&` +
-                `response_type=token&` +
-                `client_id=dEzOh3cW5PUCb2H0fLUp7LH3j5Tegzd8&` +
-                `redirect_uri=${environment.application.uri}/login`;
+            observer.next(true);
+            observer.complete();
+          }, (err) => {
+            window.location.href =
+              `https://developersworkspace.auth0.com/authorize?` +
+              `scope=openid%20email%20profile&` +
+              `response_type=token&` +
+              `client_id=dEzOh3cW5PUCb2H0fLUp7LH3j5Tegzd8&` +
+              `redirect_uri=${environment.application.uri}/login`;
 
-              observer.next(false);
-              observer.complete();
-            }
+            observer.next(false);
+            observer.complete();
           });
       } else {
         window.location.href =

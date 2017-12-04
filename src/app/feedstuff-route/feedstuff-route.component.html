@@ -21,7 +21,7 @@
     <div class="navbar-right">
       <ul class="nav navbar-nav no-borders">
         <li>
-          <a href="/login">
+          <a href="login.html">
             <i class="fa fa-sign-out"></i>
           </a>
         </li>
@@ -52,57 +52,36 @@
     <div class="row">
       <div class="col-lg-12 text-center welcome-message">
         <h2>
-          Manage Ration Group - {{ dietGroup.name }}
+          Manage Feedstuffs
         </h2>
+        <p>
+          A feedstuff is loosely defined as any component of a ration that serves some useful function. Feedstuffs generally are included
+          in the ration to help meet the requirement for one or more nutrients.
+        </p>
       </div>
     </div>
     <div class="row">
       <div class="col-lg-12">
         <div class="hpanel">
           <div class="panel-heading">
-            Ration Group - {{ dietGroup.name }}
-          </div>
-          <div class="panel-body">
-            <p *ngFor="let message of messages">
-              <label class="text-danger">{{ message }}</label>
-              <br />
-            </p>
-            <div class="form-group">
-              <label>Ration Group</label>
-              <input type="text" class="form-control" value="{{dietGroup.groupChart}}" disabled>
-            </div>
-            <div class="form-group">
-              <label>Name</label>
-              <input type="text" class="form-control" [(ngModel)]="dietGroup.name">
-            </div>
-            <div class="form-group">
-              <label>Description</label>
-              <textarea class="form-control" rows="5" [(ngModel)]="dietGroup.description"></textarea>
-            </div>
-            <button (click)="onClick_Save()" class="btn btn-success">Save</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="hpanel">
-          <div class="panel-heading">
-            Sub Groups
+            List of Feedstuffs
           </div>
           <div class="panel-body">
             <table class="table table-striped">
               <thead>
                 <tr>
+                  <th>Group</th>
                   <th>Name</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let subDietGroup of subDietGroups">
-                  <td>{{ subDietGroup.name }}</td>
+                <tr *ngFor="let ingredient of ingredients">
+                  <td>{{ ingredient.group.name }}</td>
+                  <td>{{ ingredient.name }}</td>
                   <td>
-                    <a href="/ration/groups/edit/{{subDietGroup.id}}" class="btn btn-default">Edit</a>
+                    <!-- <button class="btn btn-default">Edit</button> -->
+                    <span class="label label-primary">Coming Soon</span>
                   </td>
                 </tr>
               </tbody>
@@ -111,33 +90,6 @@
         </div>
       </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-          <div class="hpanel">
-            <div class="panel-heading">
-              Rations
-            </div>
-            <div class="panel-body">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let diet of diets">
-                    <td>{{ diet.name }}</td>
-                    <td>
-                      <a href="/ration/edit/{{diet.id}}" class="btn btn-default">Edit</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
   </div>
   <footer class="footer">
     <span class="pull-right">

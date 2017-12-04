@@ -7,19 +7,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 
 @Component({
-  selector: 'app-ration-group-edit-route',
-  templateUrl: './ration-group-edit-route.component.html',
-  styleUrls: ['./ration-group-edit-route.component.css']
+  selector: 'app-ration-group-create-route',
+  templateUrl: './ration-group-create-route.component.html',
+  styleUrls: ['./ration-group-create-route.component.css']
 })
-export class RationGroupEditRouteComponent implements OnInit {
+export class RationGroupCreateRouteComponent implements OnInit {
 
   public user: any = {};
 
   public dietGroup: any = {};
 
-  public subDietGroups: any[] = [];
-
-  public diets: any[] = [];
+  public parentDietGroup: any = {};
 
   public messages: string[] = [];
 
@@ -29,7 +27,9 @@ export class RationGroupEditRouteComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
 
     this.route.params.subscribe(params => {
-      this.loadDietGroup(params['dietGroupId']);
+      if (params['dietGroupId']) {
+        this.loadParentDietGroup(params['dietGroupId']);
+      }
     });
   }
 
@@ -45,19 +45,21 @@ export class RationGroupEditRouteComponent implements OnInit {
       return;
     }
 
+    this.dietGroup.parent = this.parentDietGroup;
+
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
 
-    this.http.post(`${environment.api.uri}/dietgroup/update`, this.dietGroup, {
+    this.http.post(`${environment.api.uri}/dietgroup/create`, this.dietGroup, {
       headers,
     })
       .map((res: Response) => res.json()).subscribe((json) => {
-        this.router.navigateByUrl(`/ration/groups${this.dietGroup.parent? `/edit/${this.dietGroup.parent.id}` : ''}`);
+        this.router.navigateByUrl(`/ration/groups/${this.parentDietGroup ? `/edit/${this.parentDietGroup.id}` : ''}`);
       });
   }
 
 
-  private loadDietGroup(dietGroupId: number): void {
+  private loadParentDietGroup(dietGroupId: number): void {
 
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
@@ -66,13 +68,13 @@ export class RationGroupEditRouteComponent implements OnInit {
       headers,
     })
       .map((res: Response) => res.json()).subscribe((json) => {
-        this.dietGroup = json;
+        this.parentDietGroup = json;
 
         const groupChart: string[] = [];
 
-        let group: any = this.dietGroup.parent;
+        let group: any = this.parentDietGroup;
 
-        while(group) {
+        while (group) {
           groupChart.push(group.name);
 
           group = group.parent;
@@ -80,34 +82,7 @@ export class RationGroupEditRouteComponent implements OnInit {
 
         groupChart.reverse();
 
-        this.dietGroup.groupChart = groupChart.join(' - ');
-
-        this.loadSubDietGroups();
-        this.loadDiets();
-      });
-  }
-
-  private loadSubDietGroups(): void {
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-
-    this.http.get(`${environment.api.uri}/dietgroup/list?dietGroupId=${this.dietGroup.id}`, {
-      headers,
-    })
-      .map((res: Response) => res.json()).subscribe((json) => {
-        this.subDietGroups = json;
-      });
-  }
-
-  private loadDiets(): void {
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-
-    this.http.get(`${environment.api.uri}/diet/list?dietGroupId=${this.dietGroup.id}`, {
-      headers,
-    })
-      .map((res: Response) => res.json()).subscribe((json) => {
-        this.diets = json;
+        this.parentDietGroup.groupChart = groupChart.join(' - ');
       });
   }
 }

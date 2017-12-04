@@ -1,0 +1,41 @@
+<app-header></app-header>
+<div id="wrapper">
+  <div class="content">
+    <div class="row">
+      <div class="col-lg-12 text-center welcome-message">
+        <h2>
+          Manage Ration Group - New Ration Group
+        </h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="hpanel">
+          <div class="panel-heading">
+            Ration Group - New Ration Group
+          </div>
+          <div class="panel-body">
+            <p *ngFor="let message of messages">
+              <label class="text-danger">{{ message }}</label>
+              <br />
+            </p>
+            <div class="form-group">
+              <label>Ration Group</label>
+              <input type="text" class="form-control" value="{{parentDietGroup.groupChart}}" disabled>
+            </div>
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" class="form-control" [(ngModel)]="dietGroup.name">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea class="form-control" rows="5" [(ngModel)]="dietGroup.description"></textarea>
+            </div>
+            <button (click)="onClick_Save()" class="btn btn-success">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>

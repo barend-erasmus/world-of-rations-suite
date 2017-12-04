@@ -16,6 +16,9 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
 import { RationGroupEditRouteComponent } from './ration-group-edit-route/ration-group-edit-route.component';
 import { FeedstuffRouteComponent } from './feedstuff-route/feedstuff-route.component';
 import { RationGroupRouteComponent } from './ration-group-route/ration-group-route.component';
+import { RationGroupCreateRouteComponent } from './ration-group-create-route/ration-group-create-route.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 
 const appRoutes: Routes = [
   {
@@ -35,6 +38,20 @@ const appRoutes: Routes = [
   {
     path: 'ration/groups/edit/:dietGroupId',
     component: RationGroupEditRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
+    path: 'ration/groups/create/:dietGroupId',
+    component: RationGroupCreateRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
+    path: 'ration/groups/create',
+    component: RationGroupCreateRouteComponent,
     canActivate: [
       AuthGuard,
     ],
@@ -92,7 +109,10 @@ const appRoutes: Routes = [
     SideMenuComponent,
     RationGroupEditRouteComponent,
     FeedstuffRouteComponent,
-    RationGroupRouteComponent
+    RationGroupRouteComponent,
+    RationGroupCreateRouteComponent,
+    FooterComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

@@ -45,6 +45,7 @@ export class RationEditRouteComponent implements OnInit {
 
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
     this.http.post(`${environment.api.uri}/diet/update`, this.diet, {
       headers,
@@ -58,6 +59,7 @@ export class RationEditRouteComponent implements OnInit {
 
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
     this.http.get(`${environment.api.uri}/nutrient/list`, {
       headers,
@@ -84,6 +86,7 @@ export class RationEditRouteComponent implements OnInit {
 
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
     this.http.get(`${environment.api.uri}/diet/find?id=${dietId}`, {
       headers,

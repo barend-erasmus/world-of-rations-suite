@@ -49,6 +49,7 @@ export class RationGroupCreateRouteComponent implements OnInit {
 
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
     this.http.post(`${environment.api.uri}/dietgroup/create`, this.dietGroup, {
       headers,
@@ -63,6 +64,7 @@ export class RationGroupCreateRouteComponent implements OnInit {
 
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
     this.http.get(`${environment.api.uri}/dietgroup/find?id=${dietGroupId}`, {
       headers,

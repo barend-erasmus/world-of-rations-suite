@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
         const headers = new Headers();
         headers.append('authorization', `Bearer ${accessToken}`);
 
-        this.http.get(`https://developersworkspace.auth0.com/userinfo`, {
+        this.http.get(`${environment.api.uri}/user/info`, {
           headers
         })
           .map((x) => x.json()).subscribe((json) => {

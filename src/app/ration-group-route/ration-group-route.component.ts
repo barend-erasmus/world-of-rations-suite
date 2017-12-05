@@ -26,6 +26,7 @@ export class RationGroupRouteComponent implements OnInit {
   private loadDietGroups(): void {
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
     this.http.get(`${environment.api.uri}/dietgroup/list`, {
       headers,

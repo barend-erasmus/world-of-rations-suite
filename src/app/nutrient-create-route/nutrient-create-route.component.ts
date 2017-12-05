@@ -54,6 +54,7 @@ export class NutrientCreateRouteComponent implements OnInit {
 
       const headers = new Headers();
       headers.append('x-application-id', environment.application.id.toString());
+      headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
       this.http.post(`${environment.api.uri}/nutrient/create`, this.nutrient, {
         headers,

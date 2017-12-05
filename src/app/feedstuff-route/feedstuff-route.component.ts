@@ -26,6 +26,7 @@ export class FeedstuffRouteComponent implements OnInit {
   private loadIngredients(): void {
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
     this.http.get(`${environment.api.uri}/ingredient/list`, {
       headers,

@@ -47,6 +47,7 @@ export class RationGroupEditRouteComponent implements OnInit {
 
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
     this.http.post(`${environment.api.uri}/dietgroup/update`, this.dietGroup, {
       headers,
@@ -61,6 +62,7 @@ export class RationGroupEditRouteComponent implements OnInit {
 
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
     this.http.get(`${environment.api.uri}/dietgroup/find?id=${dietGroupId}`, {
       headers,
@@ -90,6 +92,7 @@ export class RationGroupEditRouteComponent implements OnInit {
   private loadSubDietGroups(): void {
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
     this.http.get(`${environment.api.uri}/dietgroup/list?dietGroupId=${this.dietGroup.id}`, {
       headers,
@@ -102,6 +105,7 @@ export class RationGroupEditRouteComponent implements OnInit {
   private loadDiets(): void {
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
     this.http.get(`${environment.api.uri}/diet/list?dietGroupId=${this.dietGroup.id}`, {
       headers,

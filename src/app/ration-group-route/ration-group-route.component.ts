@@ -32,7 +32,11 @@ export class RationGroupRouteComponent implements OnInit {
       headers,
     })
       .map((res: Response) => res.json()).subscribe((json) => {
-        this.dietGroups = json;
+        if (this.user.permissions.indexOf('super-user') > -1) {
+          this.dietGroups = json;
+        }else {
+          this.dietGroups = json.filter((x) => x.name === 'User Defined');
+        }
       });
   }
 

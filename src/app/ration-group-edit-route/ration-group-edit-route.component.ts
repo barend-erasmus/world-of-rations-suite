@@ -111,7 +111,11 @@ export class RationGroupEditRouteComponent implements OnInit {
       headers,
     })
       .map((res: Response) => res.json()).subscribe((json) => {
-        this.diets = json;
+        if (this.user.permissions.indexOf('super-user') > -1) {
+          this.diets = json;
+        } else {
+          this.diets = json.filter((x) => x.username === this.user.email);
+        }
       });
   }
 }

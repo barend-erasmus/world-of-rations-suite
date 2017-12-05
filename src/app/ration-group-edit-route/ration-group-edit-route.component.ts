@@ -52,7 +52,7 @@ export class RationGroupEditRouteComponent implements OnInit {
       headers,
     })
       .map((res: Response) => res.json()).subscribe((json) => {
-        this.router.navigateByUrl(`/ration/groups${this.dietGroup.parent? `/edit/${this.dietGroup.parent.id}` : ''}`);
+        this.router.navigateByUrl(`/ration/groups${this.dietGroup.parent ? `/edit/${this.dietGroup.parent.id}` : ''}`);
       });
   }
 
@@ -72,7 +72,7 @@ export class RationGroupEditRouteComponent implements OnInit {
 
         let group: any = this.dietGroup.parent;
 
-        while(group) {
+        while (group) {
           groupChart.push(group.name);
 
           group = group.parent;

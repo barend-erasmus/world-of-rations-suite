@@ -60,10 +60,10 @@
                     {{ value.nutrient.code }}
                   </td>
                   <td>
-                    {{ value.minimum }}
+                    <input type="number" class="form-control" [(ngModel)]="value.minimum">
                   </td>
                   <td>
-                    {{ value.maximum }}
+                    <input type="number" class="form-control" [(ngModel)]="value.maximum">
                   </td>
                   <td>
                     {{ value.nutrient.unit }}

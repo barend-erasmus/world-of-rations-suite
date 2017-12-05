@@ -30,7 +30,7 @@ export class FormulatorRouteComponent implements OnInit {
     if (index + 1 !== this.dietGroupDropdowns.length) {
       this.dietGroupDropdowns = this.dietGroupDropdowns.slice(0, index + 1);
     }
-    
+
     this.loadDietGroupDropdown(this.dietGroupDropdowns[index].selectedItem.id);
   }
 
@@ -39,7 +39,8 @@ export class FormulatorRouteComponent implements OnInit {
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
 
-    this.http.get(`${environment.api.uri}/diet/list?dietGroupId=${this.dietGroupDropdowns[this.dietGroupDropdowns.length - 1].selectedItem.id}`, {
+    this.http.get(`${environment.api.uri}/diet/list` +
+    `?dietGroupId=${this.dietGroupDropdowns[this.dietGroupDropdowns.length - 1].selectedItem.id}`, {
       headers,
     })
       .map((res: Response) => res.json()).subscribe((json) => {

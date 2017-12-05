@@ -13,48 +13,48 @@ import { environment } from '../../environments/environment';
 export class NutrientCreateRouteComponent implements OnInit {
 
   public user: any = {};
-  
+
     public nutrient: any = {};
-  
+
     public messages: string[] = [];
-  
+
     constructor(private http: Http, private router: Router, private route: ActivatedRoute) { }
-  
+
     public ngOnInit(): void {
       this.user = JSON.parse(localStorage.getItem('user'));
     }
-  
+
     public onClick_Save(): void {
-  
+
       this.messages = [];
-  
+
       if (!this.nutrient.abbreviation) {
         this.messages.push('Abbreviation cannot be empty');
       }
-  
+
       if (!this.nutrient.code) {
         this.messages.push('Code cannot be empty');
       }
-  
+
       if (!this.nutrient.name) {
         this.messages.push('Name cannot be empty');
       }
-  
+
       if (!this.nutrient.unit) {
         this.messages.push('Unit cannot be empty');
       }
-  
+
       if (!this.nutrient.sortOrder) {
         this.messages.push('Sort Order cannot be empty');
       }
-  
+
       if (this.messages.length > 0) {
         return;
       }
-  
+
       const headers = new Headers();
       headers.append('x-application-id', environment.application.id.toString());
-  
+
       this.http.post(`${environment.api.uri}/nutrient/create`, this.nutrient, {
         headers,
       })

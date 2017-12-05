@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class SideMenuComponent implements OnInit {
 
   public user: any = {};
-  
+
   constructor() { }
 
   public ngOnInit(): void {

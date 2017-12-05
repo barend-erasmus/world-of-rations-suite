@@ -43,17 +43,15 @@ export class RationEditRouteComponent implements OnInit {
       return;
     }
 
-    // const headers = new Headers();
-    // headers.append('x-application-id', environment.application.id.toString());
+    const headers = new Headers();
+    headers.append('x-application-id', environment.application.id.toString());
 
-    // this.http.post(`${environment.api.uri}/diet/update`, this.diet, {
-    //   headers,
-    // })
-    //   .map((res: Response) => res.json()).subscribe((json) => {
-    //     this.router.navigateByUrl(`/ration/groups/edit/${this.diet.group.id}`);
-    //   });
-
-    this.router.navigateByUrl(`/ration/groups/edit/${this.diet.group.id}`);
+    this.http.post(`${environment.api.uri}/diet/update`, this.diet, {
+      headers,
+    })
+      .map((res: Response) => res.json()).subscribe((json) => {
+        this.router.navigateByUrl(`/ration/groups/edit/${this.diet.group.id}`);
+      });
   }
 
   private loadNutrients(): void {

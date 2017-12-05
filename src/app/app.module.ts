@@ -20,6 +20,7 @@ import { RationGroupCreateRouteComponent } from './ration-group-create-route/rat
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { RationEditRouteComponent } from './ration-edit-route/ration-edit-route.component';
+import { RationCreateRouteComponent } from './ration-create-route/ration-create-route.component';
 
 const appRoutes: Routes = [
   {
@@ -121,7 +122,8 @@ const appRoutes: Routes = [
     RationGroupCreateRouteComponent,
     FooterComponent,
     HeaderComponent,
-    RationEditRouteComponent
+    RationEditRouteComponent,
+    RationCreateRouteComponent
   ],
   imports: [
     BrowserModule,

@@ -48,7 +48,7 @@
               <label>Sort Order</label>
               <input type="number" class="form-control" [(ngModel)]="nutrient.sortOrder">
             </div>
-            <button (click)="onClick_Save()" class="btn btn-success">Save</button>
+            <button (click)="onClick_Save()" class="btn btn-success" *ngIf="user.permissions.indexOf('update-nutrient') > -1">Save</button>
           </div>
         </div>
       </div>

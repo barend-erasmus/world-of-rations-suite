@@ -5,12 +5,12 @@
     </a>
   </li>
   <li>
-    <a href="/nutrients">
+    <a href="/nutrients" *ngIf="user.permissions.indexOf('create-nutrient') > -1 || user.permissions.indexOf('view-nutrient') > -1 || user.permissions.indexOf('update-nutrient') > -1">
       <span class="nav-label">Manage Nutrients</span>
     </a>
   </li>
   <li>
-    <a href="/ration/groups">
+    <a href="/ration/groups" *ngIf="user.permissions.indexOf('create-diet-group') > -1 || user.permissions.indexOf('view-diet-group') > -1 || user.permissions.indexOf('update-diet-group') > -1">
       <span class="nav-label">Manage Rations</span>
     </a>
   </li>

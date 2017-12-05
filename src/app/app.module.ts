@@ -66,6 +66,13 @@ const appRoutes: Routes = [
     ],
   },
   {
+    path: 'ration/create/:dietGroupId',
+    component: RationCreateRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
     path: 'feedstuffs',
     component: FeedstuffRouteComponent,
     canActivate: [

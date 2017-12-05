@@ -84,6 +84,12 @@
                 </tr>
               </thead>
               <tbody>
+                <tr *ngIf="user.permissions.indexOf('create-diet') > -1">
+                  <td></td>
+                  <td>
+                    <a href="/ration/create/{{dietGroup.id}}" class="btn btn-primary">New Ration</a>
+                  </td>
+                </tr>
                 <tr *ngFor="let diet of diets">
                   <td>{{ diet.name }}</td>
                   <td>

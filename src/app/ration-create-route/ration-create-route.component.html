@@ -1,3 +1,80 @@
-<p>
-  ration-create-route works!
-</p>
+<app-header></app-header>
+<div id="wrapper">
+  <div class="content">
+    <div class="row">
+      <div class="col-lg-12 text-center welcome-message">
+        <h2>
+          Manage Ration - New Ration
+        </h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="hpanel">
+          <div class="panel-heading">
+            Ration - New Ration
+          </div>
+          <div class="panel-body">
+            <p *ngFor="let message of messages">
+              <label class="text-danger">{{ message }}</label>
+              <br />
+            </p>
+            <div class="form-group">
+              <label>Ration Group</label>
+              <input type="text" class="form-control" value="{{diet.groupChart}}" disabled>
+            </div>
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" class="form-control" [(ngModel)]="diet.name">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea class="form-control" rows="5" [(ngModel)]="diet.description"></textarea>
+            </div>
+            <button (click)="onClick_Save()" class="btn btn-success">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="hpanel">
+          <div class="panel-heading">
+            Nutrient Values
+          </div>
+          <div class="panel-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nutrient</th>
+                  <th>Code</th>
+                  <th>Minimum</th>
+                  <th>Maximum</th>
+                  <th>Unit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let value of diet.values">
+                  <td>{{ value.nutrient.name }} ({{ value.nutrient.abbreviation }})</td>
+                  <td>
+                    {{ value.nutrient.code }}
+                  </td>
+                  <td>
+                    <input type="number" class="form-control" [(ngModel)]="value.minimum">
+                  </td>
+                  <td>
+                    <input type="number" class="form-control" [(ngModel)]="value.maximum">
+                  </td>
+                  <td>
+                    {{ value.nutrient.unit }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>

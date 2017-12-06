@@ -15,7 +15,7 @@
     </a>
   </li>
   <li>
-    <a href="/feedstuffs">
+    <a href="/feedstuffs" *ngIf="user.permissions.indexOf('create-diet') > -1 || user.permissions.indexOf('view-diet') > -1 || user.permissions.indexOf('update-diet') > -1">
       <span class="nav-label">Manage Feedstuffs</span>
     </a>
   </li>

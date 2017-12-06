@@ -25,6 +25,8 @@ export class FormulatorRouteComponent implements OnInit {
 
   public mixWeight = 1000;
 
+  public result: any = null;
+
   constructor(private http: Http) { }
 
   public ngOnInit(): void {
@@ -44,7 +46,6 @@ export class FormulatorRouteComponent implements OnInit {
   }
 
   public onClick_Formulate(): void {
-    console.log(this.selectedDiet);
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -57,7 +58,7 @@ export class FormulatorRouteComponent implements OnInit {
         headers,
       })
       .map((res: Response) => res.json()).subscribe((json) => {
-        console.log(json);
+        this.result = json;
       });
   }
 
@@ -73,7 +74,6 @@ export class FormulatorRouteComponent implements OnInit {
       })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.diets = json;
-        this.selectedDiet = this.diets[0];
       });
   }
 
@@ -217,5 +217,4 @@ export class FormulatorRouteComponent implements OnInit {
         ];
       });
   }
-
 }

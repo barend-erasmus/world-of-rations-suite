@@ -95,6 +95,29 @@
                 </tbody>
               </table>
             </div>
+            <div class="row" *ngIf="result">
+              <div class="alert alert-success" role="alert" *ngIf="result.feasible">
+                <p>
+                  We have successfully formulated a least-cost ration that meets the NRC's nutrient requirements for the above ration with
+                  a total cost of {{ result.cost | number : '1.2-2' }} per tonne.
+                </p>
+                <br />
+                <p>
+                  <a class="btn btn-primary" disabled>View Composition</a>
+                  <br />
+                  <br /> View the composition of the formulation or adjust feedstuffs and formulate again.
+                </p>
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="!result.feasible">
+                <p>
+                  We could not formulate a feasible ration. Please change your selection of feedstuffs and formulate again.
+                </p>
+                <br />
+                <p>
+                  If this problem persists, please contact World of Rations by sending an email to info@worldofrations.com.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

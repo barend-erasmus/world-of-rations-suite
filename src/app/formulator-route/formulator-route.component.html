@@ -18,24 +18,82 @@
             Least-Cost Ration Formulator
           </div>
           <div class="panel-body">
-            <div class="form-group">
-              <label>Ration Group</label>
-              <div *ngFor="let dietGroupDropdown of dietGroupDropdowns; let i = index">
-                <select [(ngModel)]="dietGroupDropdown.selectedItem" (change)="onChange_DietGroupDropdown(i)" class="form-control">
-                  <option [ngValue]="null" disabled>Select Ration Group</option>
-                  <option *ngFor="let dietGroup of dietGroupDropdown.dietGroups" [ngValue]="dietGroup">{{ dietGroup.name }}</option>
-                </select>
-                <br />
+            <div class="row">
+              <div class="form-group">
+                <label>Ration Group</label>
+                <div *ngFor="let dietGroupDropdown of dietGroupDropdowns; let i = index">
+                  <select [(ngModel)]="dietGroupDropdown.selectedItem" (change)="onChange_DietGroupDropdown(i)" class="form-control">
+                    <option [ngValue]="null" disabled>Select Ration Group</option>
+                    <option *ngFor="let dietGroup of dietGroupDropdown.dietGroups" [ngValue]="dietGroup">{{ dietGroup.name }}</option>
+                  </select>
+                  <br />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Ration</label>
+                <div>
+                  <select [(ngModel)]="selectedDiet" class="form-control">
+                    <option *ngFor="let diet of diets" [ngValue]="diet">{{ diet.name }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Mix Weight</label>
+                <input type="number" class="form-control" [(ngModel)]="mixWeight" />
               </div>
             </div>
-            <div class="form-group">
-              <label>Ration</label>
-              <div>
-                <select [(ngModel)]="selectedDiet" class="form-control">
-                  <option [ngValue]="null" disabled>Select Ration</option>
-                  <option *ngFor="let diet of diets" [ngValue]="ration">{{ diet.name }}</option>
-                </select>
-              </div>
+            <div class="row">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Feedstuff</th>
+                    <th>Minimum (kg)</th>
+                    <th>Maximum (kg)</th>
+                    <th>Cost</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <button class="btn btn-primary">Add</button>
+                    </td>
+                  </tr>
+                  <tr *ngFor="let formulationIngredient of formulationIngredients">
+                    <td>
+                      <select [(ngModel)]="formulationIngredient.ingredient" class="form-control">
+                        <option [ngValue]="null" disabled>Select Feedstuff</option>
+                        <option *ngFor="let ingredient of ingredients" [ngValue]="ingredient">{{ ingredient.name }}</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" [(ngModel)]="formulationIngredient.minimum" />
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" [(ngModel)]="formulationIngredient.maximum" />
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" [(ngModel)]="formulationIngredient.cost" />
+                    </td>
+                    <td>
+                      <button class="btn btn-danger">Remove</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <button (click)="onClick_Formulate()" class="btn btn-success">Formulate</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

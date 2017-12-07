@@ -21,6 +21,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { RationEditRouteComponent } from './ration-edit-route/ration-edit-route.component';
 import { RationCreateRouteComponent } from './ration-create-route/ration-create-route.component';
+import { FormulatorViewRouteComponent } from './formulator-view-route/formulator-view-route.component';
 
 const appRoutes: Routes = [
   {
@@ -108,6 +109,13 @@ const appRoutes: Routes = [
     ],
   },
   {
+    path: 'formulator/:formulationId',
+    component: FormulatorViewRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
     path: 'login',
     component: LoginRouteComponent,
   },
@@ -130,7 +138,8 @@ const appRoutes: Routes = [
     FooterComponent,
     HeaderComponent,
     RationEditRouteComponent,
-    RationCreateRouteComponent
+    RationCreateRouteComponent,
+    FormulatorViewRouteComponent
   ],
   imports: [
     BrowserModule,

@@ -47,7 +47,6 @@
               <thead>
                 <tr>
                   <th>Nutrient</th>
-                  <th>Code</th>
                   <th>Minimum</th>
                   <th>Maximum</th>
                   <th>Unit</th>
@@ -56,9 +55,6 @@
               <tbody>
                 <tr *ngFor="let value of diet.values">
                   <td>{{ value.nutrient.name }} ({{ value.nutrient.abbreviation }})</td>
-                  <td>
-                    {{ value.nutrient.code }}
-                  </td>
                   <td>
                     <input type="number" class="form-control" [(ngModel)]="value.minimum">
                   </td>

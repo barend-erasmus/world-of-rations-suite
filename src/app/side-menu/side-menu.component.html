@@ -20,7 +20,12 @@
     </a>
   </li>
   <li>
-      <a href="/formulator">
+    <a href="/formulations" *ngIf="user.permissions.indexOf('create-formulation') > -1 || user.permissions.indexOf('view-formulation') > -1">
+      <span class="nav-label">Manage Formulations</span>
+    </a>
+  </li>
+  <li>
+      <a href="/formulator" *ngIf="user.permissions.indexOf('create-formulation') > -1">
         <span class="nav-label">Least-Cost Ration Formulator</span>
       </a>
     </li>

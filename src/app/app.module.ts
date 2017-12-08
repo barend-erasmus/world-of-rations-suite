@@ -22,6 +22,7 @@ import { HeaderComponent } from './header/header.component';
 import { RationEditRouteComponent } from './ration-edit-route/ration-edit-route.component';
 import { RationCreateRouteComponent } from './ration-create-route/ration-create-route.component';
 import { FormulatorViewRouteComponent } from './formulator-view-route/formulator-view-route.component';
+import { FormulationRouteComponent } from './formulation-route/formulation-route.component';
 
 const appRoutes: Routes = [
   {
@@ -116,6 +117,13 @@ const appRoutes: Routes = [
     ],
   },
   {
+    path: 'formulations',
+    component: FormulationRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
     path: 'login',
     component: LoginRouteComponent,
   },
@@ -139,7 +147,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     RationEditRouteComponent,
     RationCreateRouteComponent,
-    FormulatorViewRouteComponent
+    FormulatorViewRouteComponent,
+    FormulationRouteComponent
   ],
   imports: [
     BrowserModule,

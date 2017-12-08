@@ -1,0 +1,58 @@
+<app-header></app-header>
+<div id="wrapper">
+  <div class="content">
+    <div class="row">
+      <div class="col-lg-12 text-center welcome-message">
+        <h2>
+          Manage Formulations
+        </h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis gravida id diam eget rutrum. Aenean at porttitor justo, non dapibus mi. Mauris vel ipsum neque.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="hpanel">
+          <div class="panel-heading">
+            List of Formulations
+          </div>
+          <div class="panel-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Cost</th>
+                  <th>Feasible</th>
+                  <th>Timestamp</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="user.permissions.indexOf('create-formulation') > -1">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <a href="/formulator" class="btn btn-primary">New Formulation</a>
+                  </td>
+                </tr>
+                <tr *ngFor="let formulation of formulations">
+                  <td>{{ formulation.name }}</td>
+                  <td>{{ formulation.cost | number : '1.2-2' }}</td>
+                  <td>{{ formulation.feasible }}</td>
+                  <td>{{ formulation.timestamp | date:'yyyy-MM-dd' }}</td>
+                  <td>
+                    <a href="/formulator/{{formulation.id}}" class="btn btn-default" *ngIf="user.permissions.indexOf('view-formulation') > -1">View</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>

@@ -16,6 +16,7 @@ export class FormulatorViewRouteComponent implements OnInit {
   public user: any = {};
 
   public formulation: any = {};
+  public formulationCompositionValues: any[] = [];
 
   constructor(private http: Http, private router: Router, private route: ActivatedRoute) { }
 
@@ -53,6 +54,21 @@ export class FormulatorViewRouteComponent implements OnInit {
         groupChart.reverse();
 
         this.formulation.diet.groupChart = groupChart.join(' - ');
+
+        this.loadFormulationCompositionValues(formulationId);
+      });
+  }
+
+  private loadFormulationCompositionValues(formulationId: number): void {
+    const headers = new Headers();
+    headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
+
+    this.http.get(`${environment.api.uri}/formulator/composition?id=${formulationId}`, {
+      headers,
+    })
+      .map((res: Response) => res.json()).subscribe((json) => {
+        this.formulationCompositionValues = json;
       });
   }
 

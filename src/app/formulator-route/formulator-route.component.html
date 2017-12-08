@@ -60,7 +60,7 @@
                     <td></td>
                     <td></td>
                     <td>
-                      <button class="btn btn-primary">Add</button>
+                      <button class="btn btn-primary" (click)="onClick_AddFeedstuff()">Add</button>
                     </td>
                   </tr>
                   <tr *ngFor="let formulationIngredient of formulationIngredients">
@@ -80,7 +80,7 @@
                       <input type="number" class="form-control" [(ngModel)]="formulationIngredient.cost" />
                     </td>
                     <td>
-                      <button class="btn btn-danger">Remove</button>
+                      <button class="btn btn-danger" (click)="onClick_RemoveFeedstuff(formulationIngredient)">Remove</button>
                     </td>
                   </tr>
                   <tr>

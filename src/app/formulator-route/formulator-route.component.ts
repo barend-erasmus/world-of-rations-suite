@@ -62,6 +62,20 @@ export class FormulatorRouteComponent implements OnInit {
       });
   }
 
+  public onClick_AddFeedstuff(): void {
+    this.formulationIngredients.push({
+      ingredient: null,
+      cost: null,
+      minimum: 0,
+      maximum: this.mixWeight,
+      weight: null,
+    });
+  }
+
+  public onClick_RemoveFeedstuff(item: any): void {
+    this.formulationIngredients.splice(this.formulationIngredients.indexOf(item), 1);
+  }
+
   private onDietGroupSelected(): void {
 
     const headers = new Headers();

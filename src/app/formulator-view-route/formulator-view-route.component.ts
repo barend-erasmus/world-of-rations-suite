@@ -17,6 +17,7 @@ export class FormulatorViewRouteComponent implements OnInit {
 
   public formulation: any = {};
   public formulationCompositionValues: any[] = [];
+  public supplement: any = [];
 
   constructor(private http: Http, private router: Router, private route: ActivatedRoute) { }
 
@@ -56,6 +57,7 @@ export class FormulatorViewRouteComponent implements OnInit {
         this.formulation.diet.groupChart = groupChart.join(' - ');
 
         this.loadFormulationCompositionValues(formulationId);
+        this.loadFormulationSupplement(formulationId);
       });
   }
 
@@ -69,6 +71,19 @@ export class FormulatorViewRouteComponent implements OnInit {
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.formulationCompositionValues = json;
+      });
+  }
+
+  private loadFormulationSupplement(formulationId: number): void {
+    const headers = new Headers();
+    headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
+
+    this.http.get(`${environment.api.uri}/formulator/supplement?id=${formulationId}`, {
+      headers,
+    })
+      .map((res: Response) => res.json()).subscribe((json) => {
+        this.supplement = json;
       });
   }
 

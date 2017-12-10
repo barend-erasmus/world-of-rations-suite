@@ -38,8 +38,8 @@
                 </div>
               </div>
               <div class="form-group">
-                <label>Mix Weight</label>
-                <input type="number" class="form-control" [(ngModel)]="mixWeight" />
+                <label>Mix Weight (kg)</label>
+                <input type="number" class="form-control" [(ngModel)]="mixWeight" disabled />
               </div>
             </div>
             <div class="row">
@@ -49,7 +49,7 @@
                     <th>Feedstuff</th>
                     <th>Minimum (kg)</th>
                     <th>Maximum (kg)</th>
-                    <th>Cost</th>
+                    <th>Cost per {{ mixWeight }} kg</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -99,7 +99,7 @@
               <div class="alert alert-success" role="alert" *ngIf="result.feasible">
                 <p>
                   We have successfully formulated a least-cost ration that meets the NRC's nutrient requirements for the above ration with
-                  a total cost of {{ result.cost | number : '1.2-2' }} per tonne.
+                  a total cost of {{ result.cost | number : '1.2-2' }} per {{ mixWeight }} kg.
                 </p>
                 <br />
                 <p>

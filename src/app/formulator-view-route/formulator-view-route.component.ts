@@ -25,7 +25,9 @@ export class FormulatorViewRouteComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
 
     this.route.params.subscribe(params => {
-      this.loadFormulation(params['formulationId']);
+      if (this.user.permissions.indexOf('view-formulation') > -1) {
+        this.loadFormulation(params['formulationId']);
+      }
     });
   }
 
@@ -56,8 +58,13 @@ export class FormulatorViewRouteComponent implements OnInit {
 
         this.formulation.diet.groupChart = groupChart.join(' - ');
 
-        this.loadFormulationCompositionValues(formulationId);
-        this.loadFormulationSupplement(formulationId);
+        if (this.user.permissions.indexOf('view-formulation-composition') > -1) {
+          this.loadFormulationCompositionValues(formulationId);
+        }
+
+        if (this.user.permissions.indexOf('view-formulation-supplement') > -1) {
+          this.loadFormulationSupplement(formulationId);
+        }
       });
   }
 

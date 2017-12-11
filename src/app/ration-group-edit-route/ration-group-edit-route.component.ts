@@ -29,7 +29,9 @@ export class RationGroupEditRouteComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
 
     this.route.params.subscribe(params => {
-      this.loadDietGroup(params['dietGroupId']);
+      if (this.user.permissions.indexOf('view-diet-group') > -1) {
+        this.loadDietGroup(params['dietGroupId']);
+      }
     });
   }
 

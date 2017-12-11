@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="user.permissions.indexOf('view-formulation') > -1">
       <div class="col-lg-12">
         <div class="hpanel">
           <div class="panel-heading">
@@ -58,7 +58,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="user.permissions.indexOf('view-formulation-composition') > -1">
       <div class="col-lg-12">
         <div class="hpanel">
           <div class="panel-heading">
@@ -85,7 +85,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="user.permissions.indexOf('view-formulation-supplement') > -1">
       <div class="col-lg-12">
         <div class="hpanel">
           <div class="panel-heading">

@@ -20,7 +20,9 @@ export class NutrientRouteComponent implements OnInit {
   public ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
 
-    this.loadNutrients();
+    if (this.user.permissions.indexOf('view-nutrient') > -1) {
+      this.loadNutrients();
+    }
   }
 
   private loadNutrients(): void {

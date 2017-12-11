@@ -27,8 +27,7 @@ export class RationCreateRouteComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
 
     this.route.params.subscribe(params => {
-
-      this.loadDietGroup(params['dietGroupId']);
+        this.loadDietGroup(params['dietGroupId']);
     });
   }
 
@@ -87,31 +86,31 @@ export class RationCreateRouteComponent implements OnInit {
 
   private loadDietGroup(dietGroupId: number): void {
 
-        const headers = new Headers();
-        headers.append('x-application-id', environment.application.id.toString());
-        headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
+    const headers = new Headers();
+    headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
-        this.http.get(`${environment.api.uri}/dietgroup/find?id=${dietGroupId}`, {
-          headers,
-        })
-          .map((res: Response) => res.json()).subscribe((json) => {
-            this.diet.group = json;
+    this.http.get(`${environment.api.uri}/dietgroup/find?id=${dietGroupId}`, {
+      headers,
+    })
+      .map((res: Response) => res.json()).subscribe((json) => {
+        this.diet.group = json;
 
-            const groupChart: string[] = [];
+        const groupChart: string[] = [];
 
-            let group: any = this.diet.group;
+        let group: any = this.diet.group;
 
-            while (group) {
-              groupChart.push(group.name);
+        while (group) {
+          groupChart.push(group.name);
 
-              group = group.parent;
-            }
+          group = group.parent;
+        }
 
-            groupChart.reverse();
+        groupChart.reverse();
 
-            this.diet.groupChart = groupChart.join(' - ');
+        this.diet.groupChart = groupChart.join(' - ');
 
-            this.loadNutrients();
-          });
-      }
+        this.loadNutrients();
+      });
+  }
 }

@@ -44,7 +44,7 @@
                   <td>{{ formulation.feasible }}</td>
                   <td>{{ formulation.timestamp | date:'yyyy-MM-dd' }}</td>
                   <td>
-                    <a href="/formulator/{{formulation.id}}" class="btn btn-default" *ngIf="user.permissions.indexOf('view-formulation') > -1">View</a>
+                    <a href="/formulator/{{formulation.id}}" class="btn btn-default" *ngIf="formulation.feasible && user.permissions.indexOf('view-formulation') > -1">View</a>
                   </td>
                 </tr>
               </tbody>

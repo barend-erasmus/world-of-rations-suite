@@ -24,7 +24,9 @@ export class NutrientEditRouteComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
 
     this.route.params.subscribe(params => {
-      this.loadNutrient(params['nutrientId']);
+      if (this.user.permissions.indexOf('view-nutrient') > -1) {
+        this.loadNutrient(params['nutrientId']);
+      }
     });
   }
 

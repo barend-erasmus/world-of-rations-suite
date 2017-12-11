@@ -12,28 +12,30 @@ import { environment } from '../../environments/environment';
 export class FormulationRouteComponent implements OnInit {
 
   public user: any = {};
-  
-    public formulations: any[] = [];
-  
-    constructor(private http: Http) { }
-  
-    public ngOnInit(): void {
-      this.user = JSON.parse(localStorage.getItem('user'));
-  
-      this.loadNutrients();
+
+  public formulations: any[] = [];
+
+  constructor(private http: Http) { }
+
+  public ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('user'));
+
+    if (this.user.permissions.indexOf('view-formulation') > -1) {
+      this.loadFormulations();
     }
-  
-    private loadNutrients(): void {
-  
-      const headers = new Headers();
-      headers.append('x-application-id', environment.application.id.toString());
-      headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-  
-      this.http.get(`${environment.api.uri}/formulator/list`, {
-        headers,
-      })
-        .map((res: Response) => res.json()).subscribe((json) => {
-          this.formulations = json;
-        });
-    }
+  }
+
+  private loadFormulations(): void {
+
+    const headers = new Headers();
+    headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
+
+    this.http.get(`${environment.api.uri}/formulator/list`, {
+      headers,
+    })
+      .map((res: Response) => res.json()).subscribe((json) => {
+        this.formulations = json;
+      });
+  }
 }

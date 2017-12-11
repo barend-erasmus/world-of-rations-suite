@@ -1,0 +1,53 @@
+<app-header></app-header>
+<div id="wrapper">
+  <div class="content">
+    <div class="row">
+      <div class="col-lg-12 text-center welcome-message">
+        <h2>
+          Manage Profile - {{ user.displayName }}
+        </h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="hpanel">
+          <div class="panel-heading">
+            {{ user.displayName }}
+          </div>
+          <div class="panel-body">
+            <p *ngFor="let message of messages">
+              <label class="text-danger">{{ message }}</label>
+              <br />
+            </p>
+            <div class="form-group">
+              <label>Email Address / Username</label>
+              <input type="text" class="form-control" [(ngModel)]="user.email" disabled>
+            </div>
+            <div class="form-group">
+              <label>Display Name</label>
+              <input type="text" class="form-control" [(ngModel)]="user.displayName" disabled>
+            </div>
+            <div class="form-group">
+              <img src="{{user.picture}}" class="img-thumbnail" alt="Cinque Terre" width="150"> 
+            </div>
+            <div class="form-group">
+              <label>Package</label>
+              <input type="text" class="form-control" [(ngModel)]="user.packageClass" disabled>
+            </div>
+            <div class="form-group">
+              <label>Locale</label>
+              <input type="text" class="form-control" [(ngModel)]="user.locale" disabled>
+            </div>
+            <div class="form-group">
+              <label>Country</label>
+              <input type="text" class="form-control" [(ngModel)]="user.country" disabled>
+            </div>
+            <!-- <button (click)="onClick_Save()" class="btn btn-success" *ngIf="user.permissions.indexOf('update-nutrient') > -1">Save</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>
+<app-loader></app-loader>

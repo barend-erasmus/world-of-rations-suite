@@ -36,11 +36,17 @@
         <img src="{{ user.picture }}" class="img-circle m-b" alt="logo" width="75">
       </a>
       <div class="stats-label text-color">
-        <span class="font-extra-bold font-uppercase">{{ user.displayName }}</span>
+        <span class="font-uppercase">{{ user.displayName }}</span>
         <div>
           <label class="font-extra-bold m-b-xs">
-            <span *ngIf="user.verified" class="label label-primary">Verified</span>
-            <span *ngIf="!user.verified" class="label label-warning">Unverified</span>
+            <span *ngIf="user.verified" class="label label-primary">VERIFIED</span>
+            <span *ngIf="!user.verified" class="label label-warning">UNVERIFIED</span>
+          </label>
+          <label class="font-extra-bold m-b-xs">
+            <span class="label label-primary">{{ user.country | uppercase }}</span>
+          </label>
+          <label class="font-extra-bold m-b-xs">
+            <span class="label label-success">{{ user.packageClass | uppercase }}</span>
           </label>
         </div>
       </div>

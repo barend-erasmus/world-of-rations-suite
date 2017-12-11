@@ -25,6 +25,7 @@ import { FormulatorViewRouteComponent } from './formulator-view-route/formulator
 import { FormulationRouteComponent } from './formulation-route/formulation-route.component';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './loader.service';
+import { ProfileRouteComponent } from './profile-route/profile-route.component';
 
 const appRoutes: Routes = [
   {
@@ -126,6 +127,13 @@ const appRoutes: Routes = [
     ],
   },
   {
+    path: 'profile',
+    component: ProfileRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
     path: 'login',
     component: LoginRouteComponent,
   },
@@ -151,7 +159,8 @@ const appRoutes: Routes = [
     RationCreateRouteComponent,
     FormulatorViewRouteComponent,
     FormulationRouteComponent,
-    LoaderComponent
+    LoaderComponent,
+    ProfileRouteComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,11 @@
     </a>
   </li>
   <li>
+    <a href="/profile">
+      <span class="nav-label"  *ngIf="user.permissions.indexOf('view-profile') > -1">Profile</span>
+    </a>
+  </li>
+  <li>
     <a href="/nutrients" *ngIf="user.permissions.indexOf('create-nutrient') > -1 || user.permissions.indexOf('view-nutrient') > -1 || user.permissions.indexOf('update-nutrient') > -1">
       <span class="nav-label">Manage Nutrients</span>
     </a>

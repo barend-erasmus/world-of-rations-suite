@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import { Http, Response, Headers } from '@angular/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../environments/environment';
+import { LoaderService } from '../loader.service';
 
 @Component({
   selector: 'app-profile-route',
@@ -11,10 +17,62 @@ export class ProfileRouteComponent implements OnInit {
 
   public messages: string[] = [];
 
-  constructor() { }
+  constructor(private http: Http, private loaderService: LoaderService) { }
 
   public ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
+
+    this.loadUser();
+  }
+
+  public onClick_Save(): void {
+
+    this.messages = [];
+
+    if (!this.user.displayName) {
+      this.messages.push('Display Name cannot be empty');
+    }
+
+    if (!this.user.locale) {
+      this.messages.push('Locale cannot be empty');
+    }
+
+    if (this.messages.length > 0) {
+      return;
+    }
+
+    this.loaderService.startRequest();
+
+    const headers = new Headers();
+    headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
+
+    this.http.post(`${environment.api.uri}/user/update`, this.user, {
+      headers,
+    })
+      .map((res: Response) => res.json()).subscribe((json) => {
+        this.loadUser();
+        this.loaderService.endRequest();
+      });
+  }
+
+  private loadUser(): void {
+
+    this.loaderService.startRequest();
+
+    const accessToken = localStorage.getItem('token');
+
+    const headers = new Headers();
+    headers.append('authorization', `Bearer ${accessToken}`);
+
+    this.http.get(`${environment.api.uri}/user/info`, {
+      headers
+    }).map((x) => x.json()).subscribe((json) => {
+      this.user = json;
+      localStorage.setItem('user', JSON.stringify(this.user));
+
+      this.loaderService.endRequest();
+    });
   }
 
 }

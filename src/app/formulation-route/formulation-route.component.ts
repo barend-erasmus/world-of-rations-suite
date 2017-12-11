@@ -31,7 +31,7 @@ export class FormulationRouteComponent implements OnInit {
   private loadFormulations(): void {
 
     this.loaderService.startRequest();
-    
+
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);

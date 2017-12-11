@@ -30,7 +30,7 @@ export class FormulatorRouteComponent implements OnInit {
 
   public result: any = null;
 
-  constructor(private http: Http, private loaderService: LoaderService) { 
+  constructor(private http: Http, private loaderService: LoaderService) {
     this.loaderService.reset();
   }
 
@@ -263,7 +263,7 @@ export class FormulatorRouteComponent implements OnInit {
             weight: null,
           },
         ];
-        
+
         this.loaderService.endRequest();
       });
   }

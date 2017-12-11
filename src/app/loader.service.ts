@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class LoaderService {
 
-  private counter: number = 0;
+  private counter = 0;
 
-  public isLoading: boolean = false;
+  public isLoading = false;
 
   constructor() {
 

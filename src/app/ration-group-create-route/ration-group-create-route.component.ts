@@ -22,7 +22,7 @@ export class RationGroupCreateRouteComponent implements OnInit {
 
   public messages: string[] = [];
 
-  constructor(private http: Http, private router: Router, private route: ActivatedRoute, private loaderService: LoaderService) { 
+  constructor(private http: Http, private router: Router, private route: ActivatedRoute, private loaderService: LoaderService) {
     this.loaderService.reset();
   }
 

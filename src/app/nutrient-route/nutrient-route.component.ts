@@ -16,7 +16,7 @@ export class NutrientRouteComponent implements OnInit {
 
   public nutrients: any[] = [];
 
-  constructor(private http: Http, private loaderService: LoaderService) { 
+  constructor(private http: Http, private loaderService: LoaderService) {
     this.loaderService.reset();
   }
 

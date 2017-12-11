@@ -76,7 +76,7 @@ export class FormulatorViewRouteComponent implements OnInit {
   }
 
   private loadFormulationCompositionValues(formulationId: number): void {
-    
+
     this.loaderService.startRequest();
 
     const headers = new Headers();

@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import { Http, Response, Headers } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { LoaderService } from '../loader.service';
 
 @Component({
   selector: 'app-ration-group-edit-route',
@@ -23,7 +24,9 @@ export class RationGroupEditRouteComponent implements OnInit {
 
   public messages: string[] = [];
 
-  constructor(private http: Http, private router: Router, private route: ActivatedRoute) { }
+  constructor(private http: Http, private router: Router, private route: ActivatedRoute, private loaderService: LoaderService) { 
+    this.loaderService.reset();
+  }
 
   public ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -47,6 +50,8 @@ export class RationGroupEditRouteComponent implements OnInit {
       return;
     }
 
+    this.loaderService.startRequest();
+
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -56,11 +61,15 @@ export class RationGroupEditRouteComponent implements OnInit {
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.router.navigateByUrl(`/ration/groups${this.dietGroup.parent ? `/edit/${this.dietGroup.parent.id}` : ''}`);
+
+        this.loaderService.endRequest();
       });
   }
 
 
   private loadDietGroup(dietGroupId: number): void {
+
+    this.loaderService.startRequest();
 
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
@@ -88,10 +97,15 @@ export class RationGroupEditRouteComponent implements OnInit {
 
         this.loadSubDietGroups();
         this.loadDiets();
+
+        this.loaderService.endRequest();
       });
   }
 
   private loadSubDietGroups(): void {
+    
+    this.loaderService.startRequest();
+
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -101,10 +115,15 @@ export class RationGroupEditRouteComponent implements OnInit {
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.subDietGroups = json;
+
+        this.loaderService.endRequest();
       });
   }
 
   private loadDiets(): void {
+
+    this.loaderService.startRequest();
+
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -118,6 +137,8 @@ export class RationGroupEditRouteComponent implements OnInit {
         } else {
           this.diets = json.filter((x) => x.username === this.user.email);
         }
+
+        this.loaderService.endRequest();
       });
   }
 }

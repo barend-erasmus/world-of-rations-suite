@@ -23,6 +23,8 @@ import { RationEditRouteComponent } from './ration-edit-route/ration-edit-route.
 import { RationCreateRouteComponent } from './ration-create-route/ration-create-route.component';
 import { FormulatorViewRouteComponent } from './formulator-view-route/formulator-view-route.component';
 import { FormulationRouteComponent } from './formulation-route/formulation-route.component';
+import { LoaderComponent } from './loader/loader.component';
+import { LoaderService } from './loader.service';
 
 const appRoutes: Routes = [
   {
@@ -148,7 +150,8 @@ const appRoutes: Routes = [
     RationEditRouteComponent,
     RationCreateRouteComponent,
     FormulatorViewRouteComponent,
-    FormulationRouteComponent
+    FormulationRouteComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -158,6 +161,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     AuthGuard,
+    LoaderService,
   ],
   bootstrap: [AppComponent]
 })

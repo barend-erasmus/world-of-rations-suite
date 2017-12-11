@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import { Http, Response, Headers } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { LoaderService } from '../loader.service';
 
 @Component({
   selector: 'app-ration-edit-route',
@@ -21,7 +22,9 @@ export class RationEditRouteComponent implements OnInit {
 
   public messages: string[] = [];
 
-  constructor(private http: Http, private router: Router, private route: ActivatedRoute) { }
+  constructor(private http: Http, private router: Router, private route: ActivatedRoute, private loaderService: LoaderService) {
+    this.loaderService.reset();
+  }
 
   public ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -45,6 +48,8 @@ export class RationEditRouteComponent implements OnInit {
       return;
     }
 
+    this.loaderService.startRequest();
+
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -54,10 +59,14 @@ export class RationEditRouteComponent implements OnInit {
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.router.navigateByUrl(`/ration/groups/edit/${this.diet.group.id}`);
+
+        this.loaderService.endRequest();
       });
   }
 
   private loadNutrients(): void {
+
+    this.loaderService.startRequest();
 
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
@@ -81,10 +90,14 @@ export class RationEditRouteComponent implements OnInit {
         }
 
         this.diet.values = this.diet.values.sort((a, b) => a.nutrient.sortOrder - b.nutrient.sortOrder);
+
+        this.loaderService.endRequest();
       });
   }
 
   private loadDiet(dietId: number): void {
+
+    this.loaderService.startRequest();
 
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
@@ -111,6 +124,8 @@ export class RationEditRouteComponent implements OnInit {
         this.diet.groupChart = groupChart.join(' - ');
 
         this.loadNutrients();
+
+        this.loaderService.endRequest();
       });
   }
 }

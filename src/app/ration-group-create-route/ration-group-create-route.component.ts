@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import { Http, Response, Headers } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { LoaderService } from '../loader.service';
 
 @Component({
   selector: 'app-ration-group-create-route',
@@ -21,7 +22,9 @@ export class RationGroupCreateRouteComponent implements OnInit {
 
   public messages: string[] = [];
 
-  constructor(private http: Http, private router: Router, private route: ActivatedRoute) { }
+  constructor(private http: Http, private router: Router, private route: ActivatedRoute, private loaderService: LoaderService) { 
+    this.loaderService.reset();
+  }
 
   public ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -47,6 +50,8 @@ export class RationGroupCreateRouteComponent implements OnInit {
 
     this.dietGroup.parent = this.parentDietGroup;
 
+    this.loaderService.startRequest();
+
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -56,11 +61,15 @@ export class RationGroupCreateRouteComponent implements OnInit {
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.router.navigateByUrl(`/ration/groups/${this.parentDietGroup ? `/edit/${this.parentDietGroup.id}` : ''}`);
+
+        this.loaderService.endRequest();
       });
   }
 
 
   private loadParentDietGroup(dietGroupId: number): void {
+
+    this.loaderService.startRequest();
 
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
@@ -85,6 +94,8 @@ export class RationGroupCreateRouteComponent implements OnInit {
         groupChart.reverse();
 
         this.parentDietGroup.groupChart = groupChart.join(' - ');
+
+        this.loaderService.endRequest();
       });
   }
 }

@@ -21,6 +21,10 @@
             Least-Cost Ration Formulator
           </div>
           <div class="panel-body">
+            <p *ngFor="let message of messages">
+              <label class="text-danger">{{ message }}</label>
+              <br />
+            </p>
             <div class="row">
               <div class="form-group">
                 <label>Ration Group</label>
@@ -87,10 +91,12 @@
                     </td>
                   </tr>
                   <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td colspan="4">
+                      <p *ngFor="let message of messages">
+                        <label class="text-danger">{{ message }}</label>
+                        <br />
+                      </p>
+                    </td>
                     <td>
                       <button (click)="onClick_Formulate()" class="btn btn-success" *ngIf="user.permissions.indexOf('create-formulation') > -1">Formulate</button>
                     </td>
@@ -128,3 +134,4 @@
   </div>
   <app-footer></app-footer>
 </div>
+<app-loader></app-loader>

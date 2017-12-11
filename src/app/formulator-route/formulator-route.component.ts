@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Http, Response, Headers } from '@angular/http';
 import { environment } from '../../environments/environment';
+import { LoaderService } from '../loader.service';
 
 @Component({
   selector: 'app-formulator-route',
@@ -12,6 +13,8 @@ import { environment } from '../../environments/environment';
 export class FormulatorRouteComponent implements OnInit {
 
   public user: any = {};
+
+  public messages: string[] = [];
 
   public ingredients: any[] = [];
 
@@ -27,25 +30,42 @@ export class FormulatorRouteComponent implements OnInit {
 
   public result: any = null;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private loaderService: LoaderService) { 
+    this.loaderService.reset();
+  }
 
   public ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
 
     this.loadDietGroupDropdown(null);
-
     this.loadIngredients();
   }
 
   public onChange_DietGroupDropdown(index: number): void {
     if (index + 1 !== this.dietGroupDropdowns.length) {
       this.dietGroupDropdowns = this.dietGroupDropdowns.slice(0, index + 1);
+
+      this.selectedDiet = null;
+      this.diets = [];
     }
 
     this.loadDietGroupDropdown(this.dietGroupDropdowns[index].selectedItem.id);
   }
 
   public onClick_Formulate(): void {
+
+    this.messages = [];
+
+    if (!this.selectedDiet) {
+      this.messages.push('Select a ration');
+    }
+
+    if (this.messages.length > 0) {
+      return;
+    }
+
+    this.loaderService.startRequest();
+
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -59,6 +79,8 @@ export class FormulatorRouteComponent implements OnInit {
       })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.result = json;
+
+        this.loaderService.endRequest();
       });
   }
 
@@ -78,6 +100,8 @@ export class FormulatorRouteComponent implements OnInit {
 
   private onDietGroupSelected(): void {
 
+    this.loaderService.startRequest();
+
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -88,10 +112,15 @@ export class FormulatorRouteComponent implements OnInit {
       })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.diets = json;
+
+        this.loaderService.endRequest();
       });
   }
 
   private loadDietGroupDropdown(dietGroupParentId: number): void {
+
+    this.loaderService.startRequest();
+
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -108,10 +137,15 @@ export class FormulatorRouteComponent implements OnInit {
         } else {
           this.onDietGroupSelected();
         }
+
+        this.loaderService.endRequest();
       });
   }
 
   private loadIngredients(): void {
+
+    this.loaderService.startRequest();
+
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -229,6 +263,8 @@ export class FormulatorRouteComponent implements OnInit {
             weight: null,
           },
         ];
+        
+        this.loaderService.endRequest();
       });
   }
 }

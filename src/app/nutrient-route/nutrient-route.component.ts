@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Http, Response, Headers } from '@angular/http';
 import { environment } from '../../environments/environment';
+import { LoaderService } from '../loader.service';
 
 @Component({
   selector: 'app-nutrient-route',
@@ -15,7 +16,9 @@ export class NutrientRouteComponent implements OnInit {
 
   public nutrients: any[] = [];
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private loaderService: LoaderService) { 
+    this.loaderService.reset();
+  }
 
   public ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -27,6 +30,8 @@ export class NutrientRouteComponent implements OnInit {
 
   private loadNutrients(): void {
 
+    this.loaderService.startRequest();
+
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -36,6 +41,8 @@ export class NutrientRouteComponent implements OnInit {
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.nutrients = json;
+
+        this.loaderService.endRequest();
       });
   }
 }

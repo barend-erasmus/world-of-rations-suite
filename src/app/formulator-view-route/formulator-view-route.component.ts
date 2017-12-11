@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import { Http, Response, Headers } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { LoaderService } from '../loader.service';
 
 @Component({
   selector: 'app-formulator-view-route',
@@ -19,7 +20,9 @@ export class FormulatorViewRouteComponent implements OnInit {
   public formulationCompositionValues: any[] = [];
   public supplement: any = [];
 
-  constructor(private http: Http, private router: Router, private route: ActivatedRoute) { }
+  constructor(private http: Http, private router: Router, private route: ActivatedRoute, private loaderService: LoaderService) {
+    this.loaderService.reset();
+  }
 
   public ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -32,6 +35,8 @@ export class FormulatorViewRouteComponent implements OnInit {
   }
 
   private loadFormulation(formulationId: number): void {
+
+    this.loaderService.startRequest();
 
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
@@ -65,10 +70,15 @@ export class FormulatorViewRouteComponent implements OnInit {
         if (this.user.permissions.indexOf('view-formulation-supplement') > -1) {
           this.loadFormulationSupplement(formulationId);
         }
+
+        this.loaderService.endRequest();
       });
   }
 
   private loadFormulationCompositionValues(formulationId: number): void {
+    
+    this.loaderService.startRequest();
+
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -78,10 +88,15 @@ export class FormulatorViewRouteComponent implements OnInit {
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.formulationCompositionValues = json;
+
+        this.loaderService.endRequest();
       });
   }
 
   private loadFormulationSupplement(formulationId: number): void {
+
+    this.loaderService.startRequest();
+
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -91,6 +106,8 @@ export class FormulatorViewRouteComponent implements OnInit {
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.supplement = json;
+
+        this.loaderService.endRequest();
       });
   }
 

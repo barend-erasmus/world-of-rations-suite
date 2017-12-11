@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Http, Response, Headers } from '@angular/http';
 import { environment } from '../../environments/environment';
+import { LoaderService } from '../loader.service';
 
 @Component({
   selector: 'app-ration-group-route',
@@ -15,7 +16,9 @@ export class RationGroupRouteComponent implements OnInit {
 
   public dietGroups: any[] = [];
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private loaderService: LoaderService) { 
+    this.loaderService.reset();
+  }
 
   public ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -25,6 +28,9 @@ export class RationGroupRouteComponent implements OnInit {
   }
 
   private loadDietGroups(): void {
+
+    this.loaderService.startRequest();
+
     const headers = new Headers();
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -38,6 +44,8 @@ export class RationGroupRouteComponent implements OnInit {
         } else {
           this.dietGroups = json.filter((x) => x.name === 'User Defined');
         }
+
+        this.loaderService.endRequest();
       });
   }
 

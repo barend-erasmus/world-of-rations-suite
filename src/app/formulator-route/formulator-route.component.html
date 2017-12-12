@@ -79,7 +79,10 @@
                     <td>
                       <select [(ngModel)]="formulationIngredient.ingredient" class="form-control">
                         <option [ngValue]="null" disabled>Select Feedstuff</option>
-                        <option *ngFor="let ingredient of ingredients" [ngValue]="ingredient">{{ ingredient.name }}</option>
+                        <optgroup *ngFor="let item of getKeys(ingredientsGrouped)" label="{{item.key}}">
+                          <option *ngFor="let ingredient of item.value" [ngValue]="ingredient">{{ ingredient.name }}</option>
+                        </optgroup>
+                       
                       </select>
                     </td>
                     <td>

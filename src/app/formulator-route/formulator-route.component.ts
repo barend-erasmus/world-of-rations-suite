@@ -18,6 +18,8 @@ export class FormulatorRouteComponent implements OnInit {
 
   public ingredients: any[] = [];
 
+  public ingredientsGrouped: any = {};
+
   public dietGroupDropdowns: any[] = [];
 
   public selectedDiet: any = null;
@@ -96,6 +98,10 @@ export class FormulatorRouteComponent implements OnInit {
 
   public onClick_RemoveFeedstuff(item: any): void {
     this.formulationIngredients.splice(this.formulationIngredients.indexOf(item), 1);
+  }
+
+  public getKeys(obj: any): any[] {
+    return Object.keys(obj).map((key) => { return { key: key, value: obj[key] } });
   }
 
   private onDietGroupSelected(): void {
@@ -263,6 +269,16 @@ export class FormulatorRouteComponent implements OnInit {
             weight: null,
           },
         ];
+
+        for (const ingredient of this.ingredients) {
+          if (!this.ingredientsGrouped[ingredient.group.name]) {
+            this.ingredientsGrouped[ingredient.group.name] = [
+              ingredient,
+            ];
+          } else {
+            this.ingredientsGrouped[ingredient.group.name].push(ingredient);
+          }
+        }
 
         this.loaderService.endRequest();
       });

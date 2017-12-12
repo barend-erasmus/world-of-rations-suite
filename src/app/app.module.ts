@@ -26,6 +26,7 @@ import { FormulationRouteComponent } from './formulation-route/formulation-route
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './loader.service';
 import { ProfileRouteComponent } from './profile-route/profile-route.component';
+import { TipsRouteComponent } from './tips-route/tips-route.component';
 
 const appRoutes: Routes = [
   {
@@ -134,6 +135,13 @@ const appRoutes: Routes = [
     ],
   },
   {
+    path: 'tips',
+    component: TipsRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
     path: 'login',
     component: LoginRouteComponent,
   },
@@ -161,6 +169,7 @@ const appRoutes: Routes = [
     FormulationRouteComponent,
     LoaderComponent,
     ProfileRouteComponent,
+    TipsRouteComponent,
   ],
   imports: [
     BrowserModule,

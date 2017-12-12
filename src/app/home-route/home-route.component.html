@@ -50,10 +50,38 @@
                       Horses, Pigs, Poultry, Dogs and Cats, Pigeons, Fish and Rabbits
                     </p>
                     <p>
-                      <a href="#" class="btn btn-primary" role="button">Go to Specie-specific Tips</a>
+                      <a href="/tips" class="btn btn-primary" role="button">Go to Specie-specific Tips</a>
                     </p>
                   </div>
                 </div>
+              </div>
+
+              <div class="col-md-6">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Cost</th>
+                      <th>Feasible</th>
+                      <th>Timestamp</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngIf="user.permissions.indexOf('create-formulation') > -1">
+                      <td colspan="5">You have not formulated any rations. Go to the formulator <a href="/formulator">now</a>!!</td>
+                    </tr>
+                    <tr *ngFor="let formulation of formulations">
+                      <td>{{ formulation.name }}</td>
+                      <td>{{ formulation.cost | number : '1.2-2' }}</td>
+                      <td>{{ formulation.feasible }}</td>
+                      <td>{{ formulation.timestamp | date:'yyyy-MM-dd' }}</td>
+                      <td>
+                        <a href="/formulator/{{formulation.id}}" class="btn btn-default" *ngIf="formulation.feasible && user.permissions.indexOf('view-formulation') > -1">View</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
 
             </div>

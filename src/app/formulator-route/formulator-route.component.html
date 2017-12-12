@@ -34,6 +34,11 @@
                     <option *ngFor="let dietGroup of dietGroupDropdown.dietGroups" [ngValue]="dietGroup">{{ dietGroup.name }}</option>
                   </select>
                   <br />
+                  <div *ngIf="dietGroupDropdown.selectedItem && dietGroupDropdown.selectedItem.description">
+                    <p style="margin-left: 15px; margin-right: 15px">
+                      {{ dietGroupDropdown.selectedItem.description }}
+                    </p>
+                  </div>
                 </div>
               </div>
               <div class="form-group">

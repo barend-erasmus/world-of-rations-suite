@@ -56,6 +56,20 @@ export class ProfileRouteComponent implements OnInit {
       });
   }
 
+  public onChange_PictureUpload(event: any): void {
+    const reader: FileReader = new FileReader();
+
+    if (event.target.files && event.target.files.length > 0) {
+
+      const file = event.target.files[0];
+
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.user.picture = reader.result;
+      };
+    }
+  }
+
   private loadUser(): void {
 
     this.loaderService.startRequest();

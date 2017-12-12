@@ -20,8 +20,6 @@ export class ProfileRouteComponent implements OnInit {
   constructor(private http: Http, private loaderService: LoaderService) { }
 
   public ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-
     this.loadUser();
   }
 

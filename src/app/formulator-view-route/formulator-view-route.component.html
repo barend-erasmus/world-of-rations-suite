@@ -40,8 +40,9 @@
                   <th>Feedstuff</th>
                   <th>Minimum</th>
                   <th>Maximum</th>
-                  <th>Cost</th>
+                  <th>Cost per {{ formulation.mixWeight }} kg</th>
                   <th>Weight</th>
+                  <th>Cost</th>
                 </tr>
               </thead>
               <tbody>
@@ -51,6 +52,7 @@
                   <td>{{ formulationIngredient.maximum }}</td>
                   <td>{{ formulationIngredient.cost }}</td>
                   <td>{{ formulationIngredient.weight | number : '1.2-2' }} kg</td>
+                  <td>{{ formulationIngredient.weight * formulationIngredient.cost / formulation.mixWeight | number : '1.2-2' }}</td>
                 </tr>
               </tbody>
             </table>

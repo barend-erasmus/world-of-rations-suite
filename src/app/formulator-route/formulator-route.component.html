@@ -84,13 +84,13 @@
                     </td>
                     <td>
                       <input type="number" class="form-control" [(ngModel)]="formulationIngredient.minimum" />
-                      <p *ngIf="formulationIngredient.suggestedValue">
+                      <p *ngIf="formulationIngredient.suggestedValue && formulationIngredient.suggestedValue.minimum != null">
                         We recommend you use {{ formulationIngredient.suggestedValue.minimum }} kg per 1000 kg as a minimum.
                       </p>
                     </td>
                     <td>
                       <input type="number" class="form-control" [(ngModel)]="formulationIngredient.maximum" />
-                      <p *ngIf="formulationIngredient.suggestedValue">
+                      <p *ngIf="formulationIngredient.suggestedValue && formulationIngredient.suggestedValue.maximum != null">
                         We recommend you use {{ formulationIngredient.suggestedValue.maximum }} kg per 1000 kg as a maximum.
                       </p>
                     </td>

@@ -16,12 +16,21 @@
 
   <!-- App styles -->
   <link rel="stylesheet" href="/assets/styles/style.css">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111214235-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-111214235-1');
+  </script>
+
 </head>
 
 <body class="fixed-navbar sidebar-scroll">
-
- <app-root></app-root>
-</body>
+  <app-root></app-root>
 </body>
 
 </html>

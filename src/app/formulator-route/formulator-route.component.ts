@@ -18,8 +18,6 @@ export class FormulatorRouteComponent implements OnInit {
 
   public ingredients: any[] = [];
 
-  public ingredientsGrouped: any = {};
-
   public dietGroupDropdowns: any[] = [];
 
   public selectedDiet: any = null;
@@ -86,7 +84,7 @@ export class FormulatorRouteComponent implements OnInit {
       });
   }
 
-  public onClick_AddFeedstuff(): void {
+  public onClick_AddIngredient(): void {
     this.formulationIngredients.push({
       ingredient: null,
       cost: null,
@@ -96,12 +94,39 @@ export class FormulatorRouteComponent implements OnInit {
     });
   }
 
-  public onClick_RemoveFeedstuff(item: any): void {
+  public onClick_RemoveIngredient(item: any): void {
     this.formulationIngredients.splice(this.formulationIngredients.indexOf(item), 1);
   }
 
   public getKeys(obj: any): any[] {
     return Object.keys(obj).map((key) => { return { key: key, value: obj[key] } });
+  }
+
+  public onChange_Ingredient(formulationIngredient: any): void {
+
+    if (this.user.permissions.indexOf('view-suggested-value') === -1) {
+      return;
+    }
+
+    if (!this.selectedDiet) {
+      return;
+    }
+
+    this.loadSuggestedValue(formulationIngredient);
+  }
+
+  public onChange_Diet(): void {
+    if (this.user.permissions.indexOf('view-suggested-value') === -1) {
+      return;
+    }
+
+    if (!this.selectedDiet) {
+      return;
+    }
+
+    for (const formulationIngredient of this.formulationIngredients) {
+      this.loadSuggestedValue(formulationIngredient);
+    }
   }
 
   private onDietGroupSelected(): void {
@@ -143,6 +168,24 @@ export class FormulatorRouteComponent implements OnInit {
         } else {
           this.onDietGroupSelected();
         }
+
+        this.loaderService.endRequest();
+      });
+  }
+
+  private loadSuggestedValue(formulationIngredient: any): void {
+    this.loaderService.startRequest();
+
+    const headers = new Headers();
+    headers.append('x-application-id', environment.application.id.toString());
+    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
+
+    this.http.get(`${environment.api.uri}/formulator/suggestedValue?dietId=${this.selectedDiet.id}&ingredientId=${formulationIngredient.ingredient.id}`, {
+      headers,
+    })
+      .map((res: Response) => res.json()).subscribe((json) => {
+
+        formulationIngredient.suggestedValue = json;
 
         this.loaderService.endRequest();
       });
@@ -269,16 +312,6 @@ export class FormulatorRouteComponent implements OnInit {
             weight: null,
           },
         ];
-
-        for (const ingredient of this.ingredients) {
-          if (!this.ingredientsGrouped[ingredient.group.name]) {
-            this.ingredientsGrouped[ingredient.group.name] = [
-              ingredient,
-            ];
-          } else {
-            this.ingredientsGrouped[ingredient.group.name].push(ingredient);
-          }
-        }
 
         this.loaderService.endRequest();
       });

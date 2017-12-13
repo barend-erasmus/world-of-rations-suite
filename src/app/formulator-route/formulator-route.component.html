@@ -44,7 +44,7 @@
               <div class="form-group">
                 <label>Ration</label>
                 <div>
-                  <select [(ngModel)]="selectedDiet" class="form-control">
+                  <select [(ngModel)]="selectedDiet" (change)="onChange_Diet()" class="form-control">
                     <option *ngFor="let diet of diets" [ngValue]="diet">{{ diet.name }}</option>
                   </select>
                 </div>
@@ -72,30 +72,33 @@
                     <td></td>
                     <td></td>
                     <td>
-                      <button class="btn btn-primary" (click)="onClick_AddFeedstuff()">Add</button>
+                      <button class="btn btn-primary" (click)="onClick_AddIngredient()">Add</button>
                     </td>
                   </tr>
                   <tr *ngFor="let formulationIngredient of formulationIngredients">
                     <td>
-                      <select [(ngModel)]="formulationIngredient.ingredient" class="form-control">
+                      <select [(ngModel)]="formulationIngredient.ingredient" (change)="onChange_Ingredient(formulationIngredient)" class="form-control">
                         <option [ngValue]="null" disabled>Select Feedstuff</option>
-                        <optgroup *ngFor="let item of getKeys(ingredientsGrouped)" label="{{item.key}}">
-                          <option *ngFor="let ingredient of item.value" [ngValue]="ingredient">{{ ingredient.name }}</option>
-                        </optgroup>
-                       
+                        <option *ngFor="let ingredient of ingredients" [ngValue]="ingredient">{{ ingredient.name }}</option>
                       </select>
                     </td>
                     <td>
                       <input type="number" class="form-control" [(ngModel)]="formulationIngredient.minimum" />
+                      <p *ngIf="formulationIngredient.suggestedValue">
+                        We recommend you use {{ formulationIngredient.suggestedValue.minimum }} kg per 1000 kg as a minimum.
+                      </p>
                     </td>
                     <td>
                       <input type="number" class="form-control" [(ngModel)]="formulationIngredient.maximum" />
+                      <p *ngIf="formulationIngredient.suggestedValue">
+                        We recommend you use {{ formulationIngredient.suggestedValue.maximum }} kg per 1000 kg as a maximum.
+                      </p>
                     </td>
                     <td>
                       <input type="number" class="form-control" [(ngModel)]="formulationIngredient.cost" />
                     </td>
                     <td>
-                      <button class="btn btn-danger" (click)="onClick_RemoveFeedstuff(formulationIngredient)">Remove</button>
+                      <button class="btn btn-danger" (click)="onClick_RemoveIngredient(formulationIngredient)">Remove</button>
                     </td>
                   </tr>
                   <tr>

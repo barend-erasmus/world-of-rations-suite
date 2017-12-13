@@ -68,7 +68,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngIf="user.permissions.indexOf('create-formulation') > -1">
+                    <tr *ngIf="user.permissions.indexOf('create-formulation') > -1 && formulations.length == 0">
                       <td colspan="5">You have not formulated any rations. Go to the formulator <a href="/formulator">now</a>!!</td>
                     </tr>
                     <tr *ngFor="let formulation of formulations">

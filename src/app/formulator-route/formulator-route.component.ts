@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { Http, Response, Headers } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
+declare let gtag: Function;
 
 @Component({
   selector: 'app-formulator-route',
@@ -53,6 +54,10 @@ export class FormulatorRouteComponent implements OnInit {
   }
 
   public onClick_Formulate(): void {
+    gtag('event', 'formulate', {
+      'event_category': 'formulator',
+      'dietId': this.selectedDiet? this.selectedDiet.id : -1,
+    });
 
     this.messages = [];
 
@@ -85,6 +90,11 @@ export class FormulatorRouteComponent implements OnInit {
   }
 
   public onClick_AddIngredient(): void {
+    gtag('event', 'add_ingredient', {
+      'event_category': 'formulator',
+      'dietId': this.selectedDiet? this.selectedDiet.id : -1,
+    });
+
     this.formulationIngredients.push({
       ingredient: null,
       cost: null,
@@ -95,6 +105,11 @@ export class FormulatorRouteComponent implements OnInit {
   }
 
   public onClick_RemoveIngredient(item: any): void {
+    gtag('event', 'remove_ingredient', {
+      'event_category': 'formulator',
+      'dietId': this.selectedDiet? this.selectedDiet.id : -1,
+    });
+    
     this.formulationIngredients.splice(this.formulationIngredients.indexOf(item), 1);
   }
 

@@ -6,6 +6,7 @@ import { Http, Response, Headers } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
+declare let gtag: Function;
 
 @Component({
   selector: 'app-formulation-view-route',
@@ -29,6 +30,12 @@ export class FormulationViewRouteComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       if (this.user.permissions.indexOf('view-formulation') > -1) {
+
+        gtag('event', 'view_formulation', {
+          'event_category': 'formulator',
+          'formulationId': params['formulationId'],
+        });
+
         this.loadFormulation(params['formulationId']);
       }
     });

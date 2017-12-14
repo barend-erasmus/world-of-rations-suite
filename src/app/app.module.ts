@@ -114,6 +114,13 @@ const appRoutes: Routes = [
     ],
   },
   {
+    path: 'formulator/:formulationId',
+    component: FormulatorRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
     path: 'formulations/:formulationId',
     component: FormulationViewRouteComponent,
     canActivate: [

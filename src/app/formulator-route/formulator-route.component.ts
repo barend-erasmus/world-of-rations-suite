@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { Http, Response, Headers } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
+import { ActivatedRoute, Router } from '@angular/router';
 declare let gtag: Function;
 
 @Component({
@@ -31,15 +32,21 @@ export class FormulatorRouteComponent implements OnInit {
 
   public result: any = null;
 
-  constructor(private http: Http, private loaderService: LoaderService) {
+  constructor(private http: Http, private loaderService: LoaderService, private route: ActivatedRoute) {
     this.loaderService.reset();
   }
 
   public ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
 
-    this.loadDietGroupDropdown(null);
-    this.loadIngredients();
+    this.route.params.subscribe(params => {
+      if (params['formulationId']) {
+        this.loadDietGroupDropdown(null, [69, 216, 217, 859]);
+      } else {
+        this.loadDietGroupDropdown(null);
+        this.loadIngredients();
+      }
+    });
   }
 
   public onChange_DietGroupDropdown(index: number): void {
@@ -56,7 +63,7 @@ export class FormulatorRouteComponent implements OnInit {
   public onClick_Formulate(): void {
     gtag('event', 'formulate', {
       'event_category': 'formulator',
-      'dietId': this.selectedDiet? this.selectedDiet.id : -1,
+      'dietId': this.selectedDiet ? this.selectedDiet.id : -1,
     });
 
     this.messages = [];
@@ -92,7 +99,7 @@ export class FormulatorRouteComponent implements OnInit {
   public onClick_AddIngredient(): void {
     gtag('event', 'add_ingredient', {
       'event_category': 'formulator',
-      'dietId': this.selectedDiet? this.selectedDiet.id : -1,
+      'dietId': this.selectedDiet ? this.selectedDiet.id : -1,
     });
 
     this.formulationIngredients.push({
@@ -107,14 +114,14 @@ export class FormulatorRouteComponent implements OnInit {
   public onClick_RemoveIngredient(item: any): void {
     gtag('event', 'remove_ingredient', {
       'event_category': 'formulator',
-      'dietId': this.selectedDiet? this.selectedDiet.id : -1,
+      'dietId': this.selectedDiet ? this.selectedDiet.id : -1,
     });
-    
+
     this.formulationIngredients.splice(this.formulationIngredients.indexOf(item), 1);
   }
 
   public getKeys(obj: any): any[] {
-    return Object.keys(obj).map((key) => { return { key: key, value: obj[key] } });
+    return Object.keys(obj).map((key) => ({ key: key, value: obj[key] }));
   }
 
   public onChange_Ingredient(formulationIngredient: any): void {
@@ -144,7 +151,7 @@ export class FormulatorRouteComponent implements OnInit {
     }
   }
 
-  private onDietGroupSelected(): void {
+  private onDietGroupSelected(selectedId: number = null): void {
 
     this.loaderService.startRequest();
 
@@ -159,11 +166,15 @@ export class FormulatorRouteComponent implements OnInit {
       .map((res: Response) => res.json()).subscribe((json) => {
         this.diets = json;
 
+        if (selectedId) {
+          this.selectedDiet = json.find((x) => x.id === selectedId);
+        }
+
         this.loaderService.endRequest();
       });
   }
 
-  private loadDietGroupDropdown(dietGroupParentId: number): void {
+  private loadDietGroupDropdown(dietGroupParentId: number, selectedIds: number[] = []): void {
 
     this.loaderService.startRequest();
 
@@ -176,12 +187,27 @@ export class FormulatorRouteComponent implements OnInit {
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         if (json.length > 0) {
-          this.dietGroupDropdowns.push({
-            dietGroups: json,
-            selectedItem: null,
-          });
+          if (selectedIds.length > 0) {
+
+            const selectedItem = selectedIds[0];
+
+            this.dietGroupDropdowns.push({
+              dietGroups: json,
+              selectedItem: json.find((x) => x.id === selectedItem),
+            });
+
+            selectedIds.splice(0, 1);
+
+            this.loadDietGroupDropdown(selectedItem, selectedIds);
+
+          } else {
+            this.dietGroupDropdowns.push({
+              dietGroups: json,
+              selectedItem: null,
+            });
+          }
         } else {
-          this.onDietGroupSelected();
+          this.onDietGroupSelected(selectedIds[0]);
         }
 
         this.loaderService.endRequest();
@@ -195,9 +221,10 @@ export class FormulatorRouteComponent implements OnInit {
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
-    this.http.get(`${environment.api.uri}/formulator/suggestedValue?dietId=${this.selectedDiet.id}&ingredientId=${formulationIngredient.ingredient.id}`, {
-      headers,
-    })
+    this.http.get(`${environment.api.uri}/formulator/suggestedValue` +
+      `?dietId=${this.selectedDiet.id}&ingredientId=${formulationIngredient.ingredient.id}`, {
+        headers,
+      })
       .map((res: Response) => res.json()).subscribe((json) => {
 
         formulationIngredient.suggestedValue = json;

@@ -21,12 +21,12 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { RationEditRouteComponent } from './ration-edit-route/ration-edit-route.component';
 import { RationCreateRouteComponent } from './ration-create-route/ration-create-route.component';
-import { FormulatorViewRouteComponent } from './formulator-view-route/formulator-view-route.component';
 import { FormulationRouteComponent } from './formulation-route/formulation-route.component';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './loader.service';
 import { ProfileRouteComponent } from './profile-route/profile-route.component';
 import { TipsRouteComponent } from './tips-route/tips-route.component';
+import { FormulationViewRouteComponent } from './formulation-view-route/formulation-view-route.component';
 
 const appRoutes: Routes = [
   {
@@ -114,8 +114,8 @@ const appRoutes: Routes = [
     ],
   },
   {
-    path: 'formulator/:formulationId',
-    component: FormulatorViewRouteComponent,
+    path: 'formulations/:formulationId',
+    component: FormulationViewRouteComponent,
     canActivate: [
       AuthGuard,
     ],
@@ -165,11 +165,11 @@ const appRoutes: Routes = [
     HeaderComponent,
     RationEditRouteComponent,
     RationCreateRouteComponent,
-    FormulatorViewRouteComponent,
     FormulationRouteComponent,
     LoaderComponent,
     ProfileRouteComponent,
     TipsRouteComponent,
+    FormulationViewRouteComponent,
   ],
   imports: [
     BrowserModule,

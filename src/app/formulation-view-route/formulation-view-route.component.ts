@@ -8,11 +8,11 @@ import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 
 @Component({
-  selector: 'app-formulator-view-route',
-  templateUrl: './formulator-view-route.component.html',
-  styleUrls: ['./formulator-view-route.component.css']
+  selector: 'app-formulation-view-route',
+  templateUrl: './formulation-view-route.component.html',
+  styleUrls: ['./formulation-view-route.component.css']
 })
-export class FormulatorViewRouteComponent implements OnInit {
+export class FormulationViewRouteComponent implements OnInit {
 
   public user: any = {};
 
@@ -108,7 +108,9 @@ export class FormulatorViewRouteComponent implements OnInit {
         this.supplement = json;
 
         this.loaderService.endRequest();
+      }, (error) => {
+        this.loaderService.endRequest();
       });
-  }
 
+  }
 }

@@ -90,8 +90,11 @@
                     </td>
                     <td>
                       <input type="number" class="form-control" [(ngModel)]="formulationIngredient.maximum" />
-                      <p *ngIf="formulationIngredient.suggestedValue && formulationIngredient.suggestedValue.maximum != null">
+                      <p *ngIf="formulationIngredient.suggestedValue && formulationIngredient.suggestedValue.maximum != null && formulationIngredient.suggestedValue.maximum != 0">
                         We recommend you use {{ formulationIngredient.suggestedValue.maximum }} kg per 1000 kg as a maximum.
+                      </p>
+                      <p *ngIf="formulationIngredient.suggestedValue && formulationIngredient.suggestedValue.maximum != null && formulationIngredient.suggestedValue.maximum == 0">
+                        The feedstuff is dangerous....
                       </p>
                     </td>
                     <td>

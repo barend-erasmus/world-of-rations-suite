@@ -94,7 +94,9 @@
                         We recommend you use {{ formulationIngredient.suggestedValue.maximum }} kg per 1000 kg as a maximum.
                       </p>
                       <p *ngIf="formulationIngredient.suggestedValue && formulationIngredient.suggestedValue.maximum != null && formulationIngredient.suggestedValue.maximum == 0">
-                        The feedstuff is dangerous....
+                        <b>Warning</b>: Urea (and biuret) are non-protein nitrogen (NPN) substances and may be used only in the rations for Ruminants, and
+                        then preferably, with a maximum inclusion level of 0,4%. It is toxic for all monogastric animals.
+                        Never include them in the rations for horses, pigs, poultry, etc.
                       </p>
                     </td>
                     <td>

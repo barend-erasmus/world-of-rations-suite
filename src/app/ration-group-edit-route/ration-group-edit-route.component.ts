@@ -32,7 +32,7 @@ export class RationGroupEditRouteComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
 
     this.route.params.subscribe(params => {
-      if (this.user.permissions.indexOf('view-diet-group') > -1) {
+      if (this.user.subscription.permissions.indexOf('view-diet-group') > -1) {
         this.loadDietGroup(params['dietGroupId']);
       }
     });
@@ -132,10 +132,10 @@ export class RationGroupEditRouteComponent implements OnInit {
       headers,
     })
       .map((res: Response) => res.json()).subscribe((json) => {
-        if (this.user.permissions.indexOf('super-user') > -1) {
+        if (this.user.subscription.permissions.indexOf('super-user') > -1) {
           this.diets = json;
         } else {
-          this.diets = json.filter((x) => x.username === this.user.email);
+          this.diets = json.filter((x) => x.userName === this.user.email);
         }
 
         this.loaderService.endRequest();

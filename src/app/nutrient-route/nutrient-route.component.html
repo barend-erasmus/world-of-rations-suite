@@ -33,7 +33,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngIf="user.permissions.indexOf('create-nutrient') > -1">
+                <tr *ngIf="user.subscription.permissions.indexOf('create-nutrient') > -1">
                   <td></td>
                   <td></td>
                   <td></td>
@@ -48,7 +48,7 @@
                   <td>{{ nutrient.unit }}</td>
                   <td>{{ nutrient.sortOrder }}</td>
                   <td>
-                    <a href="/nutrients/edit/{{nutrient.id}}" class="btn btn-default" *ngIf="user.permissions.indexOf('view-nutrient') > -1">Edit</a>
+                    <a href="/nutrients/edit/{{nutrient.id}}" class="btn btn-default" *ngIf="user.subscription.permissions.indexOf('view-nutrient') > -1">Edit</a>
                   </td>
                 </tr>
               </tbody>

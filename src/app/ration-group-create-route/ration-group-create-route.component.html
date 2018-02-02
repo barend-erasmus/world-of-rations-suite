@@ -31,7 +31,7 @@
               <label>Description</label>
               <textarea class="form-control" rows="5" [(ngModel)]="dietGroup.description"></textarea>
             </div>
-            <button (click)="onClick_Save()" class="btn btn-success" *ngIf="user.permissions.indexOf('create-diet-group') > -1">Save</button>
+            <button (click)="onClick_Save()" class="btn btn-success" *ngIf="user.subscription.permissions.indexOf('create-diet-group') > -1">Save</button>
           </div>
         </div>
       </div>

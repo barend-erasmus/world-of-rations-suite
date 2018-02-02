@@ -29,7 +29,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngIf="user.permissions.indexOf('create-formulation') > -1">
+                <tr *ngIf="user.subscription.permissions.indexOf('create-formulation') > -1">
                   <td></td>
                   <td></td>
                   <td></td>
@@ -44,7 +44,7 @@
                   <td>{{ formulation.feasible }}</td>
                   <td>{{ formulation.timestamp | date:'yyyy-MM-dd' }}</td>
                   <td>
-                    <a href="/formulations/{{formulation.id}}" class="btn btn-default" *ngIf="formulation.feasible && user.permissions.indexOf('view-formulation') > -1">View</a>
+                    <a href="/formulations/{{formulation.id}}" class="btn btn-default" *ngIf="formulation.feasible && user.subscription.permissions.indexOf('view-formulation') > -1">View</a>
                   </td>
                 </tr>
               </tbody>

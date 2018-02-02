@@ -43,7 +43,7 @@
               <label>Country</label>
               <input type="text" class="form-control" [(ngModel)]="user.country" disabled>
             </div>
-            <button (click)="onClick_Save()" class="btn btn-success" *ngIf="user.permissions.indexOf('update-profile') > -1">Save</button>
+            <button (click)="onClick_Save()" class="btn btn-success" *ngIf="user.subscription.permissions.indexOf('update-profile') > -1">Save</button>
           </div>
         </div>
       </div>

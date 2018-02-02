@@ -82,7 +82,7 @@ export class FormulatorRouteComponent implements OnInit {
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
-    this.http.post(`${environment.api.uri}/formulator/create`, {
+    this.http.post(`${environment.api.uri}/formulation/create`, {
       diet: this.selectedDiet,
       formulationIngredients: this.formulationIngredients,
       mixWeight: this.mixWeight,
@@ -126,7 +126,7 @@ export class FormulatorRouteComponent implements OnInit {
 
   public onChange_Ingredient(formulationIngredient: any): void {
 
-    if (this.user.permissions.indexOf('view-suggested-value') === -1) {
+    if (this.user.subscription.permissions.indexOf('view-suggested-value') === -1) {
       return;
     }
 
@@ -138,7 +138,7 @@ export class FormulatorRouteComponent implements OnInit {
   }
 
   public onChange_Diet(): void {
-    if (this.user.permissions.indexOf('view-suggested-value') === -1) {
+    if (this.user.subscription.permissions.indexOf('view-suggested-value') === -1) {
       return;
     }
 
@@ -221,7 +221,7 @@ export class FormulatorRouteComponent implements OnInit {
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
-    this.http.get(`${environment.api.uri}/formulator/suggestedValue` +
+    this.http.get(`${environment.api.uri}/formulation/suggestedValue` +
       `?dietId=${this.selectedDiet.id}&ingredientId=${formulationIngredient.ingredient.id}`, {
         headers,
       })

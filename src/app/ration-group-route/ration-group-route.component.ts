@@ -22,7 +22,7 @@ export class RationGroupRouteComponent implements OnInit {
 
   public ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
-    if (this.user.permissions.indexOf('view-diet-group') > -1) {
+    if (this.user.subscription.permissions.indexOf('view-diet-group') > -1) {
       this.loadDietGroups();
     }
   }
@@ -39,7 +39,7 @@ export class RationGroupRouteComponent implements OnInit {
       headers,
     })
       .map((res: Response) => res.json()).subscribe((json) => {
-        if (this.user.permissions.indexOf('super-user') > -1) {
+        if (this.user.subscription.permissions.indexOf('super-user') > -1) {
           this.dietGroups = json;
         } else {
           this.dietGroups = json.filter((x) => x.name === 'User Defined');

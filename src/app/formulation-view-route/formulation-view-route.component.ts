@@ -29,7 +29,7 @@ export class FormulationViewRouteComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
 
     this.route.params.subscribe(params => {
-      if (this.user.permissions.indexOf('view-formulation') > -1) {
+      if (this.user.subscription.permissions.indexOf('view-formulation') > -1) {
 
         gtag('event', 'view_formulation', {
           'event_category': 'formulator',
@@ -49,7 +49,7 @@ export class FormulationViewRouteComponent implements OnInit {
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
-    this.http.get(`${environment.api.uri}/formulator/find?id=${formulationId}`, {
+    this.http.get(`${environment.api.uri}/formulation/find?id=${formulationId}`, {
       headers,
     })
       .map((res: Response) => res.json()).subscribe((json) => {
@@ -70,11 +70,11 @@ export class FormulationViewRouteComponent implements OnInit {
 
         this.formulation.diet.groupChart = groupChart.join(' - ');
 
-        if (this.user.permissions.indexOf('view-formulation-composition') > -1) {
+        if (this.user.subscription.permissions.indexOf('view-formulation-composition') > -1) {
           this.loadFormulationCompositionValues(formulationId);
         }
 
-        if (this.user.permissions.indexOf('view-formulation-supplement') > -1) {
+        if (this.user.subscription.permissions.indexOf('view-formulation-supplement') > -1) {
           this.loadFormulationSupplement(formulationId);
         }
 
@@ -90,7 +90,7 @@ export class FormulationViewRouteComponent implements OnInit {
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
-    this.http.get(`${environment.api.uri}/formulator/composition?id=${formulationId}`, {
+    this.http.get(`${environment.api.uri}/formulation/composition?id=${formulationId}`, {
       headers,
     })
       .map((res: Response) => res.json()).subscribe((json) => {
@@ -108,7 +108,7 @@ export class FormulationViewRouteComponent implements OnInit {
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
-    this.http.get(`${environment.api.uri}/formulator/supplement?id=${formulationId}`, {
+    this.http.get(`${environment.api.uri}/formulation/supplement?id=${formulationId}`, {
       headers,
     })
       .map((res: Response) => res.json()).subscribe((json) => {

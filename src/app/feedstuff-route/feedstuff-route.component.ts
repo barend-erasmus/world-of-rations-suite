@@ -23,7 +23,7 @@ export class FeedstuffRouteComponent implements OnInit {
   public ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
 
-    if (this.user.permissions.indexOf('view-ingredient') > -1) {
+    if (this.user.subscription.permissions.indexOf('view-ingredient') > -1) {
       this.loadIngredients();
     }
   }

@@ -30,7 +30,7 @@ export class RationEditRouteComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
 
     this.route.params.subscribe(params => {
-      if (this.user.permissions.indexOf('view-diet') > -1) {
+      if (this.user.subscription.permissions.indexOf('view-diet') > -1) {
         this.loadDiet(params['dietId']);
       }
     });

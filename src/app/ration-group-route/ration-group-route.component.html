@@ -27,7 +27,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngIf="user.permissions.indexOf('create-diet-group') > -1">
+                <tr *ngIf="user.subscription.permissions.indexOf('create-diet-group') > -1">
                   <td></td>
                   <td>
                     <a href="/ration/groups/create" class="btn btn-primary">New Ration Group</a>
@@ -36,7 +36,7 @@
                 <tr *ngFor="let dietGroup of dietGroups">
                   <td>{{ dietGroup.name }}</td>
                   <td>
-                    <a href="/ration/groups/edit/{{dietGroup.id}}" class="btn btn-default" *ngIf="user.permissions.indexOf('view-diet-group') > -1">Edit</a>
+                    <a href="/ration/groups/edit/{{dietGroup.id}}" class="btn btn-default" *ngIf="user.subscription.permissions.indexOf('view-diet-group') > -1">Edit</a>
                   </td>
                 </tr>
               </tbody>

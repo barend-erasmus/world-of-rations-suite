@@ -114,7 +114,7 @@
                       </p>
                     </td>
                     <td>
-                      <button (click)="onClick_Formulate()" class="btn btn-success" *ngIf="user.permissions.indexOf('create-formulation') > -1">Formulate</button>
+                      <button (click)="onClick_Formulate()" class="btn btn-success" *ngIf="user.subscription.permissions.indexOf('create-formulation') > -1">Formulate</button>
                     </td>
                   </tr>
                 </tbody>

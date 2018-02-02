@@ -31,7 +31,7 @@
               <label>Description</label>
               <textarea class="form-control" rows="5" [(ngModel)]="dietGroup.description"></textarea>
             </div>
-            <button (click)="onClick_Save()" class="btn btn-success" *ngIf="user.permissions.indexOf('update-diet-group') > -1">Save</button>
+            <button (click)="onClick_Save()" class="btn btn-success" *ngIf="user.subscription.permissions.indexOf('update-diet-group') > -1">Save</button>
           </div>
         </div>
       </div>
@@ -51,7 +51,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngIf="user.permissions.indexOf('create-diet-group') > -1">
+                <tr *ngIf="user.subscription.permissions.indexOf('create-diet-group') > -1">
                   <td></td>
                   <td>
                     <a href="/ration/groups/create/{{dietGroup.id}}" class="btn btn-primary">New Ration Group</a>
@@ -60,7 +60,7 @@
                 <tr *ngFor="let subDietGroup of subDietGroups">
                   <td>{{ subDietGroup.name }}</td>
                   <td>
-                    <a href="/ration/groups/edit/{{subDietGroup.id}}" class="btn btn-default" *ngIf="user.permissions.indexOf('update-diet-group') > -1">Edit</a>
+                    <a href="/ration/groups/edit/{{subDietGroup.id}}" class="btn btn-default" *ngIf="user.subscription.permissions.indexOf('update-diet-group') > -1">Edit</a>
                   </td>
                 </tr>
               </tbody>
@@ -84,7 +84,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngIf="user.permissions.indexOf('create-diet') > -1">
+                <tr *ngIf="user.subscription.permissions.indexOf('create-diet') > -1">
                   <td></td>
                   <td>
                     <a href="/ration/create/{{dietGroup.id}}" class="btn btn-primary">New Ration</a>
@@ -93,7 +93,7 @@
                 <tr *ngFor="let diet of diets">
                   <td>{{ diet.name }}</td>
                   <td>
-                    <a href="/ration/edit/{{diet.id}}" class="btn btn-default" *ngIf="user.permissions.indexOf('update-diet') > -1">Edit</a>
+                    <a href="/ration/edit/{{diet.id}}" class="btn btn-default" *ngIf="user.subscription.permissions.indexOf('update-diet') > -1">Edit</a>
                   </td>
                 </tr>
               </tbody>

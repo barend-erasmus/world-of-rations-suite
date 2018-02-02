@@ -23,7 +23,7 @@ export class FormulationRouteComponent implements OnInit {
   public ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
 
-    if (this.user.permissions.indexOf('view-formulation') > -1) {
+    if (this.user.subscription.permissions.indexOf('view-formulation') > -1) {
       this.loadFormulations();
     }
   }
@@ -36,7 +36,7 @@ export class FormulationRouteComponent implements OnInit {
     headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
-    this.http.get(`${environment.api.uri}/formulator/list`, {
+    this.http.get(`${environment.api.uri}/formulation/list`, {
       headers,
     })
       .map((res: Response) => res.json()).subscribe((json) => {

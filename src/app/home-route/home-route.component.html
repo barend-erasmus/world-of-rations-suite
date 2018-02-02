@@ -68,7 +68,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngIf="user.permissions.indexOf('create-formulation') > -1 && formulations.length == 0">
+                    <tr *ngIf="user.subscription.permissions.indexOf('create-formulation') > -1 && formulations.length == 0">
                       <td colspan="5">You have not formulated any rations. Go to the formulator <a href="/formulator">now</a>!!</td>
                     </tr>
                     <tr *ngFor="let formulation of formulations">
@@ -77,7 +77,7 @@
                       <td>{{ formulation.feasible }}</td>
                       <td>{{ formulation.timestamp | date:'yyyy-MM-dd' }}</td>
                       <td>
-                        <a href="/formulations/{{formulation.id}}" class="btn btn-default" *ngIf="formulation.feasible && user.permissions.indexOf('view-formulation') > -1">View</a>
+                        <a href="/formulations/{{formulation.id}}" class="btn btn-default" *ngIf="formulation.feasible && user.subscription.permissions.indexOf('view-formulation') > -1">View</a>
                       </td>
                     </tr>
                   </tbody>

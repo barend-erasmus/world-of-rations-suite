@@ -27,6 +27,7 @@ import { LoaderService } from './loader.service';
 import { ProfileRouteComponent } from './profile-route/profile-route.component';
 import { TipsRouteComponent } from './tips-route/tips-route.component';
 import { FormulationViewRouteComponent } from './formulation-view-route/formulation-view-route.component';
+import { BaseComponent } from './base/base.component';
 
 const appRoutes: Routes = [
   {
@@ -177,6 +178,7 @@ const appRoutes: Routes = [
     ProfileRouteComponent,
     TipsRouteComponent,
     FormulationViewRouteComponent,
+    BaseComponent,
   ],
   imports: [
     BrowserModule,

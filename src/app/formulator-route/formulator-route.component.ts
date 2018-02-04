@@ -5,6 +5,7 @@ import { Http, Response, Headers } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BaseComponent } from '../base/base.component';
 declare let gtag: Function;
 
 @Component({
@@ -12,9 +13,7 @@ declare let gtag: Function;
   templateUrl: './formulator-route.component.html',
   styleUrls: ['./formulator-route.component.css']
 })
-export class FormulatorRouteComponent implements OnInit {
-
-  public user: any = {};
+export class FormulatorRouteComponent extends BaseComponent implements OnInit {
 
   public messages: string[] = [];
 
@@ -32,20 +31,20 @@ export class FormulatorRouteComponent implements OnInit {
 
   public result: any = null;
 
-  constructor(private http: Http, private loaderService: LoaderService, private route: ActivatedRoute) {
-    this.loaderService.reset();
+  constructor(http: Http, loaderService: LoaderService, private route: ActivatedRoute) {
+    super(http, loaderService);
   }
 
   public ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-
     this.route.params.subscribe(params => {
-      if (params['formulationId']) {
-        this.loadDietGroupDropdown(null, [69, 216, 217, 859]);
-      } else {
-        this.loadDietGroupDropdown(null);
-        this.loadIngredients();
-      }
+      this.initialize().then(() => {
+        if (params['formulationId']) {
+          this.loadDietGroupDropdown(null, [69, 216, 217, 859]);
+        } else {
+          this.loadDietGroupDropdown(null);
+          this.loadIngredients();
+        }
+      });
     });
   }
 
@@ -126,7 +125,7 @@ export class FormulatorRouteComponent implements OnInit {
 
   public onChange_Ingredient(formulationIngredient: any): void {
 
-    if (this.user.subscription.permissions.indexOf('view-suggested-value') === -1) {
+    if (this.subscription.permissions.indexOf('view-suggested-value') === -1) {
       return;
     }
 
@@ -138,7 +137,7 @@ export class FormulatorRouteComponent implements OnInit {
   }
 
   public onChange_Diet(): void {
-    if (this.user.subscription.permissions.indexOf('view-suggested-value') === -1) {
+    if (this.subscription.permissions.indexOf('view-suggested-value') === -1) {
       return;
     }
 

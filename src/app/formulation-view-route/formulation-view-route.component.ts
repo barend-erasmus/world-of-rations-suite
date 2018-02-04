@@ -6,6 +6,7 @@ import { Http, Response, Headers } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
+import { BaseComponent } from '../base/base.component';
 declare let gtag: Function;
 
 @Component({
@@ -13,31 +14,29 @@ declare let gtag: Function;
   templateUrl: './formulation-view-route.component.html',
   styleUrls: ['./formulation-view-route.component.css']
 })
-export class FormulationViewRouteComponent implements OnInit {
-
-  public user: any = {};
+export class FormulationViewRouteComponent extends BaseComponent implements OnInit {
 
   public formulation: any = {};
   public formulationCompositionValues: any[] = [];
   public supplement: any = [];
 
-  constructor(private http: Http, private router: Router, private route: ActivatedRoute, private loaderService: LoaderService) {
-    this.loaderService.reset();
+  constructor(http: Http, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+    super(http, loaderService);
   }
 
   public ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-
     this.route.params.subscribe(params => {
-      if (this.user.subscription.permissions.indexOf('view-formulation') > -1) {
+      this.initialize().then(() => {
+        if (this.subscription.permissions.indexOf('view-formulation') > -1) {
 
-        gtag('event', 'view_formulation', {
-          'event_category': 'formulator',
-          'formulationId': params['formulationId'],
-        });
+          gtag('event', 'view_formulation', {
+            'event_category': 'formulator',
+            'formulationId': params['formulationId'],
+          });
 
-        this.loadFormulation(params['formulationId']);
-      }
+          this.loadFormulation(params['formulationId']);
+        }
+      });
     });
   }
 
@@ -70,11 +69,11 @@ export class FormulationViewRouteComponent implements OnInit {
 
         this.formulation.diet.groupChart = groupChart.join(' - ');
 
-        if (this.user.subscription.permissions.indexOf('view-formulation-composition') > -1) {
+        if (this.subscription.permissions.indexOf('view-formulation-composition') > -1) {
           this.loadFormulationCompositionValues(formulationId);
         }
 
-        if (this.user.subscription.permissions.indexOf('view-formulation-supplement') > -1) {
+        if (this.subscription.permissions.indexOf('view-formulation-supplement') > -1) {
           this.loadFormulationSupplement(formulationId);
         }
 

@@ -1,4 +1,4 @@
-<div id="header">
+<div *ngIf="user != null" id="header">
   <div class="color-line">
   </div>
   <div id="logo" class="light-version">
@@ -29,7 +29,7 @@
     </div>
   </nav>
 </div>
-<aside id="menu">
+<aside *ngIf="user != null" id="menu">
   <div id="navigation">
     <div class="profile-picture">
       <a href="/">

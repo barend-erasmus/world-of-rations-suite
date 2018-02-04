@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div id="wrapper">
+<div *ngIf="user != null" id="wrapper">
   <div class="content">
     <div class="row">
       <div class="col-lg-12 text-center welcome-message">
@@ -31,7 +31,7 @@
               <label>Description</label>
               <textarea class="form-control" rows="5" [(ngModel)]="diet.description"></textarea>
             </div>
-            <button (click)="onClick_Save()" class="btn btn-success" *ngIf="user.subscription.permissions.indexOf('update-diet') > -1">Save</button>
+            <button (click)="onClick_Save()" class="btn btn-success" *ngIf="subscription.permissions.indexOf('update-diet') > -1">Save</button>
           </div>
         </div>
       </div>

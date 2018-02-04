@@ -6,15 +6,14 @@ import { Http, Response, Headers } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'app-ration-group-edit-route',
   templateUrl: './ration-group-edit-route.component.html',
   styleUrls: ['./ration-group-edit-route.component.css']
 })
-export class RationGroupEditRouteComponent implements OnInit {
-
-  public user: any = {};
+export class RationGroupEditRouteComponent extends BaseComponent implements OnInit {
 
   public dietGroup: any = {};
 
@@ -24,17 +23,17 @@ export class RationGroupEditRouteComponent implements OnInit {
 
   public messages: string[] = [];
 
-  constructor(private http: Http, private router: Router, private route: ActivatedRoute, private loaderService: LoaderService) {
-    this.loaderService.reset();
+  constructor(http: Http, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+    super(http, loaderService);
   }
 
   public ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-
     this.route.params.subscribe(params => {
-      if (this.user.subscription.permissions.indexOf('view-diet-group') > -1) {
-        this.loadDietGroup(params['dietGroupId']);
-      }
+      this.initialize().then(() => {
+        if (this.subscription.permissions.indexOf('view-diet-group') > -1) {
+          this.loadDietGroup(params['dietGroupId']);
+        }
+      });
     });
   }
 
@@ -132,7 +131,7 @@ export class RationGroupEditRouteComponent implements OnInit {
       headers,
     })
       .map((res: Response) => res.json()).subscribe((json) => {
-        if (this.user.subscription.permissions.indexOf('super-user') > -1) {
+        if (this.subscription.permissions.indexOf('super-user') > -1) {
           this.diets = json;
         } else {
           this.diets = json.filter((x) => x.userName === this.user.email);

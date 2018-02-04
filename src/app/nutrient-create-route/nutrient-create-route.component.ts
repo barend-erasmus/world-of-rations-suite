@@ -5,26 +5,27 @@ import { Http, Response, Headers } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'app-nutrient-create-route',
   templateUrl: './nutrient-create-route.component.html',
   styleUrls: ['./nutrient-create-route.component.css']
 })
-export class NutrientCreateRouteComponent implements OnInit {
-
-  public user: any = {};
+export class NutrientCreateRouteComponent extends BaseComponent implements OnInit {
 
   public nutrient: any = {};
 
   public messages: string[] = [];
 
-  constructor(private http: Http, private router: Router, private route: ActivatedRoute, private loaderService: LoaderService) {
-    this.loaderService.reset();
-   }
+  constructor(http: Http, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+    super(http, loaderService);
+  }
 
   public ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
+    this.initialize().then(() => {
+
+    });
   }
 
   public onClick_Save(): void {

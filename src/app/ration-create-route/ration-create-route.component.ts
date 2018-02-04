@@ -6,15 +6,14 @@ import { Http, Response, Headers } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'app-ration-create-route',
   templateUrl: './ration-create-route.component.html',
   styleUrls: ['./ration-create-route.component.css']
 })
-export class RationCreateRouteComponent implements OnInit {
-
-  public user: any = {};
+export class RationCreateRouteComponent extends BaseComponent implements OnInit {
 
   public nutrients: any[] = [];
 
@@ -22,15 +21,15 @@ export class RationCreateRouteComponent implements OnInit {
 
   public messages: string[] = [];
 
-  constructor(private http: Http, private router: Router, private route: ActivatedRoute, private loaderService: LoaderService) {
-    this.loaderService.reset();
-   }
+  constructor(http: Http, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+    super(http, loaderService);
+  }
 
   public ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-
     this.route.params.subscribe(params => {
+      this.initialize().then(() => {
         this.loadDietGroup(params['dietGroupId']);
+      });
     });
   }
 

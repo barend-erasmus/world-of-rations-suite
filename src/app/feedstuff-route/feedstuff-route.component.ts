@@ -4,40 +4,35 @@ import 'rxjs/add/operator/map';
 import { Http, Response, Headers } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'app-feedstuff-route',
   templateUrl: './feedstuff-route.component.html',
   styleUrls: ['./feedstuff-route.component.css']
 })
-export class FeedstuffRouteComponent implements OnInit {
-
-  public user: any = {};
+export class FeedstuffRouteComponent extends BaseComponent implements OnInit {
 
   public ingredients: any[] = [];
 
-  constructor(private http: Http, private loaderService: LoaderService) {
-    this.loaderService.reset();
-   }
+  constructor(http: Http, loaderService: LoaderService) {
+    super(http, loaderService);
+  }
 
   public ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-
-    if (this.user.subscription.permissions.indexOf('view-ingredient') > -1) {
-      this.loadIngredients();
-    }
+    this.initialize().then(() => {
+      if (this.subscription.permissions.indexOf('view-ingredient') > -1) {
+        this.loadIngredients();
+      }
+    })
   }
 
   private loadIngredients(): void {
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.get(`${environment.api.uri}/ingredient/list`, {
-      headers,
+      headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.ingredients = json;

@@ -4,28 +4,27 @@ import 'rxjs/add/operator/map';
 import { Http, Response, Headers } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'app-nutrient-route',
   templateUrl: './nutrient-route.component.html',
   styleUrls: ['./nutrient-route.component.css']
 })
-export class NutrientRouteComponent implements OnInit {
-
-  public user: any = {};
+export class NutrientRouteComponent extends BaseComponent implements OnInit {
 
   public nutrients: any[] = [];
 
-  constructor(private http: Http, private loaderService: LoaderService) {
-    this.loaderService.reset();
+  constructor(http: Http, loaderService: LoaderService) {
+    super(http, loaderService);
   }
 
   public ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-
-    if (this.user.subscription.permissions.indexOf('view-nutrient') > -1) {
-      this.loadNutrients();
-    }
+    this.initialize().then(() => {
+      if (this.subscription.permissions.indexOf('view-nutrient') > -1) {
+        this.loadNutrients();
+      }
+    });
   }
 
   private loadNutrients(): void {

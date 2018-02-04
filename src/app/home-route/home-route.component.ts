@@ -4,28 +4,27 @@ import 'rxjs/add/operator/map';
 import { Http, Response, Headers } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'app-home-route',
   templateUrl: './home-route.component.html',
   styleUrls: ['./home-route.component.css']
 })
-export class HomeRouteComponent implements OnInit {
-
-  public user: any = {};
+export class HomeRouteComponent extends BaseComponent implements OnInit {
 
   public formulations: any[] = [];
 
-  constructor(private http: Http, private loaderService: LoaderService) {
-    this.loaderService.reset();
+  constructor(http: Http, loaderService: LoaderService) {
+    super(http, loaderService);
   }
 
   public ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-
-    if (this.user.subscription.permissions.indexOf('view-formulation') > -1) {
-      this.loadFormulations();
-    }
+    this.initialize().then(() => {
+      if (this.subscription.permissions.indexOf('view-formulation') > -1) {
+        this.loadFormulations();
+      }
+    });
   }
 
   private loadFormulations(): void {

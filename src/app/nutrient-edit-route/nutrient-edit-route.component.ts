@@ -5,31 +5,30 @@ import { Http, Response, Headers } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'app-nutrient-edit-route',
   templateUrl: './nutrient-edit-route.component.html',
   styleUrls: ['./nutrient-edit-route.component.css']
 })
-export class NutrientEditRouteComponent implements OnInit {
-
-  public user: any = {};
+export class NutrientEditRouteComponent extends BaseComponent implements OnInit {
 
   public nutrient: any = {};
 
   public messages: string[] = [];
 
-  constructor(private http: Http, private router: Router, private route: ActivatedRoute, private loaderService: LoaderService) {
-    this.loaderService.reset();
-   }
+  constructor(http: Http, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+    super(http, loaderService);
+  }
 
   public ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-
     this.route.params.subscribe(params => {
-      if (this.user.subscription.permissions.indexOf('view-nutrient') > -1) {
-        this.loadNutrient(params['nutrientId']);
-      }
+      this.initialize().then(() => {
+        if (this.subscription.permissions.indexOf('view-nutrient') > -1) {
+          this.loadNutrient(params['nutrientId']);
+        }
+      });
     });
   }
 

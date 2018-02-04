@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div id="wrapper">
+<div *ngIf="user != null" id="wrapper">
   <div class="content">
     <div class="row">
       <div class="col-lg-12 text-center welcome-message">
@@ -29,7 +29,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngIf="user.subscription.permissions.indexOf('create-formulation') > -1">
+                <tr *ngIf="subscription.permissions.indexOf('create-formulation') > -1">
                   <td></td>
                   <td></td>
                   <td></td>
@@ -44,7 +44,7 @@
                   <td>{{ formulation.feasible }}</td>
                   <td>{{ formulation.timestamp | date:'yyyy-MM-dd' }}</td>
                   <td>
-                    <a href="/formulations/{{formulation.id}}" class="btn btn-default" *ngIf="formulation.feasible && user.subscription.permissions.indexOf('view-formulation') > -1">View</a>
+                    <a href="/formulations/{{formulation.id}}" class="btn btn-default" *ngIf="formulation.feasible && subscription.permissions.indexOf('view-formulation') > -1">View</a>
                   </td>
                 </tr>
               </tbody>

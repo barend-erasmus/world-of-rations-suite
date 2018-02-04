@@ -4,40 +4,35 @@ import 'rxjs/add/operator/map';
 import { Http, Response, Headers } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'app-formulation-route',
   templateUrl: './formulation-route.component.html',
   styleUrls: ['./formulation-route.component.css']
 })
-export class FormulationRouteComponent implements OnInit {
-
-  public user: any = {};
+export class FormulationRouteComponent extends BaseComponent implements OnInit {
 
   public formulations: any[] = [];
 
-  constructor(private http: Http, private loaderService: LoaderService) {
-    this.loaderService.reset();
-   }
+  constructor(http: Http, loaderService: LoaderService) {
+    super(http, loaderService);
+  }
 
   public ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-
-    if (this.user.subscription.permissions.indexOf('view-formulation') > -1) {
-      this.loadFormulations();
-    }
+    this.initialize().then(() => {
+      if (this.subscription.permissions.indexOf('view-formulation') > -1) {
+        this.loadFormulations();
+      }
+    });
   }
 
   private loadFormulations(): void {
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.get(`${environment.api.uri}/formulation/list`, {
-      headers,
+      headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.formulations = json;

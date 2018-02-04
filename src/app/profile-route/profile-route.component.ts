@@ -5,22 +5,25 @@ import { Http, Response, Headers } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'app-profile-route',
   templateUrl: './profile-route.component.html',
   styleUrls: ['./profile-route.component.css']
 })
-export class ProfileRouteComponent implements OnInit {
-
-  public user: any = {};
+export class ProfileRouteComponent extends BaseComponent implements OnInit {
 
   public messages: string[] = [];
 
-  constructor(private http: Http, private loaderService: LoaderService) { }
+  constructor(http: Http, loaderService: LoaderService) { 
+    super(http, loaderService);
+  }
 
   public ngOnInit(): void {
-    this.loadUser();
+    this.initialize().then(() => {
+
+    });
   }
 
   public onClick_Save(): void {
@@ -49,7 +52,7 @@ export class ProfileRouteComponent implements OnInit {
       headers,
     })
       .map((res: Response) => res.json()).subscribe((json) => {
-        this.loadUser();
+        this.initialize();
         this.loaderService.endRequest();
       });
   }
@@ -67,24 +70,4 @@ export class ProfileRouteComponent implements OnInit {
       };
     }
   }
-
-  private loadUser(): void {
-
-    this.loaderService.startRequest();
-
-    const accessToken = localStorage.getItem('token');
-
-    const headers = new Headers();
-    headers.append('authorization', `Bearer ${accessToken}`);
-
-    this.http.get(`${environment.api.uri}/user/info`, {
-      headers
-    }).map((x) => x.json()).subscribe((json) => {
-      this.user = json;
-      localStorage.setItem('user', JSON.stringify(this.user));
-
-      this.loaderService.endRequest();
-    });
-  }
-
 }

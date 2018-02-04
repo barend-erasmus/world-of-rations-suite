@@ -58,12 +58,8 @@ export class NutrientCreateRouteComponent extends BaseComponent implements OnIni
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.post(`${environment.api.uri}/nutrient/create`, this.nutrient, {
-      headers,
+      headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.router.navigateByUrl('/nutrients');

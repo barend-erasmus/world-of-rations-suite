@@ -51,12 +51,8 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.post(`${environment.api.uri}/dietgroup/update`, this.dietGroup, {
-      headers,
+      headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.router.navigateByUrl(`/ration/groups${this.dietGroup.parent ? `/edit/${this.dietGroup.parent.id}` : ''}`);
@@ -70,12 +66,8 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.get(`${environment.api.uri}/dietgroup/find?id=${dietGroupId}`, {
-      headers,
+      headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.dietGroup = json;
@@ -105,12 +97,8 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.get(`${environment.api.uri}/dietgroup/list?dietGroupId=${this.dietGroup.id}`, {
-      headers,
+      headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.subDietGroups = json;
@@ -123,12 +111,8 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.get(`${environment.api.uri}/diet/list?dietGroupId=${this.dietGroup.id}`, {
-      headers,
+      headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         if (this.subscription.permissions.indexOf('super-user') > -1) {

@@ -16,7 +16,7 @@ export class ProfileRouteComponent extends BaseComponent implements OnInit {
 
   public messages: string[] = [];
 
-  constructor(http: Http, loaderService: LoaderService) { 
+  constructor(http: Http, loaderService: LoaderService) {
     super(http, loaderService);
   }
 
@@ -44,12 +44,8 @@ export class ProfileRouteComponent extends BaseComponent implements OnInit {
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.post(`${environment.api.uri}/user/update`, this.user, {
-      headers,
+      headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.initialize();

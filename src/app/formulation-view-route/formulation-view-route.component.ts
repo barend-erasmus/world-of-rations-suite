@@ -44,12 +44,8 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.get(`${environment.api.uri}/formulation/find?id=${formulationId}`, {
-      headers,
+      headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.formulation = json;
@@ -85,12 +81,8 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.get(`${environment.api.uri}/formulation/composition?id=${formulationId}`, {
-      headers,
+      headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.formulationCompositionValues = json;
@@ -103,12 +95,8 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.get(`${environment.api.uri}/formulation/supplement?id=${formulationId}`, {
-      headers,
+      headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.supplement = json;

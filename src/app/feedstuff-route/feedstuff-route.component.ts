@@ -24,7 +24,7 @@ export class FeedstuffRouteComponent extends BaseComponent implements OnInit {
       if (this.subscription.permissions.indexOf('view-ingredient') > -1) {
         this.loadIngredients();
       }
-    })
+    });
   }
 
   private loadIngredients(): void {

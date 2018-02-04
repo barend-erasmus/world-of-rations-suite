@@ -77,16 +77,12 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.post(`${environment.api.uri}/formulation/create`, {
       diet: this.selectedDiet,
       formulationIngredients: this.formulationIngredients,
       mixWeight: this.mixWeight,
     }, {
-        headers,
+        headers: this.getHeaders(),
       })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.result = json;
@@ -154,13 +150,9 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.get(`${environment.api.uri}/diet/list` +
       `?dietGroupId=${this.dietGroupDropdowns[this.dietGroupDropdowns.length - 1].selectedItem.id}`, {
-        headers,
+        headers: this.getHeaders(),
       })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.diets = json;
@@ -177,12 +169,8 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.get(`${environment.api.uri}/dietgroup/list${dietGroupParentId ? `?dietGroupId=${dietGroupParentId}` : ''}`, {
-      headers,
+      headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         if (json.length > 0) {
@@ -216,13 +204,9 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
   private loadSuggestedValue(formulationIngredient: any): void {
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.get(`${environment.api.uri}/formulation/suggestedValue` +
       `?dietId=${this.selectedDiet.id}&ingredientId=${formulationIngredient.ingredient.id}`, {
-        headers,
+        headers: this.getHeaders(),
       })
       .map((res: Response) => res.json()).subscribe((json) => {
 
@@ -236,12 +220,8 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.get(`${environment.api.uri}/ingredient/list`, {
-      headers,
+      headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.ingredients = json;

@@ -31,12 +31,8 @@ export class HomeRouteComponent extends BaseComponent implements OnInit {
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.get(`${environment.api.uri}/formulation/list`, {
-      headers,
+      headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.formulations = json;

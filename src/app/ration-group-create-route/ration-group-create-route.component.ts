@@ -6,15 +6,14 @@ import { Http, Response, Headers } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'app-ration-group-create-route',
   templateUrl: './ration-group-create-route.component.html',
   styleUrls: ['./ration-group-create-route.component.css']
 })
-export class RationGroupCreateRouteComponent implements OnInit {
-
-  public user: any = {};
+export class RationGroupCreateRouteComponent extends BaseComponent implements OnInit {
 
   public dietGroup: any = {};
 
@@ -22,17 +21,17 @@ export class RationGroupCreateRouteComponent implements OnInit {
 
   public messages: string[] = [];
 
-  constructor(private http: Http, private router: Router, private route: ActivatedRoute, private loaderService: LoaderService) {
-    this.loaderService.reset();
+  constructor(http: Http, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+    super(http, loaderService);
   }
 
   public ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-
     this.route.params.subscribe(params => {
-      if (params['dietGroupId']) {
-        this.loadParentDietGroup(params['dietGroupId']);
-      }
+      this.initialize().then(() => {
+        if (params['dietGroupId']) {
+          this.loadParentDietGroup(params['dietGroupId']);
+        }
+      });
     });
   }
 
@@ -52,12 +51,8 @@ export class RationGroupCreateRouteComponent implements OnInit {
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.post(`${environment.api.uri}/dietgroup/create`, this.dietGroup, {
-      headers,
+      headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.router.navigateByUrl(`/ration/groups/${this.parentDietGroup ? `/edit/${this.parentDietGroup.id}` : ''}`);
@@ -71,12 +66,8 @@ export class RationGroupCreateRouteComponent implements OnInit {
 
     this.loaderService.startRequest();
 
-    const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
-
     this.http.get(`${environment.api.uri}/dietgroup/find?id=${dietGroupId}`, {
-      headers,
+      headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.parentDietGroup = json;

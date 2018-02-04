@@ -23,7 +23,6 @@ export class BaseComponent {
 
   protected getHeaders(): Headers {
     const headers = new Headers();
-    headers.append('x-application-id', environment.application.id.toString());
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
     return headers;

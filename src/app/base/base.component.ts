@@ -36,6 +36,10 @@ export class BaseComponent {
       this.loadUser(),
     ]).then((results: any[]) => {
       this.subscription = results[0];
+
+      this.subscription.expiryTimestamp = new Date(this.subscription.expiryTimestamp);
+      this.subscription.startTimestamp = this.subscription.startTimestamp ? new Date(this.subscription.startTimestamp) : null;
+
       this.user = results[1];
 
       this.loaderService.endRequest();

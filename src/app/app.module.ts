@@ -28,6 +28,7 @@ import { ProfileRouteComponent } from './profile-route/profile-route.component';
 import { TipsRouteComponent } from './tips-route/tips-route.component';
 import { FormulationViewRouteComponent } from './formulation-view-route/formulation-view-route.component';
 import { BaseComponent } from './base/base.component';
+import { MessagesComponent } from './messages/messages.component';
 
 const appRoutes: Routes = [
   {
@@ -179,6 +180,7 @@ const appRoutes: Routes = [
     TipsRouteComponent,
     FormulationViewRouteComponent,
     BaseComponent,
+    MessagesComponent,
   ],
   imports: [
     BrowserModule,

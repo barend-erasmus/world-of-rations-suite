@@ -29,6 +29,7 @@ import { TipsRouteComponent } from './tips-route/tips-route.component';
 import { FormulationViewRouteComponent } from './formulation-view-route/formulation-view-route.component';
 import { BaseComponent } from './base/base.component';
 import { MessagesComponent } from './messages/messages.component';
+import { SafeHtmlPipe } from './safe-html.pipe';
 
 const appRoutes: Routes = [
   {
@@ -181,6 +182,7 @@ const appRoutes: Routes = [
     FormulationViewRouteComponent,
     BaseComponent,
     MessagesComponent,
+    SafeHtmlPipe,
   ],
   imports: [
     BrowserModule,

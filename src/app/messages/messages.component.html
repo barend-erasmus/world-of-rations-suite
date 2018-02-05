@@ -1,1 +1,1 @@
-<div *ngFor="let message of messages" class="alert alert-{{ message.type }}" role="alert">{{ message.text }}</div>
+<div *ngFor="let message of messages" class="alert alert-{{ message.type }}" role="alert" [innerHTML]="message.text | safeHtml"></div>

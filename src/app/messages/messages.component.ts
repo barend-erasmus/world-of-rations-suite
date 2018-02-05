@@ -26,7 +26,7 @@ export class MessagesComponent extends BaseComponent implements OnInit {
   private buildMessages(): void {
     if (this.subscription.expired && this.subscription.expiryTimestamp && this.subscription.expiryTimestamp.getTime() < new Date().getTime()) {
       this.messages.push({
-        text: `Your ${this.subscription.type.toUpperCase()} Subscription has expired on ${moment(this.subscription.expiryTimestamp).format('DD MMMM YYYY')}.`,
+        text: `Your ${this.subscription.type.toUpperCase()} Subscription has expired on ${moment(this.subscription.expiryTimestamp).format('DD MMMM YYYY')}. <a href="/billing">Go to Billing</a>`,
         type: 'danger',
       });
     } else if (moment.duration(this.subscription.expiryTimestamp.getTime() - new Date().getTime()).days() <= 10)  {

@@ -5,8 +5,13 @@
     </a>
   </li>
   <li>
-    <a href="/profile">
-      <span class="nav-label"  *ngIf="subscription.permissions.indexOf('view-profile') > -1">Profile</span>
+    <a href="/profile" *ngIf="subscription.permissions.indexOf('view-profile') > -1">
+      <span class="nav-label">Profile</span>
+    </a>
+  </li>
+  <li>
+    <a href="/billing" *ngIf="subscription.permissions.indexOf('view-billing') > -1">
+      <span class="nav-label">Billing</span>
     </a>
   </li>
   <li>
@@ -30,8 +35,8 @@
     </a>
   </li>
   <li>
-      <a href="/formulator" *ngIf="subscription.permissions.indexOf('create-formulation') > -1">
-        <span class="nav-label">Least-Cost Ration Formulator</span>
-      </a>
-    </li>
+    <a href="/formulator" *ngIf="subscription.permissions.indexOf('create-formulation') > -1">
+      <span class="nav-label">Least-Cost Ration Formulator</span>
+    </a>
+  </li>
 </ul>

@@ -35,10 +35,10 @@ export class AuthGuard implements CanActivate {
             observer.complete();
           }, (err) => {
             window.location.href =
-              `https://developersworkspace.auth0.com/authorize?` +
+              `https://worldofrations.auth0.com/authorize?` +
               `scope=openid%20email%20profile&` +
               `response_type=token&` +
-              `client_id=dEzOh3cW5PUCb2H0fLUp7LH3j5Tegzd8&` +
+              `client_id=qVN7NLKDr9ap_tFr3Ri9CZlQrnkcdEwf&` +
               `redirect_uri=${environment.application.uri}/login`;
 
             observer.next(false);
@@ -46,10 +46,10 @@ export class AuthGuard implements CanActivate {
           });
       } else {
         window.location.href =
-          `https://developersworkspace.auth0.com/authorize?` +
+          `https://worldofrations.auth0.com/authorize?` +
           `scope=openid%20email%20profile&` +
           `response_type=token&` +
-          `client_id=dEzOh3cW5PUCb2H0fLUp7LH3j5Tegzd8&` +
+          `client_id=qVN7NLKDr9ap_tFr3Ri9CZlQrnkcdEwf&` +
           `redirect_uri=${environment.application.uri}/login`;
 
         observer.next(false);

@@ -153,6 +153,13 @@ const appRoutes: Routes = [
     ],
   },
   {
+    path: 'billing',
+    component: BillingRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
     path: 'login',
     component: LoginRouteComponent,
   },

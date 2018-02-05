@@ -1,3 +1,227 @@
-<p>
-  billing-route works!
-</p>
+<app-header></app-header>
+<div *ngIf="user != null" id="wrapper">
+  <div class="content">
+    <div class="row">
+      <div class="col-lg-12 text-center welcome-message">
+        <h2>
+          Billing
+        </h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="hpanel">
+          <div class="panel-heading">
+            Payments
+          </div>
+          <div class="panel-body">
+            <table class="table">
+              <tr>
+                <th>Subscription</th>
+                <th>Period</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+              <tr *ngFor="let payment of payments">
+                <td>{{ payment.subscription | uppercase }}</td>
+                <td>{{ payment.period }} days</td>
+                <td>
+                  <span *ngIf="!payment.paid" class="label label-warning">Unpaid</span>
+                  <span *ngIf="payment.paid" class="label label-success">Paid</span>
+                  <span *ngIf="payment.assigned" class="label label-primary">Assigned</span>
+                </td>
+                <td>
+                  <a *ngIf="!payment.paid" href="{{ payment.redirectUri }}" class="btn btn-primary">Pay</a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="hpanel plan-box hgreen">
+          <div class="panel-heading hbuilt text-center">
+            <h4 class="font-bold">Basic plan</h4>
+          </div>
+          <div class="panel-body">
+            <p class="text-muted">
+              Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.
+            </p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <td>
+                    Features
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <i class="fa fa-check-square-o"></i> Custom Ration Groups
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa fa-check-square-o"></i> Custom Rations
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa fa-check-square-o"></i> Custom Feedstuffs
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa fa-check-square-o"></i> Suggested Values For Feedstuffs
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa fa-square-o"></i> Formulation Composition
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa fa-square-o"></i> Formulation Supplement Mix
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="text-muted">
+              Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.
+            </p>
+            <h3 class="font-bold">
+              FREE
+            </h3>
+            <a href="#" class="btn btn-success btn-sm m-t-xs">Select plan</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="hpanel plan-box hblue active">
+          <div class="panel-heading hbuilt text-center">
+            <h4 class="font-bold">Standard plan</h4>
+          </div>
+          <div class="panel-body">
+            <p class="text-muted">
+              Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.
+            </p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <td>
+                    Features
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <i class="fa fa-check-square-o"></i> Custom Ration Groups
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa fa-check-square-o"></i> Custom Rations
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa fa-check-square-o"></i> Custom Feedstuffs
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa fa-check-square-o"></i> Suggested Values For Feedstuffs
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa fa-check-square-o"></i> Formulation Composition
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa fa-square-o"></i> Formulation Supplement Mix
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="text-muted">
+              Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.
+            </p>
+            <h3 class="font-bold">
+              $9.95/month
+            </h3>
+            <button (click)="selectSubscription('standard')" class="btn btn-info btn-sm m-t-xs">Select plan</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="hpanel plan-box hred">
+          <div class="panel-heading hbuilt text-center">
+            <h4 class="font-bold">Premium plan</h4>
+          </div>
+          <div class="panel-body">
+            <p class="text-muted">
+              Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.
+            </p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <td>
+                    Features
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <i class="fa fa-check-square-o"></i> Custom Ration Groups
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa fa-check-square-o"></i> Custom Rations
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa fa-check-square-o"></i> Custom Feedstuffs
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa fa-check-square-o"></i> Suggested Values For Feedstuffs
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa fa-check-square-o"></i> Formulation Composition
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa fa-check-square-o"></i> Formulation Supplement Mix
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="text-muted">
+              Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.
+            </p>
+            <h3 class="font-bold">
+              $19.95/month
+            </h3>
+            <button (click)="selectSubscription('premium')" class="btn btn-info btn-sm m-t-xs">Select plan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>
+<app-loader></app-loader>

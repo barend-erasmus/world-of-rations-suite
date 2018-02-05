@@ -32,6 +32,7 @@
                 </td>
                 <td>
                   <a *ngIf="!payment.paid" href="{{ payment.redirectUri }}" class="btn btn-primary">Pay</a>
+                  <button *ngIf="payment.paid && !payment.assigned" (click)="onClick_Assign(payment.subscription)" class="btn btn-primary">Assign</button>
                 </td>
               </tr>
             </table>
@@ -96,7 +97,7 @@
             <h3 class="font-bold">
               FREE
             </h3>
-            <a href="#" class="btn btn-success btn-sm m-t-xs">Select plan</a>
+            <button (click)="selectSubscription('basic')" class="btn btn-success btn-sm m-t-xs">Select plan</button>
           </div>
         </div>
       </div>
@@ -216,7 +217,7 @@
             <h3 class="font-bold">
               $19.95/month
             </h3>
-            <button (click)="selectSubscription('premium')" class="btn btn-info btn-sm m-t-xs">Select plan</button>
+            <button (click)="selectSubscription('premium')" class="btn btn-danger btn-sm m-t-xs">Select plan</button>
           </div>
         </div>
       </div>

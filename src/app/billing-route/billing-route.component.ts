@@ -16,14 +16,35 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
 
   public payments: any[] = [];
 
-  constructor(http: Http, loaderService: LoaderService) {
+  constructor(http: Http, loaderService: LoaderService, private route: ActivatedRoute) {
     super(http, loaderService);
   }
 
   public ngOnInit(): void {
-    this.initialize().then(() => {
-      this.loadPayments();
+    this.route.queryParams.subscribe(params => {
+      if (params['paymentId']) {
+        this.initialize().then(() => {
+          this.verifyPayment(params['paymentId']);
+        });
+      } else {
+        this.initialize().then(() => {
+          this.loadPayments();
+        });
+      }
     });
+  }
+
+  public onClick_Assign(subscription: string): void {
+    this.loaderService.startRequest();
+
+    this.http.get(`${environment.api.uri}/subscription/change?subscription=${subscription}`, {
+      headers: this.getHeaders(),
+    })
+      .map((res: Response) => res.json()).subscribe((json) => {
+        window.location.reload();
+
+        this.loaderService.endRequest();
+      });
   }
 
   private loadPayments(): void {
@@ -41,6 +62,12 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
   }
 
   private selectSubscription(subscription: string): void {
+
+    if (subscription !== 'standard' && subscription !== 'premium') {
+      this.onClick_Assign(subscription);
+      return;
+    }
+
     this.loaderService.startRequest();
 
     this.http.get(`${environment.api.uri}/payment/create?subscription=${subscription}`, {
@@ -48,6 +75,19 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         window.location.href = json.uri;
+
+        this.loaderService.endRequest();
+      });
+  }
+
+  private verifyPayment(id: string): void {
+    this.loaderService.startRequest();
+
+    this.http.get(`${environment.api.uri}/payment/verify?id=${id}`, {
+      headers: this.getHeaders(),
+    })
+      .map((res: Response) => res.json()).subscribe((json) => {
+        this.loadPayments();
 
         this.loaderService.endRequest();
       });

@@ -30,6 +30,7 @@ import { FormulationViewRouteComponent } from './formulation-view-route/formulat
 import { BaseComponent } from './base/base.component';
 import { MessagesComponent } from './messages/messages.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
+import { BillingRouteComponent } from './billing-route/billing-route.component';
 
 const appRoutes: Routes = [
   {
@@ -183,6 +184,7 @@ const appRoutes: Routes = [
     BaseComponent,
     MessagesComponent,
     SafeHtmlPipe,
+    BillingRouteComponent,
   ],
   imports: [
     BrowserModule,

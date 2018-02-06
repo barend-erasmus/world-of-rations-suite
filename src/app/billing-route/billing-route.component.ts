@@ -80,10 +80,10 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
       });
   }
 
-  private verifyPayment(id: string): void {
+  private verifyPayment(paymentId: string): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/payment/verify?id=${id}`, {
+    this.http.get(`${environment.api.uri}/payment/verify?paymentId=${paymentId}`, {
       headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {

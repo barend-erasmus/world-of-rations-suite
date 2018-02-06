@@ -11,7 +11,7 @@ import { LoaderService } from '../loader.service';
 export class HeaderComponent extends BaseComponent implements OnInit {
 
   constructor(http: Http, loaderService: LoaderService) {
-    super(http, loaderService);
+    super(http, loaderService, false);
   }
 
   public ngOnInit(): void {

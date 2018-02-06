@@ -17,7 +17,7 @@ export class ProfileRouteComponent extends BaseComponent implements OnInit {
   public messages: string[] = [];
 
   constructor(http: Http, loaderService: LoaderService) {
-    super(http, loaderService);
+    super(http, loaderService, true);
   }
 
   public ngOnInit(): void {

@@ -32,7 +32,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
   public result: any = null;
 
   constructor(http: Http, loaderService: LoaderService, private route: ActivatedRoute) {
-    super(http, loaderService);
+    super(http, loaderService, true);
   }
 
   public ngOnInit(): void {

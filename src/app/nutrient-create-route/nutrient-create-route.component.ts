@@ -19,7 +19,7 @@ export class NutrientCreateRouteComponent extends BaseComponent implements OnIni
   public messages: string[] = [];
 
   constructor(http: Http, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
-    super(http, loaderService);
+    super(http, loaderService, true);
   }
 
   public ngOnInit(): void {

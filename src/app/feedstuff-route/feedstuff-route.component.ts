@@ -16,7 +16,7 @@ export class FeedstuffRouteComponent extends BaseComponent implements OnInit {
   public ingredients: any[] = [];
 
   constructor(http: Http, loaderService: LoaderService) {
-    super(http, loaderService);
+    super(http, loaderService, true);
   }
 
   public ngOnInit(): void {

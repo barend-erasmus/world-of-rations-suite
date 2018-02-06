@@ -16,7 +16,7 @@ export class NutrientRouteComponent extends BaseComponent implements OnInit {
   public nutrients: any[] = [];
 
   constructor(http: Http, loaderService: LoaderService) {
-    super(http, loaderService);
+    super(http, loaderService, true);
   }
 
   public ngOnInit(): void {

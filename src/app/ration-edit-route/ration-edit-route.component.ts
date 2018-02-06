@@ -22,7 +22,7 @@ export class RationEditRouteComponent extends BaseComponent implements OnInit {
   public messages: string[] = [];
 
   constructor(http: Http, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
-    super(http, loaderService);
+    super(http, loaderService, true);
   }
 
   public ngOnInit(): void {

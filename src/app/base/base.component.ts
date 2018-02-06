@@ -17,8 +17,10 @@ export class BaseComponent {
   public subscription: any = null;
   public user: any = null;
 
-  constructor(protected http: Http, protected loaderService: LoaderService) {
-    this.loaderService.reset();
+  constructor(protected http: Http, protected loaderService: LoaderService, isRouteCompoment: boolean) {
+    if (isRouteCompoment) {
+      this.loaderService.reset();
+    }
   }
 
   protected getHeaders(): Headers {

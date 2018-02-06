@@ -21,7 +21,7 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
   public supplement: any = [];
 
   constructor(http: Http, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
-    super(http, loaderService);
+    super(http, loaderService, true);
   }
 
   public ngOnInit(): void {

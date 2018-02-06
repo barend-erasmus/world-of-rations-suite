@@ -17,7 +17,7 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
   public payments: any[] = [];
 
   constructor(http: Http, loaderService: LoaderService, private route: ActivatedRoute) {
-    super(http, loaderService);
+    super(http, loaderService, true);
   }
 
   public ngOnInit(): void {
@@ -75,8 +75,6 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         window.location.href = json.uri;
-
-        this.loaderService.endRequest();
       });
   }
 

@@ -18,7 +18,7 @@ export class RationGroupRouteComponent extends BaseComponent implements OnInit {
   public dietGroups: any[] = [];
 
   constructor(http: Http, loaderService: LoaderService) {
-    super(http, loaderService);
+    super(http, loaderService, true);
   }
 
   public ngOnInit(): void {

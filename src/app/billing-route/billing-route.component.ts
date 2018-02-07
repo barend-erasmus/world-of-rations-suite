@@ -61,6 +61,26 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
       });
   }
 
+  private loadPaymentsAndAssign(): void {
+
+    this.loaderService.startRequest();
+
+    this.http.get(`${environment.api.uri}/payment/list`, {
+      headers: this.getHeaders(),
+    })
+      .map((res: Response) => res.json()).subscribe((json) => {
+        this.payments = json;
+
+        const unassignedPayment = this.payments.find((x) => x.paid && !x.assigned);
+
+        if (unassignedPayment) {
+          this.onClick_Assign(unassignedPayment.subscription);
+        }
+
+        this.loaderService.endRequest();
+      });
+  }
+
   private selectSubscription(subscription: string): void {
 
     if (subscription !== 'standard' && subscription !== 'premium') {
@@ -85,7 +105,7 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
       headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
-        this.loadPayments();
+        this.loadPaymentsAndAssign();
 
         this.loaderService.endRequest();
       });

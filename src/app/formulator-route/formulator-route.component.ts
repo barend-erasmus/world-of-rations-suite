@@ -228,7 +228,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
 
         this.formulationIngredients = [
           {
-            ingredient: this.ingredients.find((x) => x.name === 'Alfalfa Hay, Dehy 17% Cp'),
+            ingredient: this.ingredients.find((x) => x.name === 'Alfalfa Hay, Dehydrated, 17% Crude Protein'),
             cost: 2300,
             minimum: 0,
             maximum: this.mixWeight,
@@ -270,14 +270,14 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
             weight: null,
           },
           {
-            ingredient: this.ingredients.find((x) => x.name === 'Cottonseed O/c Meal, Mech Extr'),
+            ingredient: this.ingredients.find((x) => x.name === 'Cottonseed O/C Meal, Mech Extr.'),
             cost: 7000,
             minimum: 0,
             maximum: this.mixWeight * 0.120,
             weight: null,
           },
           {
-            ingredient: this.ingredients.find((x) => x.name === 'Urea 46% Nitrogen'),
+            ingredient: this.ingredients.find((x) => x.name === 'Urea, 46% Nitrogen'),
             cost: 6000,
             minimum: 0,
             maximum: this.mixWeight * 0.004,
@@ -326,7 +326,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
             weight: null,
           },
           {
-            ingredient: this.ingredients.find((x) => x.name === 'S, As Ammonium Sulphate ((NH4)2SO4)'),
+            ingredient: this.ingredients.find((x) => x.name === 'Sulphur, As Ammonium Sulphate ((NH4)2SO4)'),
             cost: 5000,
             minimum: 0,
             maximum: this.mixWeight,

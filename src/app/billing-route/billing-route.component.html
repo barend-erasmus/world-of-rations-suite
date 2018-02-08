@@ -10,6 +10,20 @@
     </div>
     <div class="row">
       <div class="col-lg-12">
+        <div class="hpanel hbgblue">
+          <div class="panel-body">
+            <div class="text-center">
+              <h3>You are currently on our {{ subscription.type | uppercase }} Plan</h3>
+              <p class="text-big font-light">
+                Ends on {{ subscription.expiryTimestamp | date: 'dd MMM yyyy' }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
         <div class="hpanel">
           <div class="panel-heading">
             Payments
@@ -27,7 +41,7 @@
                 <td>{{ payment.period }} days</td>
                 <td>
                   <span *ngIf="!payment.paid" class="label label-warning">Unpaid</span>
-                  <span *ngIf="payment.paid" class="label label-success">Paid</span>
+                  <span *ngIf="payment.paid" class="label label-success">Paid ({{ payment.paidTimestamp | date: 'yyyy-MM-dd HH:mm' }})</span>
                   <span *ngIf="payment.assigned" class="label label-primary">Assigned</span>
                 </td>
                 <td>

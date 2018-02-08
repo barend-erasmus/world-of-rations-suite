@@ -57,11 +57,15 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
       .map((res: Response) => res.json()).subscribe((json) => {
         this.payments = json;
 
+        this.payments.forEach((payment) => {
+          payment.paidTimestamp = new Date(payment.paidTimestamp);
+        });
+
         this.loaderService.endRequest();
       });
   }
 
-  private loadPaymentsAndAssign(): void {
+  private loadPaymentsAndAssign(paymentId: string): void {
 
     this.loaderService.startRequest();
 
@@ -71,7 +75,11 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
       .map((res: Response) => res.json()).subscribe((json) => {
         this.payments = json;
 
-        const unassignedPayment = this.payments.find((x) => x.paid && !x.assigned);
+        this.payments.forEach((payment) => {
+          payment.paidTimestamp = new Date(payment.paidTimestamp);
+        });
+
+        const unassignedPayment = this.payments.find((x) => x.paymentId === paymentId && x.paid && !x.assigned);
 
         if (unassignedPayment) {
           this.onClick_Assign(unassignedPayment.subscription);
@@ -105,7 +113,7 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
       headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
-        this.loadPaymentsAndAssign();
+        this.loadPaymentsAndAssign(paymentId);
 
         this.loaderService.endRequest();
       });

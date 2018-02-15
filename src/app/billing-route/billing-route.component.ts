@@ -14,6 +14,7 @@ import { BaseComponent } from '../base/base.component';
 })
 export class BillingRouteComponent extends BaseComponent implements OnInit {
 
+  public paidPayments: any[] = [];
   public payments: any[] = [];
 
   constructor(http: Http, loaderService: LoaderService, private route: ActivatedRoute) {
@@ -32,12 +33,6 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
         });
       }
     });
-  }
-
-  public isUrl(str: string): boolean {
-    const result: boolean = str.startsWith('http');
-
-    return result;
   }
 
   public onClick_Assign(subscription: string): void {
@@ -66,11 +61,7 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
       headers: this.getHeaders(),
     })
       .map((res: Response) => res.json()).subscribe((json) => {
-        if (this.isUrl(json.uri)) {
-          window.location.href = json.uri;
-        }else {
-          this.redirectPost(json.uri);
-        }        
+        window.location.href = json.uri;
       });
   }
 
@@ -83,6 +74,7 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.payments = json;
+        this.paidPayments = this.payments.filter((payment) => payment.paid);
 
         this.payments.forEach((payment) => {
           payment.paidTimestamp = new Date(payment.paidTimestamp);
@@ -101,6 +93,7 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
     })
       .map((res: Response) => res.json()).subscribe((json) => {
         this.payments = json;
+        this.paidPayments = this.payments.filter((payment) => payment.paid);
 
         this.payments.forEach((payment) => {
           payment.paidTimestamp = new Date(payment.paidTimestamp);
@@ -119,8 +112,8 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
   private createElementFromHTML(html: string): any {
     const div = document.createElement('div');
     div.innerHTML = html.trim();
-  
-    return div.firstChild; 
+
+    return div.firstChild;
   }
 
   private redirectPost(form: string): void {
@@ -129,7 +122,7 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
     document.body.appendChild(element);
     element.submit();
   }
-  
+
 
   private verifyPayment(paymentId: string): void {
     this.loaderService.startRequest();

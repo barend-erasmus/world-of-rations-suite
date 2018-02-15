@@ -42,22 +42,20 @@
             <table class="table">
               <tr>
                 <th>Subscription</th>
+                <th>Amount</th>
                 <th>Period</th>
                 <th>Status</th>
                 <th></th>
               </tr>
-              <tr *ngFor="let payment of payments">
+              <tr *ngFor="let payment of paidPayments">
                 <td>{{ payment.subscription | uppercase }}</td>
+                <td>{{ payment.amount }} {{ payment.currency }}</td>
                 <td>{{ payment.period }} days</td>
                 <td>
-                  <span *ngIf="!payment.paid" class="label label-warning">Unpaid</span>
                   <span *ngIf="payment.paid" class="label label-success">Paid ({{ payment.paidTimestamp | date: 'yyyy-MM-dd HH:mm' }})</span>
                   <span *ngIf="payment.assigned" class="label label-primary">Assigned</span>
                 </td>
                 <td>
-                  <a *ngIf="isUrl(payment.redirectUri) && !payment.paid" href="{{ payment.redirectUri }}" class="btn btn-primary">Pay</a>
-                  <div *ngIf="!isUrl(payment.redirectUri) && !payment.paid" [innerHtml]="payment.redirectUri | safeHtml">
-                  </div>
                   <button *ngIf="payment.paid && !payment.assigned" (click)="onClick_Assign(payment.subscription)" class="btn btn-primary">Assign</button>
                 </td>
               </tr>

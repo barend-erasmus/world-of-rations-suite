@@ -188,7 +188,6 @@ const appRoutes: Routes = [
     ProfileRouteComponent,
     TipsRouteComponent,
     FormulationViewRouteComponent,
-    BaseComponent,
     MessagesComponent,
     SafeHtmlPipe,
     BillingRouteComponent,

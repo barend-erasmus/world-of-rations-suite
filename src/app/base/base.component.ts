@@ -1,4 +1,3 @@
-import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -7,11 +6,11 @@ import { LoaderService } from '../loader.service';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 
-@Component({
-  selector: 'app-base',
-  templateUrl: './base.component.html',
-  styleUrls: ['./base.component.css']
-})
+// @Component({
+//   selector: 'app-base',
+//   templateUrl: './base.component.html',
+//   styleUrls: ['./base.component.css']
+// })
 export class BaseComponent {
 
   public subscription: any = null;

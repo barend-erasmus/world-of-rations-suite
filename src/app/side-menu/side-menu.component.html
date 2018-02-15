@@ -4,38 +4,38 @@
       <span class="nav-label">Dashboard</span>
     </a>
   </li>
-  <li>
-    <a href="/profile" *ngIf="subscription.permissions.indexOf('view-profile') > -1">
+  <li *ngIf="subscription.permissions.indexOf('view-profile') > -1">
+    <a href="/profile">
       <span class="nav-label">Profile</span>
     </a>
   </li>
-  <li>
-    <a href="/billing" *ngIf="subscription.permissions.indexOf('view-billing') > -1">
+  <li *ngIf="subscription.permissions.indexOf('view-billing') > -1">
+    <a href="/billing">
       <span class="nav-label">Billing</span>
     </a>
   </li>
-  <li>
-    <a href="/nutrients" *ngIf="subscription.permissions.indexOf('create-nutrient') > -1 || subscription.permissions.indexOf('view-nutrient') > -1 || subscription.permissions.indexOf('update-nutrient') > -1">
+  <li *ngIf="subscription.permissions.indexOf('create-nutrient') > -1 || subscription.permissions.indexOf('view-nutrient') > -1 || subscription.permissions.indexOf('update-nutrient') > -1">
+    <a href="/nutrients">
       <span class="nav-label">Manage Nutrients</span>
     </a>
   </li>
-  <li>
-    <a href="/ration/groups" *ngIf="subscription.permissions.indexOf('create-diet-group') > -1 || subscription.permissions.indexOf('view-diet-group') > -1 || subscription.permissions.indexOf('update-diet-group') > -1">
+  <li *ngIf="subscription.permissions.indexOf('create-diet-group') > -1 || subscription.permissions.indexOf('view-diet-group') > -1 || subscription.permissions.indexOf('update-diet-group') > -1">
+    <a href="/ration/groups">
       <span class="nav-label">Manage Rations</span>
     </a>
   </li>
-  <li>
-    <a href="/feedstuffs" *ngIf="subscription.permissions.indexOf('create-diet') > -1 || subscription.permissions.indexOf('view-diet') > -1 || subscription.permissions.indexOf('update-diet') > -1">
+  <li *ngIf="subscription.permissions.indexOf('create-diet') > -1 || subscription.permissions.indexOf('view-diet') > -1 || subscription.permissions.indexOf('update-diet') > -1">
+    <a href="/feedstuffs">
       <span class="nav-label">Manage Feedstuffs</span>
     </a>
   </li>
-  <li>
-    <a href="/formulations" *ngIf="subscription.permissions.indexOf('create-formulation') > -1 || subscription.permissions.indexOf('view-formulation') > -1">
+  <li *ngIf="subscription.permissions.indexOf('create-formulation') > -1 || subscription.permissions.indexOf('view-formulation') > -1">
+    <a href="/formulations">
       <span class="nav-label">Manage Formulations</span>
     </a>
   </li>
-  <li>
-    <a href="/formulator" *ngIf="subscription.permissions.indexOf('create-formulation') > -1">
+  <li *ngIf="subscription.permissions.indexOf('create-formulation') > -1">
+    <a href="/formulator">
       <span class="nav-label">Least-Cost Ration Formulator</span>
     </a>
   </li>

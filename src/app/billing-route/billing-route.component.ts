@@ -34,6 +34,12 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
     });
   }
 
+  public isUrl(str: string): boolean {
+    const result: boolean = str.startsWith('http');
+
+    return result;
+  }
+
   public onClick_Assign(subscription: string): void {
     this.loaderService.startRequest();
 
@@ -44,6 +50,27 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
         window.location.reload();
 
         this.loaderService.endRequest();
+      });
+  }
+
+  public selectSubscription(subscription: string): void {
+
+    if (subscription !== 'standard' && subscription !== 'premium') {
+      this.onClick_Assign(subscription);
+      return;
+    }
+
+    this.loaderService.startRequest();
+
+    this.http.get(`${environment.api.uri}/payment/create?subscription=${subscription}`, {
+      headers: this.getHeaders(),
+    })
+      .map((res: Response) => res.json()).subscribe((json) => {
+        if (this.isUrl(json.uri)) {
+          window.location.href = json.uri;
+        }else {
+          this.redirectPost(json.uri);
+        }        
       });
   }
 
@@ -89,22 +116,20 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
       });
   }
 
-  private selectSubscription(subscription: string): void {
-
-    if (subscription !== 'standard' && subscription !== 'premium') {
-      this.onClick_Assign(subscription);
-      return;
-    }
-
-    this.loaderService.startRequest();
-
-    this.http.get(`${environment.api.uri}/payment/create?subscription=${subscription}`, {
-      headers: this.getHeaders(),
-    })
-      .map((res: Response) => res.json()).subscribe((json) => {
-        window.location.href = json.uri;
-      });
+  private createElementFromHTML(html: string): any {
+    const div = document.createElement('div');
+    div.innerHTML = html.trim();
+  
+    return div.firstChild; 
   }
+
+  private redirectPost(form: string): void {
+    const element = this.createElementFromHTML(form);
+
+    document.body.appendChild(element);
+    element.submit();
+  }
+  
 
   private verifyPayment(paymentId: string): void {
     this.loaderService.startRequest();

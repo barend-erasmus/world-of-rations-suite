@@ -204,7 +204,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
   private loadSuggestedValue(formulationIngredient: any): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/formulation/suggestedValue` +
+    this.http.get(`${environment.api.uri}/suggestedvalue/find` +
       `?dietId=${this.selectedDiet.id}&ingredientId=${formulationIngredient.ingredient.id}`, {
         headers: this.getHeaders(),
       })

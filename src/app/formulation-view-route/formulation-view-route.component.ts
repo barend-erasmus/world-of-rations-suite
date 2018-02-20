@@ -46,7 +46,6 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
       .subscribe((json: any) => {
         this.formulation = json;
 
-
         const groupChart: string[] = [];
 
         let group: any = this.formulation.diet.group;

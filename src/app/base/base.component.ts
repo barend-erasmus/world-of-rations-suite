@@ -21,8 +21,9 @@ export class BaseComponent {
   }
 
   protected getHeaders(): HttpHeaders {
-    const headers = new HttpHeaders();
-    headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`,
+    });
 
     return headers;
   }

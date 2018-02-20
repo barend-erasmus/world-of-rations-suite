@@ -39,9 +39,9 @@
                     <a href="/suggestedvalue/create" class="btn btn-primary">New Suggested Value</a>
                   </td>
                 </tr>
-                <tr *ngFor="let suggestedValue of suggestedValue">
+                <tr *ngFor="let suggestedValue of suggestedValues">
                   <td>{{ suggestedValue.ingredient.name }}</td>
-                  <td>{{ suggestedValue.dietGroup.name }}</td>
+                  <td>{{ suggestedValue.dietGroup.groupChart }}</td>
                   <td>{{ suggestedValue.minimum }}</td>
                   <td>{{ suggestedValue.maximum }}</td>
                   <td>

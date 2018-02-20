@@ -34,6 +34,22 @@ export class SuggestedValueRouteComponent extends BaseComponent implements OnIni
       .subscribe((json: any) => {
         this.suggestedValues = json;
 
+        for (const suggestedValue of this.suggestedValues) {
+          const groupChart: string[] = [];
+
+          let group: any = suggestedValue.dietGroup;
+
+          while (group) {
+            groupChart.push(group.name);
+
+            group = group.parent;
+          }
+
+          groupChart.reverse();
+
+          suggestedValue.dietGroup.groupChart = groupChart.join(' - ');
+        }
+
         this.loaderService.endRequest();
       });
   }

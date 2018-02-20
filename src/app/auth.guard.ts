@@ -20,11 +20,12 @@ export class AuthGuard implements CanActivate {
       const accessToken = localStorage.getItem('token');
 
       if (accessToken) {
-        const headers = new HttpHeaders();
-        headers.append('authorization', `Bearer ${accessToken}`);
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${accessToken}`,
+        });
 
         this.http.get(`${environment.api.uri}/user/info`, {
-          headers
+          headers,
         }).subscribe((json: any) => {
             this.user = json;
             localStorage.setItem('user', JSON.stringify(this.user));

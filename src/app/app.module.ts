@@ -164,6 +164,13 @@ const appRoutes: Routes = [
     path: 'login',
     component: LoginRouteComponent,
   },
+  {
+    path: 'suggestedvalue',
+    component: SuggestedValueRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
 ];
 
 @NgModule({

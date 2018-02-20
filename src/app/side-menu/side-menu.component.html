@@ -29,6 +29,11 @@
       <span class="nav-label">Manage Feedstuffs</span>
     </a>
   </li>
+  <li *ngIf="subscription.permissions.indexOf('create-suggested-value') > -1 || subscription.permissions.indexOf('view-suggested-value') > -1 || subscription.permissions.indexOf('update-suggested-value') > -1">
+    <a href="/suggestedvalue">
+      <span class="nav-label">Manage Suggested Values</span>
+    </a>
+  </li>
   <li *ngIf="subscription.permissions.indexOf('create-formulation') > -1 || subscription.permissions.indexOf('view-formulation') > -1">
     <a href="/formulations">
       <span class="nav-label">Manage Formulations</span>

@@ -31,6 +31,7 @@ import { BaseComponent } from './base/base.component';
 import { MessagesComponent } from './messages/messages.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
 import { BillingRouteComponent } from './billing-route/billing-route.component';
+import { SuggestedValueRouteComponent } from './suggested-value-route/suggested-value-route.component';
 
 const appRoutes: Routes = [
   {
@@ -191,6 +192,7 @@ const appRoutes: Routes = [
     MessagesComponent,
     SafeHtmlPipe,
     BillingRouteComponent,
+    SuggestedValueRouteComponent,
   ],
   imports: [
     BrowserModule,

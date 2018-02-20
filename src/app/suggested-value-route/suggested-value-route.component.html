@@ -4,14 +4,11 @@
     <div class="row">
       <div class="col-lg-12 text-center welcome-message">
         <h2>
-          Manage Nutrients
+          Manage Suggested Values
         </h2>
         <p>
-          A nutrient is a component in feeds that an animal uses to survive and grow, and is found in varying amounts in all feedstuffs.
-          The macronutrients - the first 56 in our list - provide the bulk of an animal's metabolic needs, while the rest,
-          the micronutrients, provide the necessary cofactors for metabolism to be carried out. Energy, although strictly
-          speaking not a nutrient, is derived and provided to the animal from the protein, fat, carbohydrate and amino acid
-          components of the macronutrients.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel pharetra nisi. Sed convallis magna quis facilisis suscipit.
+          Donec sollicitudin enim vel tortor dictum scelerisque. Morbi interdum hendrerit ullamcorper.
         </p>
       </div>
     </div>
@@ -19,30 +16,30 @@
       <div class="col-lg-12">
         <div class="hpanel">
           <div class="panel-heading">
-            List of Nutrients
+            List of Suggested Values
           </div>
           <div class="panel-body">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Abbreviation</th>
-                  <th>Name</th>
-                  <th>Unit</th>
-                  <th>Sort Order</th>
+                  <th>Ingredient</th>
+                  <th>Diet Group</th>
+                  <th>Minimum</th>
+                  <th>Maximum</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngIf="subscription.permissions.indexOf('create-nutrient') > -1">
+                <tr *ngIf="subscription.permissions.indexOf('create-suggested-value') > -1">
                   <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
                   <td>
-                    <a href="/nutrients/create" class="btn btn-primary">New Nutrient</a>
+                    <a href="/suggestedvalue/create" class="btn btn-primary">New Suggested Value</a>
                   </td>
                 </tr>
-                <tr *ngFor="let nutrient of nutrients">
+                <!-- <tr *ngFor="let nutrient of nutrients">
                   <td>{{ nutrient.abbreviation }}</td>
                   <td>{{ nutrient.name }}</td>
                   <td>{{ nutrient.unit }}</td>
@@ -50,7 +47,7 @@
                   <td>
                     <a href="/nutrients/edit/{{nutrient.id}}" class="btn btn-default" *ngIf="subscription.permissions.indexOf('view-nutrient') > -1">Edit</a>
                   </td>
-                </tr>
+                </tr> -->
               </tbody>
             </table>
           </div>

@@ -4,7 +4,6 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/forkJoin';
 import { LoaderService } from '../loader.service';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs/Observable';
 
 // @Component({
 //   selector: 'app-base',

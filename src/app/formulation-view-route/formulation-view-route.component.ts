@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
-import { Http, Response, Headers } from '@angular/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Http, Response } from '@angular/http';
+import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
@@ -20,7 +17,7 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
   public formulationCompositionValues: any[] = [];
   public supplement: any = [];
 
-  constructor(http: Http, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+  constructor(http: Http, private route: ActivatedRoute, loaderService: LoaderService) {
     super(http, loaderService, true);
   }
 

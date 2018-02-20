@@ -37,5 +37,4 @@ export class LoginRouteComponent implements OnInit {
       });
     }
   }
-
 }

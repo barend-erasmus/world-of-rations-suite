@@ -44,7 +44,6 @@ export class BaseComponent {
       this.user = results[1];
 
       this.loaderService.endRequest();
-
     });
   }
 

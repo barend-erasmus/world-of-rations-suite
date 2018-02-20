@@ -118,7 +118,6 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
   }
 
   public onChange_Ingredient(formulationIngredient: any): void {
-
     if (this.subscription.permissions.indexOf('view-suggested-value') === -1) {
       return;
     }
@@ -145,7 +144,6 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
   }
 
   private onDietGroupSelected(selectedId: number = null): void {
-
     this.loaderService.startRequest();
 
     this.http.get(`${environment.api.uri}/diet/list` +
@@ -164,7 +162,6 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
   }
 
   private loadDietGroupDropdown(dietGroupParentId: number, selectedIds: number[] = []): void {
-
     this.loaderService.startRequest();
 
     this.http.get(`${environment.api.uri}/dietgroup/list${dietGroupParentId ? `?dietGroupId=${dietGroupParentId}` : ''}`, {
@@ -215,7 +212,6 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
   }
 
   private loadIngredients(): void {
-
     this.loaderService.startRequest();
 
     this.http.get(`${environment.api.uri}/ingredient/list`, {

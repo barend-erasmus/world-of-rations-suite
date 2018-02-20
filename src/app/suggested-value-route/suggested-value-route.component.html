@@ -39,15 +39,15 @@
                     <a href="/suggestedvalue/create" class="btn btn-primary">New Suggested Value</a>
                   </td>
                 </tr>
-                <!-- <tr *ngFor="let nutrient of nutrients">
-                  <td>{{ nutrient.abbreviation }}</td>
-                  <td>{{ nutrient.name }}</td>
-                  <td>{{ nutrient.unit }}</td>
-                  <td>{{ nutrient.sortOrder }}</td>
+                <tr *ngFor="let suggestedValue of suggestedValue">
+                  <td>{{ suggestedValue.ingredient.name }}</td>
+                  <td>{{ suggestedValue.dietGroup.name }}</td>
+                  <td>{{ suggestedValue.minimum }}</td>
+                  <td>{{ suggestedValue.maximum }}</td>
                   <td>
-                    <a href="/nutrients/edit/{{nutrient.id}}" class="btn btn-default" *ngIf="subscription.permissions.indexOf('view-nutrient') > -1">Edit</a>
+                    <a href="/suggestedvalue/edit/{{suggestedValue.id}}" class="btn btn-default" *ngIf="subscription.permissions.indexOf('view-suggested-value') > -1">Edit</a>
                   </td>
-                </tr> -->
+                </tr>
               </tbody>
             </table>
           </div>

@@ -31,7 +31,6 @@ export class NutrientEditRouteComponent extends BaseComponent implements OnInit 
   }
 
   public onClick_Save(): void {
-
     this.messages = [];
 
     if (!this.nutrient.abbreviation) {
@@ -71,7 +70,6 @@ export class NutrientEditRouteComponent extends BaseComponent implements OnInit 
   }
 
   private loadNutrient(nutrientId: number): void {
-
     this.loaderService.startRequest();
 
     this.http.get(`${environment.api.uri}/nutrient/find?nutrientId=${nutrientId}`, {
@@ -83,5 +81,4 @@ export class NutrientEditRouteComponent extends BaseComponent implements OnInit 
         this.loaderService.endRequest();
       });
   }
-
 }

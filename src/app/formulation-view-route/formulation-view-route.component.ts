@@ -38,7 +38,6 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
   }
 
   private loadFormulation(formulationId: number): void {
-
     this.loaderService.startRequest();
 
     this.http.get(`${environment.api.uri}/formulation/find?id=${formulationId}`, {
@@ -75,7 +74,6 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
   }
 
   private loadFormulationCompositionValues(formulationId: number): void {
-
     this.loaderService.startRequest();
 
     this.http.get(`${environment.api.uri}/formulation/composition?id=${formulationId}`, {
@@ -89,7 +87,6 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
   }
 
   private loadFormulationSupplement(formulationId: number): void {
-
     this.loaderService.startRequest();
 
     this.http.get(`${environment.api.uri}/formulation/supplement?id=${formulationId}`, {
@@ -102,6 +99,5 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
       }, (error) => {
         this.loaderService.endRequest();
       });
-
   }
 }

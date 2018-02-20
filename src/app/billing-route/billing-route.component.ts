@@ -47,7 +47,6 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
   }
 
   public selectSubscription(subscription: string): void {
-
     if (subscription !== 'standard' && subscription !== 'premium') {
       this.onClick_Assign(subscription);
       return;
@@ -64,7 +63,6 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
   }
 
   private loadPayments(): void {
-
     this.loaderService.startRequest();
 
     this.http.get(`${environment.api.uri}/payment/list`, {
@@ -83,7 +81,6 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
   }
 
   private loadPaymentsAndAssign(paymentId: string): void {
-
     this.loaderService.startRequest();
 
     this.http.get(`${environment.api.uri}/payment/list`, {

@@ -11,5 +11,4 @@ export class SafeHtmlPipe implements PipeTransform {
   public transform(html: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
-
 }

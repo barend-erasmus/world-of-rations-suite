@@ -35,7 +35,6 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
   }
 
   public onClick_Save(): void {
-
     this.messages = [];
 
     if (!this.dietGroup.name) {
@@ -60,7 +59,6 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
 
 
   private loadDietGroup(dietGroupId: number): void {
-
     this.loaderService.startRequest();
 
     this.http.get(`${environment.api.uri}/dietgroup/find?id=${dietGroupId}`, {
@@ -91,7 +89,6 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
   }
 
   private loadSubDietGroups(): void {
-
     this.loaderService.startRequest();
 
     this.http.get(`${environment.api.uri}/dietgroup/list?dietGroupId=${this.dietGroup.id}`, {
@@ -105,7 +102,6 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
   }
 
   private loadDiets(): void {
-
     this.loaderService.startRequest();
 
     this.http.get(`${environment.api.uri}/diet/list?dietGroupId=${this.dietGroup.id}`, {

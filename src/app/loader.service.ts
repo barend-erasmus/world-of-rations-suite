@@ -27,7 +27,6 @@ export class LoaderService {
   }
 
   private setIsLoading(): void {
-
     if (this.counter < 0) {
       this.counter = 0;
     }
@@ -38,5 +37,4 @@ export class LoaderService {
       this.isLoading = false;
     }
   }
-
 }

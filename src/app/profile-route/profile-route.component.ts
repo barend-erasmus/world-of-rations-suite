@@ -25,7 +25,6 @@ export class ProfileRouteComponent extends BaseComponent implements OnInit {
   }
 
   public onClick_Save(): void {
-
     this.messages = [];
 
     if (!this.user.displayName) {

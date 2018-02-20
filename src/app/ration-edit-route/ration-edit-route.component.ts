@@ -33,7 +33,6 @@ export class RationEditRouteComponent extends BaseComponent implements OnInit {
   }
 
   public onClick_Save(): void {
-
     this.messages = [];
 
     if (!this.diet.name) {
@@ -57,7 +56,6 @@ export class RationEditRouteComponent extends BaseComponent implements OnInit {
   }
 
   private loadNutrients(): void {
-
     this.loaderService.startRequest();
 
     this.http.get(`${environment.api.uri}/nutrient/list`, {
@@ -84,7 +82,6 @@ export class RationEditRouteComponent extends BaseComponent implements OnInit {
   }
 
   private loadDiet(dietId: number): void {
-
     this.loaderService.startRequest();
 
     this.http.get(`${environment.api.uri}/diet/find?id=${dietId}`, {

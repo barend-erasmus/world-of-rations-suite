@@ -36,5 +36,4 @@ export class MessagesComponent extends BaseComponent implements OnInit {
       });
     }
   }
-
 }

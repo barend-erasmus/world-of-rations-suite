@@ -27,7 +27,6 @@ export class NutrientCreateRouteComponent extends BaseComponent implements OnIni
   }
 
   public onClick_Save(): void {
-
     this.messages = [];
 
     if (!this.nutrient.abbreviation) {

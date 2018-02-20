@@ -28,7 +28,6 @@ export class RationGroupRouteComponent extends BaseComponent implements OnInit {
   }
 
   private loadDietGroups(): void {
-
     this.loaderService.startRequest();
 
     this.http.get(`${environment.api.uri}/dietgroup/list`, {
@@ -44,5 +43,4 @@ export class RationGroupRouteComponent extends BaseComponent implements OnInit {
         this.loaderService.endRequest();
       });
   }
-
 }

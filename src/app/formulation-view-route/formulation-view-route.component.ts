@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
@@ -17,7 +17,7 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
   public formulationCompositionValues: any[] = [];
   public supplement: any = [];
 
-  constructor(http: Http, private route: ActivatedRoute, loaderService: LoaderService) {
+  constructor(http: HttpClient, private route: ActivatedRoute, loaderService: LoaderService) {
     super(http, loaderService, true);
   }
 
@@ -43,7 +43,7 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
     this.http.get(`${environment.api.uri}/formulation/find?id=${formulationId}`, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.formulation = json;
 
 
@@ -79,7 +79,7 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
     this.http.get(`${environment.api.uri}/formulation/composition?id=${formulationId}`, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.formulationCompositionValues = json;
 
         this.loaderService.endRequest();
@@ -92,7 +92,7 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
     this.http.get(`${environment.api.uri}/formulation/supplement?id=${formulationId}`, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.supplement = json;
 
         this.loaderService.endRequest();

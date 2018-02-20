@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Headers, Http, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { environment } from '../environments/environment';
 
@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
 
   private user: any;
 
-  constructor(private http: Http, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -20,13 +20,12 @@ export class AuthGuard implements CanActivate {
       const accessToken = localStorage.getItem('token');
 
       if (accessToken) {
-        const headers = new Headers();
+        const headers = new HttpHeaders();
         headers.append('authorization', `Bearer ${accessToken}`);
 
         this.http.get(`${environment.api.uri}/user/info`, {
           headers
-        })
-          .map((x) => x.json()).subscribe((json) => {
+        }).subscribe((json: any) => {
             this.user = json;
             localStorage.setItem('user', JSON.stringify(this.user));
 

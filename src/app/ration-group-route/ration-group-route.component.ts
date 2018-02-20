@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
@@ -15,7 +15,7 @@ export class RationGroupRouteComponent extends BaseComponent implements OnInit {
 
   public dietGroups: any[] = [];
 
-  constructor(http: Http, loaderService: LoaderService) {
+  constructor(http: HttpClient, loaderService: LoaderService) {
     super(http, loaderService, true);
   }
 
@@ -33,7 +33,7 @@ export class RationGroupRouteComponent extends BaseComponent implements OnInit {
     this.http.get(`${environment.api.uri}/dietgroup/list`, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         if (this.subscription.permissions.indexOf('super-user') > -1) {
           this.dietGroups = json;
         } else {

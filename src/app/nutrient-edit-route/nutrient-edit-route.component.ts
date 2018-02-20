@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
@@ -16,7 +16,7 @@ export class NutrientEditRouteComponent extends BaseComponent implements OnInit 
 
   public messages: string[] = [];
 
-  constructor(http: Http, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+  constructor(http: HttpClient, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
     super(http, loaderService, true);
   }
 
@@ -62,7 +62,7 @@ export class NutrientEditRouteComponent extends BaseComponent implements OnInit 
     this.http.post(`${environment.api.uri}/nutrient/update`, this.nutrient, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.router.navigateByUrl('/nutrients');
 
         this.loaderService.endRequest();
@@ -75,7 +75,7 @@ export class NutrientEditRouteComponent extends BaseComponent implements OnInit 
     this.http.get(`${environment.api.uri}/nutrient/find?nutrientId=${nutrientId}`, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.nutrient = json;
 
         this.loaderService.endRequest();

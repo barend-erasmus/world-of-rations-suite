@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
@@ -18,7 +18,7 @@ export class RationGroupCreateRouteComponent extends BaseComponent implements On
 
   public messages: string[] = [];
 
-  constructor(http: Http, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+  constructor(http: HttpClient, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
     super(http, loaderService, true);
   }
 
@@ -51,7 +51,7 @@ export class RationGroupCreateRouteComponent extends BaseComponent implements On
     this.http.post(`${environment.api.uri}/dietgroup/create`, this.dietGroup, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.router.navigateByUrl(`/ration/groups/${this.parentDietGroup ? `/edit/${this.parentDietGroup.id}` : ''}`);
 
         this.loaderService.endRequest();
@@ -66,7 +66,7 @@ export class RationGroupCreateRouteComponent extends BaseComponent implements On
     this.http.get(`${environment.api.uri}/dietgroup/find?id=${dietGroupId}`, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.parentDietGroup = json;
 
         const groupChart: string[] = [];

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
@@ -15,7 +15,7 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
   public paidPayments: any[] = [];
   public payments: any[] = [];
 
-  constructor(http: Http, loaderService: LoaderService, private route: ActivatedRoute) {
+  constructor(http: HttpClient, loaderService: LoaderService, private route: ActivatedRoute) {
     super(http, loaderService, true);
   }
 
@@ -39,7 +39,7 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
     this.http.get(`${environment.api.uri}/subscription/change?subscription=${subscription}`, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         window.location.reload();
 
         this.loaderService.endRequest();
@@ -56,10 +56,9 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
 
     this.http.get(`${environment.api.uri}/payment/create?subscription=${subscription}`, {
       headers: this.getHeaders(),
-    })
-      .map((res: Response) => res.json()).subscribe((json) => {
-        window.location.href = json.uri;
-      });
+    }).subscribe((json: any) => {
+      window.location.href = json.uri;
+    });
   }
 
   private loadPayments(): void {
@@ -67,17 +66,16 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
 
     this.http.get(`${environment.api.uri}/payment/list`, {
       headers: this.getHeaders(),
-    })
-      .map((res: Response) => res.json()).subscribe((json) => {
-        this.payments = json;
-        this.paidPayments = this.payments.filter((payment) => payment.paid);
+    }).subscribe((json: any) => {
+      this.payments = json;
+      this.paidPayments = this.payments.filter((payment) => payment.paid);
 
-        this.payments.forEach((payment) => {
-          payment.paidTimestamp = new Date(payment.paidTimestamp);
-        });
-
-        this.loaderService.endRequest();
+      this.payments.forEach((payment) => {
+        payment.paidTimestamp = new Date(payment.paidTimestamp);
       });
+
+      this.loaderService.endRequest();
+    });
   }
 
   private loadPaymentsAndAssign(paymentId: string): void {
@@ -85,23 +83,22 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
 
     this.http.get(`${environment.api.uri}/payment/list`, {
       headers: this.getHeaders(),
-    })
-      .map((res: Response) => res.json()).subscribe((json) => {
-        this.payments = json;
-        this.paidPayments = this.payments.filter((payment) => payment.paid);
+    }).subscribe((json: any) => {
+      this.payments = json;
+      this.paidPayments = this.payments.filter((payment) => payment.paid);
 
-        this.payments.forEach((payment) => {
-          payment.paidTimestamp = new Date(payment.paidTimestamp);
-        });
-
-        const unassignedPayment = this.payments.find((x) => x.paymentId === paymentId && x.paid && !x.assigned);
-
-        if (unassignedPayment) {
-          this.onClick_Assign(unassignedPayment.subscription);
-        }
-
-        this.loaderService.endRequest();
+      this.payments.forEach((payment) => {
+        payment.paidTimestamp = new Date(payment.paidTimestamp);
       });
+
+      const unassignedPayment = this.payments.find((x) => x.paymentId === paymentId && x.paid && !x.assigned);
+
+      if (unassignedPayment) {
+        this.onClick_Assign(unassignedPayment.subscription);
+      }
+
+      this.loaderService.endRequest();
+    });
   }
 
   private createElementFromHTML(html: string): any {
@@ -125,7 +122,7 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
     this.http.get(`${environment.api.uri}/payment/verify?paymentId=${paymentId}`, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.loadPaymentsAndAssign(paymentId);
 
         this.loaderService.endRequest();

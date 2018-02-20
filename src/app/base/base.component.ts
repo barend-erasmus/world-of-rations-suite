@@ -1,5 +1,4 @@
-import { Http, Response, Headers } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/forkJoin';
 import { LoaderService } from '../loader.service';
@@ -15,14 +14,14 @@ export class BaseComponent {
   public subscription: any = null;
   public user: any = null;
 
-  constructor(protected http: Http, protected loaderService: LoaderService, isRouteCompoment: boolean) {
+  constructor(protected http: HttpClient, protected loaderService: LoaderService, isRouteCompoment: boolean) {
     if (isRouteCompoment) {
       this.loaderService.reset();
     }
   }
 
-  protected getHeaders(): Headers {
-    const headers = new Headers();
+  protected getHeaders(): HttpHeaders {
+    const headers = new HttpHeaders();
     headers.append('authorization', `Bearer ${localStorage.getItem('token')}`);
 
     return headers;
@@ -50,13 +49,13 @@ export class BaseComponent {
   private loadSubscription(): Promise<any> {
     return this.http.get(`${environment.api.uri}/subscription/find`, {
       headers: this.getHeaders(),
-    }).map((res: Response) => res.json()).toPromise();
+    }).toPromise();
   }
 
   private loadUser(): Promise<any> {
     return this.http.get(`${environment.api.uri}/user/info`, {
       headers: this.getHeaders(),
-    }).map((res: Response) => res.json()).toPromise();
+    }).toPromise();
   }
 
 }

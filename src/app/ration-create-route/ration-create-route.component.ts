@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
@@ -18,7 +18,7 @@ export class RationCreateRouteComponent extends BaseComponent implements OnInit 
 
   public messages: string[] = [];
 
-  constructor(http: Http, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+  constructor(http: HttpClient, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
     super(http, loaderService, true);
   }
 
@@ -46,7 +46,7 @@ export class RationCreateRouteComponent extends BaseComponent implements OnInit 
     this.http.post(`${environment.api.uri}/diet/create`, this.diet, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.router.navigateByUrl(`/ration/groups/edit/${this.diet.group.id}`);
 
         this.loaderService.endRequest();
@@ -59,7 +59,7 @@ export class RationCreateRouteComponent extends BaseComponent implements OnInit 
     this.http.get(`${environment.api.uri}/nutrient/list`, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.nutrients = json;
 
         this.diet.values = [];
@@ -87,7 +87,7 @@ export class RationCreateRouteComponent extends BaseComponent implements OnInit 
     this.http.get(`${environment.api.uri}/dietgroup/find?id=${dietGroupId}`, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.diet.group = json;
 
         const groupChart: string[] = [];

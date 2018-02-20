@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
@@ -13,7 +13,7 @@ export class FeedstuffRouteComponent extends BaseComponent implements OnInit {
 
   public ingredients: any[] = [];
 
-  constructor(http: Http, loaderService: LoaderService) {
+  constructor(http: HttpClient, loaderService: LoaderService) {
     super(http, loaderService, true);
   }
 
@@ -31,7 +31,7 @@ export class FeedstuffRouteComponent extends BaseComponent implements OnInit {
     this.http.get(`${environment.api.uri}/ingredient/list`, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.ingredients = json;
 
         this.loaderService.endRequest();

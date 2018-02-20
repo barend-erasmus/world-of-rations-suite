@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { LoaderService } from '../loader.service';
 import * as moment from 'moment';
 
@@ -13,7 +13,7 @@ export class MessagesComponent extends BaseComponent implements OnInit {
 
   public messages: { text: string, type: string, }[] = [];
 
-  constructor(http: Http, loaderService: LoaderService) {
+  constructor(http: HttpClient, loaderService: LoaderService) {
     super(http, loaderService, false);
   }
 

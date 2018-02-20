@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { LoaderService } from '../loader.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { LoaderService } from '../loader.service';
 })
 export class FooterComponent extends BaseComponent implements OnInit {
 
-  constructor(http: Http, loaderService: LoaderService) {
+  constructor(http: HttpClient, loaderService: LoaderService) {
     super(http, loaderService, false);
   }
 

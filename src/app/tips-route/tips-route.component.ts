@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { LoaderService } from '../loader.service';
 
 @Component({
@@ -10,11 +10,11 @@ import { LoaderService } from '../loader.service';
 })
 export class TipsRouteComponent extends BaseComponent implements OnInit {
 
-  constructor(http: Http, loaderService: LoaderService) {
+  constructor(http: HttpClient, loaderService: LoaderService) {
     super(http, loaderService, true);
   }
 
   public ngOnInit(): void {
-    
+
   }
 }

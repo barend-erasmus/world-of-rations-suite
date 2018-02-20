@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
@@ -20,7 +20,7 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
 
   public messages: string[] = [];
 
-  constructor(http: Http, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+  constructor(http: HttpClient, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
     super(http, loaderService, true);
   }
 
@@ -50,7 +50,7 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
     this.http.post(`${environment.api.uri}/dietgroup/update`, this.dietGroup, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.router.navigateByUrl(`/ration/groups${this.dietGroup.parent ? `/edit/${this.dietGroup.parent.id}` : ''}`);
 
         this.loaderService.endRequest();
@@ -64,7 +64,7 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
     this.http.get(`${environment.api.uri}/dietgroup/find?id=${dietGroupId}`, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.dietGroup = json;
 
         const groupChart: string[] = [];
@@ -94,7 +94,7 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
     this.http.get(`${environment.api.uri}/dietgroup/list?dietGroupId=${this.dietGroup.id}`, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.subDietGroups = json;
 
         this.loaderService.endRequest();
@@ -107,7 +107,7 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
     this.http.get(`${environment.api.uri}/diet/list?dietGroupId=${this.dietGroup.id}`, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         if (this.subscription.permissions.indexOf('super-user') > -1) {
           this.diets = json;
         } else {

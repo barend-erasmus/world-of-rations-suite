@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { ActivatedRoute } from '@angular/router';
@@ -29,7 +29,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
 
   public result: any = null;
 
-  constructor(http: Http, loaderService: LoaderService, private route: ActivatedRoute) {
+  constructor(http: HttpClient, loaderService: LoaderService, private route: ActivatedRoute) {
     super(http, loaderService, true);
   }
 
@@ -82,7 +82,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
     }, {
         headers: this.getHeaders(),
       })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.result = json;
 
         this.loaderService.endRequest();
@@ -150,7 +150,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
       `?dietGroupId=${this.dietGroupDropdowns[this.dietGroupDropdowns.length - 1].selectedItem.id}`, {
         headers: this.getHeaders(),
       })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.diets = json;
 
         if (selectedId) {
@@ -167,7 +167,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
     this.http.get(`${environment.api.uri}/dietgroup/list${dietGroupParentId ? `?dietGroupId=${dietGroupParentId}` : ''}`, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         if (json.length > 0) {
           if (selectedIds.length > 0) {
 
@@ -203,7 +203,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
       `?dietId=${this.selectedDiet.id}&ingredientId=${formulationIngredient.ingredient.id}`, {
         headers: this.getHeaders(),
       })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
 
         formulationIngredient.suggestedValue = json;
 
@@ -217,7 +217,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
     this.http.get(`${environment.api.uri}/ingredient/list`, {
       headers: this.getHeaders(),
     })
-      .map((res: Response) => res.json()).subscribe((json) => {
+      .subscribe((json: any) => {
         this.ingredients = json;
 
         this.formulationIngredients = [

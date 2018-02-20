@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { BaseComponent } from '../base/base.component';
+import { Http, Response, Headers } from '@angular/http';
+import { LoaderService } from '../loader.service';
 
 @Component({
   selector: 'app-tips-route',
   templateUrl: './tips-route.component.html',
   styleUrls: ['./tips-route.component.css']
 })
-export class TipsRouteComponent implements OnInit {
+export class TipsRouteComponent extends BaseComponent implements OnInit {
 
-  public user: any = {};
-
-  constructor() { }
+  constructor(http: Http, loaderService: LoaderService) {
+    super(http, loaderService, true);
+  }
 
   public ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
+    
   }
 }

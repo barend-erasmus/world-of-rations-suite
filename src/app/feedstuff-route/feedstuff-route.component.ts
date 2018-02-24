@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
 import { UserService } from '../services/user.service';
 import { SubscriptionService } from '../services/subscription.service';
+import { IngredientService } from '../services/ingredient.service';
 
 @Component({
   selector: 'app-feedstuff-route',
@@ -15,7 +15,12 @@ export class FeedstuffRouteComponent extends BaseComponent implements OnInit {
 
   public ingredients: any[] = [];
 
-  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, loaderService: LoaderService) {
+  constructor(
+    private ingredientService: IngredientService,
+    loaderService: LoaderService,
+    subscriptionService: SubscriptionService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, true);
   }
 
@@ -30,9 +35,7 @@ export class FeedstuffRouteComponent extends BaseComponent implements OnInit {
   private loadIngredients(): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/ingredient/list`, {
-      headers: this.getHeaders(),
-    })
+    this.ingredientService.list()
       .subscribe((json: any) => {
         this.ingredients = json;
 

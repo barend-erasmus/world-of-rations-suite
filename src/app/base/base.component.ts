@@ -14,7 +14,7 @@ export class BaseComponent {
   public subscription: any = null;
   public user: any = null;
 
-  constructor(private subsciptionService: SubscriptionService, private userService: UserService, protected loaderService: LoaderService, isRouteCompoment: boolean) {
+  constructor(protected subsciptionService: SubscriptionService, protected userService: UserService, protected loaderService: LoaderService, isRouteCompoment: boolean) {
     if (isRouteCompoment) {
       this.loaderService.reset();
     }
@@ -40,9 +40,9 @@ export class BaseComponent {
 
         this.subscription.expiryTimestamp = this.subscription.expiryTimestamp ? new Date(this.subscription.expiryTimestamp) : null;
         this.subscription.startTimestamp = this.subscription.startTimestamp ? new Date(this.subscription.startTimestamp) : null;
-  
+
         this.user = results[1];
-  
+
         this.loaderService.endRequest();
       })
     );

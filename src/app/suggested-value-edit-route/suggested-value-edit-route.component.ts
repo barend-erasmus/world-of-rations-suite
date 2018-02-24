@@ -95,7 +95,7 @@ export class SuggestedValueEditRouteComponent extends BaseComponent implements O
 
     let dietGroup: any = this.suggestedValue.dietGroup;
 
-    while(dietGroup) {
+    while (dietGroup) {
       ids.push(dietGroup.id);
 
       dietGroup = dietGroup.parent;

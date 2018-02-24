@@ -35,6 +35,7 @@ import { SuggestedValueRouteComponent } from './suggested-value-route/suggested-
 import { SuggestedValueEditRouteComponent } from './suggested-value-edit-route/suggested-value-edit-route.component';
 import { SubscriptionService } from './services/subscription.service';
 import { UserService } from './services/user.service';
+import { IngredientService } from './services/ingredient.service';
 
 const appRoutes: Routes = [
   {
@@ -220,6 +221,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     AuthGuard,
+    IngredientService,
     LoaderService,
     SubscriptionService,
     UserService,

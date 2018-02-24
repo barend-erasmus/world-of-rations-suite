@@ -4,14 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class UserService extends BaseService {
+export class IngredientService extends BaseService {
 
   constructor(http: HttpClient) {
     super(http);
   }
 
-  public info(): Observable<any> {
-    return this.get(`/user/info`);
+  public list(): Observable<any> {
+    return this.get(`/ingredient/list`);
   }
 
 }

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { SubscriptionService } from '../services/subscription.service';
 import { UserService } from '../services/user.service';
+import { DietGroupService } from '../services/diet-group.service';
+import { SuggestedValueService } from '../services/suggested-value.service';
 
 @Component({
   selector: 'app-suggested-value-edit-route',
@@ -20,7 +21,14 @@ export class SuggestedValueEditRouteComponent extends BaseComponent implements O
 
   public dietGroupDropdowns: any[] = [];
 
-  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, loaderService: LoaderService, private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private dietGroupService: DietGroupService,
+    loaderService: LoaderService,
+    private route: ActivatedRoute,
+    subscriptionService: SubscriptionService,
+    private suggestedValueService: SuggestedValueService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, true);
   }
 
@@ -45,9 +53,7 @@ export class SuggestedValueEditRouteComponent extends BaseComponent implements O
   private loadDietGroupDropdown(dietGroupParentId: number, selectedIds: number[] = []): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/dietgroup/list${dietGroupParentId ? `?dietGroupId=${dietGroupParentId}` : ''}`, {
-      headers: this.getHeaders(),
-    })
+    this.dietGroupService.list(dietGroupParentId)
       .subscribe((json: any) => {
         if (json.length > 0) {
           if (selectedIds.length > 0) {
@@ -78,9 +84,7 @@ export class SuggestedValueEditRouteComponent extends BaseComponent implements O
   private loadSuggestedValue(id: number): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/suggestedvalue/findById?id=${id}`, {
-      headers: this.getHeaders(),
-    })
+    this.suggestedValueService.findById(id)
       .subscribe((json: any) => {
         this.suggestedValue = json;
 

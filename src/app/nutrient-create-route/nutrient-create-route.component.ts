@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
 import { UserService } from '../services/user.service';
 import { SubscriptionService } from '../services/subscription.service';
+import { NutrientService } from '../services/nutrient.service';
 
 @Component({
   selector: 'app-nutrient-create-route',
@@ -18,7 +18,13 @@ export class NutrientCreateRouteComponent extends BaseComponent implements OnIni
 
   public messages: string[] = [];
 
-  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+  constructor(
+    loaderService: LoaderService,
+    private nutrientService: NutrientService,
+    private router: Router,
+    subscriptionService: SubscriptionService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, true);
   }
 
@@ -57,9 +63,7 @@ export class NutrientCreateRouteComponent extends BaseComponent implements OnIni
 
     this.loaderService.startRequest();
 
-    this.http.post(`${environment.api.uri}/nutrient/create`, this.nutrient, {
-      headers: this.getHeaders(),
-    })
+    this.nutrientService.create(this.nutrient)
       .subscribe((json: any) => {
         this.router.navigateByUrl('/nutrients');
 

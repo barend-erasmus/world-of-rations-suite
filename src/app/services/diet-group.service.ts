@@ -4,18 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class UserService extends BaseService {
+export class DietGroupService extends BaseService {
 
   constructor(http: HttpClient) {
     super(http);
   }
 
-  public info(): Observable<any> {
-    return this.get(`/user/info`);
-  }
-
-  public update(user: any): Observable<any> {
-    return this.post(`/user/update`, user);
+  public list(dietGroupId: number): Observable<any> {
+    return this.get(`/dietgroup/list${dietGroupId ? `?dietGroupId=${dietGroupId}` : ''}`);
   }
 
 }

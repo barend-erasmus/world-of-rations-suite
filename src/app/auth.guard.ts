@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
@@ -10,9 +10,9 @@ export class AuthGuard implements CanActivate {
 
   private user: any;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient) { }
 
-  canActivate(
+  public canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
@@ -20,12 +20,8 @@ export class AuthGuard implements CanActivate {
       const accessToken = localStorage.getItem('token');
 
       if (accessToken) {
-        const headers = new HttpHeaders({
-          'authorization': `Bearer ${accessToken}`,
-        });
-
         this.http.get(`${environment.api.uri}/user/info`, {
-          headers,
+          headers: this.getHeaders(accessToken),
         }).subscribe((json: any) => {
             this.user = json;
             localStorage.setItem('user', JSON.stringify(this.user));
@@ -33,27 +29,32 @@ export class AuthGuard implements CanActivate {
             observer.next(true);
             observer.complete();
           }, (err) => {
-            window.location.href =
-              `https://worldofrations.auth0.com/authorize?` +
-              `scope=openid%20email%20profile&` +
-              `response_type=token&` +
-              `client_id=qVN7NLKDr9ap_tFr3Ri9CZlQrnkcdEwf&` +
-              `redirect_uri=${environment.application.uri}/login`;
+            this.redirectToAuth0();
 
             observer.next(false);
             observer.complete();
           });
       } else {
-        window.location.href =
-          `https://worldofrations.auth0.com/authorize?` +
-          `scope=openid%20email%20profile&` +
-          `response_type=token&` +
-          `client_id=qVN7NLKDr9ap_tFr3Ri9CZlQrnkcdEwf&` +
-          `redirect_uri=${environment.application.uri}/login`;
+        this.redirectToAuth0();
 
         observer.next(false);
         observer.complete();
       }
     });
+  }
+
+  private getHeaders(accessToken: string): HttpHeaders {
+    return new HttpHeaders({
+      'authorization': `Bearer ${accessToken}`,
+    });
+  }
+
+  private redirectToAuth0(): void {
+    window.location.href =
+          `https://worldofrations.auth0.com/authorize?` +
+          `scope=openid%20email%20profile&` +
+          `response_type=token&` +
+          `client_id=qVN7NLKDr9ap_tFr3Ri9CZlQrnkcdEwf&` +
+          `redirect_uri=${environment.application.uri}/login`;
   }
 }

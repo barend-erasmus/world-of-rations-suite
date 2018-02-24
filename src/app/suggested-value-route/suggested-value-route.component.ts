@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
 import { UserService } from '../services/user.service';
 import { SubscriptionService } from '../services/subscription.service';
+import { SuggestedValueService } from '../services/suggested-value.service';
 
 @Component({
   selector: 'app-suggested-value-route',
@@ -15,7 +15,12 @@ export class SuggestedValueRouteComponent extends BaseComponent implements OnIni
 
   public suggestedValues: any[] = [];
 
-  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, loaderService: LoaderService) {
+  constructor(
+    loaderService: LoaderService,
+    subscriptionService: SubscriptionService,
+    private suggestedValueService: SuggestedValueService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, true);
   }
 
@@ -30,9 +35,7 @@ export class SuggestedValueRouteComponent extends BaseComponent implements OnIni
   private loadSuggestedValues(): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/suggestedvalue/list`, {
-      headers: this.getHeaders(),
-    })
+    this.suggestedValueService.list()
       .subscribe((json: any) => {
         this.suggestedValues = json;
 

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
-import { HttpClient } from '@angular/common/http';
 import { LoaderService } from '../loader.service';
 import * as moment from 'moment';
 import { UserService } from '../services/user.service';
@@ -15,7 +14,11 @@ export class MessagesComponent extends BaseComponent implements OnInit {
 
   public messages: { text: string, type: string, }[] = [];
 
-  constructor(subscriptionService: SubscriptionService, userService: UserService, loaderService: LoaderService) {
+  constructor(
+    loaderService: LoaderService,
+    subscriptionService: SubscriptionService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, false);
   }
 
@@ -31,7 +34,7 @@ export class MessagesComponent extends BaseComponent implements OnInit {
         text: `Your ${this.subscription.type.toUpperCase()} Subscription has expired on ${moment(this.subscription.expiryTimestamp).format('DD MMMM YYYY')}. <a href="/billing">Go to Billing</a>`,
         type: 'danger',
       });
-    } else if (this.subscription.expiryTimestamp && moment.duration(this.subscription.expiryTimestamp.getTime() - new Date().getTime()).days() <= 10)  {
+    } else if (this.subscription.expiryTimestamp && moment.duration(this.subscription.expiryTimestamp.getTime() - new Date().getTime()).days() <= 10) {
       this.messages.push({
         text: `Your ${this.subscription.type.toUpperCase()} Subscription expires in ${moment.duration(this.subscription.expiryTimestamp.getTime() - new Date().getTime()).days()} days.`,
         type: 'info',

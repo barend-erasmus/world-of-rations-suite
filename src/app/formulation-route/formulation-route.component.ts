@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
 import { SubscriptionService } from '../services/subscription.service';
 import { UserService } from '../services/user.service';
+import { FormulationService } from '../services/formulation.service';
 
 @Component({
   selector: 'app-formulation-route',
@@ -15,7 +15,12 @@ export class FormulationRouteComponent extends BaseComponent implements OnInit {
 
   public formulations: any[] = [];
 
-  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, loaderService: LoaderService) {
+  constructor(
+    private formulationService: FormulationService,
+    loaderService: LoaderService,
+    subscriptionService: SubscriptionService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, true);
   }
 
@@ -30,9 +35,7 @@ export class FormulationRouteComponent extends BaseComponent implements OnInit {
   private loadFormulations(): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/formulation/list`, {
-      headers: this.getHeaders(),
-    })
+    this.formulationService.list()
       .subscribe((json: any) => {
         this.formulations = json;
 

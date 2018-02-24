@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
@@ -16,7 +14,11 @@ export class ProfileRouteComponent extends BaseComponent implements OnInit {
 
   public messages: string[] = [];
 
-  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, loaderService: LoaderService) {
+  constructor(
+    loaderService: LoaderService,
+    subscriptionService: SubscriptionService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, true);
   }
 
@@ -43,9 +45,7 @@ export class ProfileRouteComponent extends BaseComponent implements OnInit {
 
     this.loaderService.startRequest();
 
-    this.http.post(`${environment.api.uri}/user/update`, this.user, {
-      headers: this.getHeaders(),
-    })
+    this.userService.update(this.user)
       .subscribe((json: any) => {
         this.initialize();
         this.loaderService.endRequest();

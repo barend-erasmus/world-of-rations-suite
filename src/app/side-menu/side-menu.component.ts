@@ -11,7 +11,11 @@ import { SubscriptionService } from '../services/subscription.service';
 })
 export class SideMenuComponent extends BaseComponent implements OnInit {
 
-  constructor(subscriptionService: SubscriptionService, userService: UserService, loaderService: LoaderService) {
+  constructor(
+    loaderService: LoaderService,
+    subscriptionService: SubscriptionService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, false);
   }
 

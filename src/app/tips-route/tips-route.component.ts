@@ -11,7 +11,11 @@ import { SubscriptionService } from '../services/subscription.service';
 })
 export class TipsRouteComponent extends BaseComponent implements OnInit {
 
-  constructor(subscriptionService: SubscriptionService, userService: UserService, loaderService: LoaderService) {
+  constructor(
+    loaderService: LoaderService,
+    subscriptionService: SubscriptionService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, true);
   }
 

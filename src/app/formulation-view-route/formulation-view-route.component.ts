@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
 import { UserService } from '../services/user.service';
 import { SubscriptionService } from '../services/subscription.service';
+import { FormulationService } from '../services/formulation.service';
 declare let gtag: Function;
 
 @Component({
@@ -19,7 +19,13 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
   public formulationCompositionValues: any[] = [];
   public supplement: any = [];
 
-  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, private route: ActivatedRoute, loaderService: LoaderService) {
+  constructor(
+    private formulationService: FormulationService,
+    loaderService: LoaderService,
+    private route: ActivatedRoute,
+    subscriptionService: SubscriptionService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, true);
   }
 
@@ -42,9 +48,7 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
   private loadFormulation(formulationId: number): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/formulation/find?id=${formulationId}`, {
-      headers: this.getHeaders(),
-    })
+    this.formulationService.find(formulationId)
       .subscribe((json: any) => {
         this.formulation = json;
 
@@ -77,9 +81,7 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
   private loadFormulationCompositionValues(formulationId: number): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/formulation/composition?id=${formulationId}`, {
-      headers: this.getHeaders(),
-    })
+    this.formulationService.composition(this.formulation)
       .subscribe((json: any) => {
         this.formulationCompositionValues = json;
 
@@ -90,9 +92,7 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
   private loadFormulationSupplement(formulationId: number): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/formulation/supplement?id=${formulationId}`, {
-      headers: this.getHeaders(),
-    })
+    this.formulationService.supplement(this.formulation)
       .subscribe((json: any) => {
         this.supplement = json;
 

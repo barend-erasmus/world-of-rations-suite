@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
 import { UserService } from '../services/user.service';
 import { SubscriptionService } from '../services/subscription.service';
+import { DietGroupService } from '../services/diet-group.service';
 
 @Component({
   selector: 'app-ration-group-route',
@@ -17,7 +17,12 @@ export class RationGroupRouteComponent extends BaseComponent implements OnInit {
 
   public dietGroups: any[] = [];
 
-  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, loaderService: LoaderService) {
+  constructor(
+    private dietGroupService: DietGroupService,
+    loaderService: LoaderService,
+    subscriptionService: SubscriptionService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, true);
   }
 
@@ -32,9 +37,7 @@ export class RationGroupRouteComponent extends BaseComponent implements OnInit {
   private loadDietGroups(): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/dietgroup/list`, {
-      headers: this.getHeaders(),
-    })
+    this.dietGroupService.list(null)
       .subscribe((json: any) => {
         if (this.subscription.permissions.indexOf('super-user') > -1) {
           this.dietGroups = json;

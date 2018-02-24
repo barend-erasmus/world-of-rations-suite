@@ -25,4 +25,9 @@ export class BaseService {
     return headers;
   }
 
+  protected post<T>(uri: string, data: any): Observable<T> {
+    return this.http.post<T>(urlJoin(environment.api.uri, uri), data, {
+      headers: this.getHeaders(),
+    });
+  }
 }

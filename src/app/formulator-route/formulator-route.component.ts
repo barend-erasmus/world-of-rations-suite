@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '../base/base.component';
 import { SubscriptionService } from '../services/subscription.service';
 import { UserService } from '../services/user.service';
+import { FormulatorService } from '../services/formulator.service';
+import { IngredientService } from '../services/ingredient.service';
+import { SuggestedValueService } from '../services/suggested-value.service';
+import { DietGroupService } from '../services/diet-group.service';
+import { DietService } from '../services/diet.service';
 declare let gtag: Function;
 
 @Component({
@@ -31,7 +35,17 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
 
   public result: any = null;
 
-  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, loaderService: LoaderService, private route: ActivatedRoute) {
+  constructor(
+    private dietService: DietService,
+    private dietGroupService: DietGroupService,
+    private formulatorService: FormulatorService,
+    private ingredientService: IngredientService,
+    loaderService: LoaderService,
+    private route: ActivatedRoute,
+    subscriptionService: SubscriptionService,
+    private suggestedValueService: SuggestedValueService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, true);
   }
 
@@ -77,13 +91,11 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
 
     this.loaderService.startRequest();
 
-    this.http.post(`${environment.api.uri}/formulation/create`, {
+    this.formulatorService.create({
       diet: this.selectedDiet,
       formulationIngredients: this.formulationIngredients,
       mixWeight: this.mixWeight,
-    }, {
-        headers: this.getHeaders(),
-      })
+    })
       .subscribe((json: any) => {
         this.result = json;
 
@@ -148,10 +160,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
   private onDietGroupSelected(selectedId: number = null): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/diet/list` +
-      `?dietGroupId=${this.dietGroupDropdowns[this.dietGroupDropdowns.length - 1].selectedItem.id}`, {
-        headers: this.getHeaders(),
-      })
+    this.dietService.list(this.dietGroupDropdowns[this.dietGroupDropdowns.length - 1].selectedItem.id)
       .subscribe((json: any) => {
         this.diets = json;
 
@@ -166,9 +175,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
   private loadDietGroupDropdown(dietGroupParentId: number, selectedIds: number[] = []): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/dietgroup/list${dietGroupParentId ? `?dietGroupId=${dietGroupParentId}` : ''}`, {
-      headers: this.getHeaders(),
-    })
+    this.dietGroupService.list(dietGroupParentId)
       .subscribe((json: any) => {
         if (json.length > 0) {
           if (selectedIds.length > 0) {
@@ -201,10 +208,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
   private loadSuggestedValue(formulationIngredient: any): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/suggestedvalue/find` +
-      `?dietId=${this.selectedDiet.id}&ingredientId=${formulationIngredient.ingredient.id}`, {
-        headers: this.getHeaders(),
-      })
+    this.suggestedValueService.find(this.selectedDiet.id, formulationIngredient.ingredient.id)
       .subscribe((json: any) => {
 
         formulationIngredient.suggestedValue = json;
@@ -216,9 +220,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
   private loadIngredients(): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/ingredient/list`, {
-      headers: this.getHeaders(),
-    })
+    this.ingredientService.list()
       .subscribe((json: any) => {
         this.ingredients = json;
 

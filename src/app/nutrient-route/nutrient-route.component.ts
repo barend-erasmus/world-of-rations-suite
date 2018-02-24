@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
 import { UserService } from '../services/user.service';
 import { SubscriptionService } from '../services/subscription.service';
+import { NutrientService } from '../services/nutrient.service';
 
 @Component({
   selector: 'app-nutrient-route',
@@ -15,7 +15,12 @@ export class NutrientRouteComponent extends BaseComponent implements OnInit {
 
   public nutrients: any[] = [];
 
-  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, loaderService: LoaderService) {
+  constructor(
+    loaderService: LoaderService,
+    private nutrientService: NutrientService,
+    subscriptionService: SubscriptionService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, true);
   }
 
@@ -30,9 +35,7 @@ export class NutrientRouteComponent extends BaseComponent implements OnInit {
   private loadNutrients(): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/nutrient/list`, {
-      headers: this.getHeaders(),
-    })
+    this.nutrientService.list()
       .subscribe((json: any) => {
         this.nutrients = json;
 

@@ -36,6 +36,13 @@ import { SuggestedValueEditRouteComponent } from './suggested-value-edit-route/s
 import { SubscriptionService } from './services/subscription.service';
 import { UserService } from './services/user.service';
 import { IngredientService } from './services/ingredient.service';
+import { DietService } from './services/diet.service';
+import { DietGroupService } from './services/diet-group.service';
+import { FormulationService } from './services/formulation.service';
+import { FormulatorService } from './services/formulator.service';
+import { NutrientService } from './services/nutrient.service';
+import { PaymentService } from './services/payment.service';
+import { SuggestedValueService } from './services/suggested-value.service';
 
 const appRoutes: Routes = [
   {
@@ -221,9 +228,16 @@ const appRoutes: Routes = [
   ],
   providers: [
     AuthGuard,
+    DietService,
+    DietGroupService,
+    FormulationService,
+    FormulatorService,
     IngredientService,
     LoaderService,
+    NutrientService,
+    PaymentService,
     SubscriptionService,
+    SuggestedValueService,
     UserService,
   ],
   bootstrap: [AppComponent]

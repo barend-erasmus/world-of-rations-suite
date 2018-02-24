@@ -14,4 +14,16 @@ export class NutrientService extends BaseService {
     return this.post(`/nutrient/create`, nutrient);
   }
 
+  public find(nutrientId: number): Observable<any> {
+    return this.get(`/nutrient/find?nutrientId=${nutrientId}`);
+  }
+
+  public list(): Observable<any> {
+    return this.get(`/nutrient/list`);
+  }
+
+  public update(nutrient: any): Observable<any> {
+    return this.post(`/nutrient/update`, nutrient);
+  }
+
 }

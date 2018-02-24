@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
 import { SubscriptionService } from '../services/subscription.service';
 import { UserService } from '../services/user.service';
+import { NutrientService } from '../services/nutrient.service';
 
 @Component({
   selector: 'app-nutrient-edit-route',
@@ -18,7 +18,14 @@ export class NutrientEditRouteComponent extends BaseComponent implements OnInit 
 
   public messages: string[] = [];
 
-  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+  constructor(
+    loaderService: LoaderService,
+    private nutrientService: NutrientService,
+    private route: ActivatedRoute,
+    private router: Router,
+    subscriptionService: SubscriptionService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, true);
   }
 
@@ -61,9 +68,7 @@ export class NutrientEditRouteComponent extends BaseComponent implements OnInit 
 
     this.loaderService.startRequest();
 
-    this.http.post(`${environment.api.uri}/nutrient/update`, this.nutrient, {
-      headers: this.getHeaders(),
-    })
+    this.nutrientService.update(this.nutrient)
       .subscribe((json: any) => {
         this.router.navigateByUrl('/nutrients');
 
@@ -74,9 +79,7 @@ export class NutrientEditRouteComponent extends BaseComponent implements OnInit 
   private loadNutrient(nutrientId: number): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/nutrient/find?nutrientId=${nutrientId}`, {
-      headers: this.getHeaders(),
-    })
+    this.nutrientService.find(nutrientId)
       .subscribe((json: any) => {
         this.nutrient = json;
 

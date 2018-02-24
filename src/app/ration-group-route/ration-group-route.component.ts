@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
+import { UserService } from '../services/user.service';
+import { SubscriptionService } from '../services/subscription.service';
 
 @Component({
   selector: 'app-ration-group-route',
@@ -15,12 +17,12 @@ export class RationGroupRouteComponent extends BaseComponent implements OnInit {
 
   public dietGroups: any[] = [];
 
-  constructor(http: HttpClient, loaderService: LoaderService) {
-    super(http, loaderService, true);
+  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, loaderService: LoaderService) {
+    super(subscriptionService, userService, loaderService, true);
   }
 
   public ngOnInit(): void {
-    this.initialize().then(() => {
+    this.initialize().subscribe(() => {
       if (this.subscription.permissions.indexOf('view-diet-group') > -1) {
         this.loadDietGroups();
       }

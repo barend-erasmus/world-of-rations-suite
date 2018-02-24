@@ -3,6 +3,8 @@ import { BaseComponent } from '../base/base.component';
 import { HttpClient } from '@angular/common/http';
 import { LoaderService } from '../loader.service';
 import * as moment from 'moment';
+import { UserService } from '../services/user.service';
+import { SubscriptionService } from '../services/subscription.service';
 
 @Component({
   selector: 'app-messages',
@@ -13,12 +15,12 @@ export class MessagesComponent extends BaseComponent implements OnInit {
 
   public messages: { text: string, type: string, }[] = [];
 
-  constructor(http: HttpClient, loaderService: LoaderService) {
-    super(http, loaderService, false);
+  constructor(subscriptionService: SubscriptionService, userService: UserService, loaderService: LoaderService) {
+    super(subscriptionService, userService, loaderService, false);
   }
 
   public ngOnInit(): void {
-    this.initialize().then(() => {
+    this.initialize().subscribe(() => {
       this.buildMessages();
     });
   }

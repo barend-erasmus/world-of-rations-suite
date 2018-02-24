@@ -32,6 +32,9 @@ import { MessagesComponent } from './messages/messages.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
 import { BillingRouteComponent } from './billing-route/billing-route.component';
 import { SuggestedValueRouteComponent } from './suggested-value-route/suggested-value-route.component';
+import { SuggestedValueEditRouteComponent } from './suggested-value-edit-route/suggested-value-edit-route.component';
+import { SubscriptionService } from './services/subscription.service';
+import { UserService } from './services/user.service';
 
 const appRoutes: Routes = [
   {
@@ -171,6 +174,13 @@ const appRoutes: Routes = [
       AuthGuard,
     ],
   },
+  {
+    path: 'suggestedvalue/edit/:suggestedValueId',
+    component: SuggestedValueEditRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
 ];
 
 @NgModule({
@@ -200,6 +210,7 @@ const appRoutes: Routes = [
     SafeHtmlPipe,
     BillingRouteComponent,
     SuggestedValueRouteComponent,
+    SuggestedValueEditRouteComponent,
   ],
   imports: [
     BrowserModule,
@@ -210,6 +221,8 @@ const appRoutes: Routes = [
   providers: [
     AuthGuard,
     LoaderService,
+    SubscriptionService,
+    UserService,
   ],
   bootstrap: [AppComponent]
 })

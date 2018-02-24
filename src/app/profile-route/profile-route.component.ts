@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
+import { SubscriptionService } from '../services/subscription.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-profile-route',
@@ -14,12 +16,12 @@ export class ProfileRouteComponent extends BaseComponent implements OnInit {
 
   public messages: string[] = [];
 
-  constructor(http: HttpClient, loaderService: LoaderService) {
-    super(http, loaderService, true);
+  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, loaderService: LoaderService) {
+    super(subscriptionService, userService, loaderService, true);
   }
 
   public ngOnInit(): void {
-    this.initialize().then(() => {
+    this.initialize().subscribe(() => {
 
     });
   }

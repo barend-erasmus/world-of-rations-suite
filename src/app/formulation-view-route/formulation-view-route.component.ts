@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
+import { UserService } from '../services/user.service';
+import { SubscriptionService } from '../services/subscription.service';
 declare let gtag: Function;
 
 @Component({
@@ -17,13 +19,13 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
   public formulationCompositionValues: any[] = [];
   public supplement: any = [];
 
-  constructor(http: HttpClient, private route: ActivatedRoute, loaderService: LoaderService) {
-    super(http, loaderService, true);
+  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, private route: ActivatedRoute, loaderService: LoaderService) {
+    super(subscriptionService, userService, loaderService, true);
   }
 
   public ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.initialize().then(() => {
+      this.initialize().subscribe(() => {
         if (this.subscription.permissions.indexOf('view-formulation') > -1) {
 
           gtag('event', 'view_formulation', {

@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
+import { SubscriptionService } from '../services/subscription.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-nutrient-edit-route',
@@ -16,13 +18,13 @@ export class NutrientEditRouteComponent extends BaseComponent implements OnInit 
 
   public messages: string[] = [];
 
-  constructor(http: HttpClient, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
-    super(http, loaderService, true);
+  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+    super(subscriptionService, userService, loaderService, true);
   }
 
   public ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.initialize().then(() => {
+      this.initialize().subscribe(() => {
         if (this.subscription.permissions.indexOf('view-nutrient') > -1) {
           this.loadNutrient(params['nutrientId']);
         }

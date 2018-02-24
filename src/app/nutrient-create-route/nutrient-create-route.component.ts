@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
+import { UserService } from '../services/user.service';
+import { SubscriptionService } from '../services/subscription.service';
 
 @Component({
   selector: 'app-nutrient-create-route',
@@ -16,12 +18,12 @@ export class NutrientCreateRouteComponent extends BaseComponent implements OnIni
 
   public messages: string[] = [];
 
-  constructor(http: HttpClient, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
-    super(http, loaderService, true);
+  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+    super(subscriptionService, userService, loaderService, true);
   }
 
   public ngOnInit(): void {
-    this.initialize().then(() => {
+    this.initialize().subscribe(() => {
 
     });
   }

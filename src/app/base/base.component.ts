@@ -1,20 +1,20 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import 'rxjs/add/operator/do';
+import { Observable } from 'rxjs/Observable';
+import { tap } from 'rxjs/operators';
 import 'rxjs/add/observable/forkJoin';
 import { LoaderService } from '../loader.service';
 import { environment } from '../../environments/environment';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { Subscription } from 'rxjs/Subscription';
+import { SubscriptionService } from '../services/subscription.service';
+import { UserService } from '../services/user.service';
 
-// @Component({
-//   selector: 'app-base',
-//   templateUrl: './base.component.html',
-//   styleUrls: ['./base.component.css']
-// })
 export class BaseComponent {
 
   public subscription: any = null;
   public user: any = null;
 
-  constructor(protected http: HttpClient, protected loaderService: LoaderService, isRouteCompoment: boolean) {
+  constructor(private subsciptionService: SubscriptionService, private userService: UserService, protected loaderService: LoaderService, isRouteCompoment: boolean) {
     if (isRouteCompoment) {
       this.loaderService.reset();
     }
@@ -28,35 +28,23 @@ export class BaseComponent {
     return headers;
   }
 
-  protected initialize(): Promise<any> {
+  protected initialize(): Observable<any> {
     this.loaderService.startRequest();
 
-    return Promise.all([
-      this.loadSubscription(),
-      this.loadUser(),
-    ]).then((results: any[]) => {
+    return forkJoin([
+      this.subsciptionService.find(),
+      this.userService.info(),
+    ]).pipe(
+      tap((results: any[]) => {
+        this.subscription = results[0];
 
-      this.subscription = results[0];
-
-      this.subscription.expiryTimestamp = this.subscription.expiryTimestamp ? new Date(this.subscription.expiryTimestamp) : null;
-      this.subscription.startTimestamp = this.subscription.startTimestamp ? new Date(this.subscription.startTimestamp) : null;
-
-      this.user = results[1];
-
-      this.loaderService.endRequest();
-    });
+        this.subscription.expiryTimestamp = this.subscription.expiryTimestamp ? new Date(this.subscription.expiryTimestamp) : null;
+        this.subscription.startTimestamp = this.subscription.startTimestamp ? new Date(this.subscription.startTimestamp) : null;
+  
+        this.user = results[1];
+  
+        this.loaderService.endRequest();
+      })
+    );
   }
-
-  private loadSubscription(): Promise<any> {
-    return this.http.get(`${environment.api.uri}/subscription/find`, {
-      headers: this.getHeaders(),
-    }).toPromise();
-  }
-
-  private loadUser(): Promise<any> {
-    return this.http.get(`${environment.api.uri}/user/info`, {
-      headers: this.getHeaders(),
-    }).toPromise();
-  }
-
 }

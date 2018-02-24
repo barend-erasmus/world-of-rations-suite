@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
+import { SubscriptionService } from '../services/subscription.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-billing-route',
@@ -15,18 +17,18 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
   public paidPayments: any[] = [];
   public payments: any[] = [];
 
-  constructor(http: HttpClient, loaderService: LoaderService, private route: ActivatedRoute) {
-    super(http, loaderService, true);
+  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, loaderService: LoaderService, private route: ActivatedRoute) {
+    super(subscriptionService, userService, loaderService, true);
   }
 
   public ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       if (params['paymentId']) {
-        this.initialize().then(() => {
+        this.initialize().subscribe(() => {
           this.verifyPayment(params['paymentId']);
         });
       } else {
-        this.initialize().then(() => {
+        this.initialize().subscribe(() => {
           this.loadPayments();
         });
       }

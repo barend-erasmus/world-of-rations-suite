@@ -4,6 +4,8 @@ import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '../base/base.component';
+import { SubscriptionService } from '../services/subscription.service';
+import { UserService } from '../services/user.service';
 declare let gtag: Function;
 
 @Component({
@@ -29,13 +31,13 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
 
   public result: any = null;
 
-  constructor(http: HttpClient, loaderService: LoaderService, private route: ActivatedRoute) {
-    super(http, loaderService, true);
+  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, loaderService: LoaderService, private route: ActivatedRoute) {
+    super(subscriptionService, userService, loaderService, true);
   }
 
   public ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.initialize().then(() => {
+      this.initialize().subscribe(() => {
         if (params['formulationId']) {
           this.loadDietGroupDropdown(null, [69, 216, 217, 859]);
         } else {

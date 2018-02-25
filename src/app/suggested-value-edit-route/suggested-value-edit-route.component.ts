@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SubscriptionService } from '../services/subscription.service';
 import { UserService } from '../services/user.service';
 import { DietGroupService } from '../services/diet-group.service';
 import { SuggestedValueService } from '../services/suggested-value.service';
+import { IngredientService } from '../services/ingredient.service';
 
 @Component({
   selector: 'app-suggested-value-edit-route',
@@ -21,10 +22,14 @@ export class SuggestedValueEditRouteComponent extends BaseComponent implements O
 
   public dietGroupDropdowns: any[] = [];
 
+  public ingredients: any[] = [];
+
   constructor(
     private dietGroupService: DietGroupService,
+    private ingredientService: IngredientService,
     loaderService: LoaderService,
     private route: ActivatedRoute,
+    private router: Router,
     subscriptionService: SubscriptionService,
     private suggestedValueService: SuggestedValueService,
     userService: UserService,
@@ -37,6 +42,7 @@ export class SuggestedValueEditRouteComponent extends BaseComponent implements O
       this.initialize().subscribe(() => {
         if (this.subscription.permissions.indexOf('view-suggested-value') > -1) {
           this.loadSuggestedValue(params['suggestedValueId']);
+          this.loadIngredients();
         }
       });
     });
@@ -48,6 +54,17 @@ export class SuggestedValueEditRouteComponent extends BaseComponent implements O
     }
 
     this.loadDietGroupDropdown(this.dietGroupDropdowns[index].selectedItem.id);
+  }
+
+  public onClick_Save(): void {
+    this.loaderService.startRequest();
+
+    this.suggestedValueService.update(this.suggestedValue)
+      .subscribe((json: any) => {
+        this.router.navigateByUrl('/suggestedvalue');
+
+        this.loaderService.endRequest();
+      });
   }
 
   private loadDietGroupDropdown(dietGroupParentId: number, selectedIds: number[] = []): void {
@@ -76,6 +93,17 @@ export class SuggestedValueEditRouteComponent extends BaseComponent implements O
             });
           }
         }
+
+        this.loaderService.endRequest();
+      });
+  }
+
+  private loadIngredients(): void {
+    this.loaderService.startRequest();
+
+    this.ingredientService.list()
+      .subscribe((json: any) => {
+        this.ingredients = json;
 
         this.loaderService.endRequest();
       });

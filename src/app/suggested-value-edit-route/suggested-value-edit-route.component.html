@@ -24,6 +24,13 @@
               <br />
             </p>
             <div class="form-group">
+              <label>Feedstuff</label>
+              <select [(ngModel)]="suggestedValue.ingredient.id" class="form-control">
+                <option [ngValue]="null" disabled>Select Feedstuff</option>
+                <option *ngFor="let ingredient of ingredients" [ngValue]="ingredient.id">{{ ingredient.name }}</option>
+              </select>
+            </div>
+            <div class="form-group">
               <label>Ration Group</label>
               <div *ngFor="let dietGroupDropdown of dietGroupDropdowns; let i = index">
                 <select [(ngModel)]="dietGroupDropdown.selectedItem" (change)="onChange_DietGroupDropdown(i)" class="form-control">
@@ -38,7 +45,15 @@
                 </div>
               </div>
             </div>
-            <!-- <button (click)="onClick_Save()" class="btn btn-success" *ngIf="subscription.permissions.indexOf('update-diet-group') > -1">Save</button> -->
+            <div class="form-group">
+              <label>Minimum</label>
+              <input type="text" class="form-control" [(ngModel)]="suggestedValue.minimum">
+            </div>
+            <div class="form-group">
+              <label>Maximum</label>
+              <input type="text" class="form-control" [(ngModel)]="suggestedValue.maximum">
+            </div>
+            <button (click)="onClick_Save()" class="btn btn-success" *ngIf="subscription.permissions.indexOf('update-suggested-value') > -1">Save</button>
           </div>
         </div>
       </div>

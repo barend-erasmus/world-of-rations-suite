@@ -22,4 +22,7 @@ export class SuggestedValueService extends BaseService {
     return this.get(`/suggestedvalue/list`);
   }
 
+  public update(suggestedValue: any): Observable<any> {
+    return this.post(`/suggestedvalue/update`, suggestedValue);
+  }
 }

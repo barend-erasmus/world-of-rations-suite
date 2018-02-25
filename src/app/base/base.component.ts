@@ -14,7 +14,12 @@ export class BaseComponent {
   public subscription: any = null;
   public user: any = null;
 
-  constructor(protected subsciptionService: SubscriptionService, protected userService: UserService, protected loaderService: LoaderService, isRouteCompoment: boolean) {
+  constructor(
+    isRouteCompoment: boolean,
+    protected loaderService: LoaderService,
+    protected subsciptionService: SubscriptionService,
+    protected userService: UserService,
+  ) {
     if (isRouteCompoment) {
       this.loaderService.reset();
     }

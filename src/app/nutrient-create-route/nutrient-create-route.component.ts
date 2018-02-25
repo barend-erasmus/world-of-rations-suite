@@ -25,7 +25,7 @@ export class NutrientCreateRouteComponent extends BaseComponent implements OnIni
     subscriptionService: SubscriptionService,
     userService: UserService,
   ) {
-    super(subscriptionService, userService, loaderService, true);
+    super(true, loaderService, subscriptionService, userService);
   }
 
   public ngOnInit(): void {

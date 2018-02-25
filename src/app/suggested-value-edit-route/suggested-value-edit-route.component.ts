@@ -29,7 +29,7 @@ export class SuggestedValueEditRouteComponent extends BaseComponent implements O
     private suggestedValueService: SuggestedValueService,
     userService: UserService,
   ) {
-    super(subscriptionService, userService, loaderService, true);
+    super(true, loaderService, subscriptionService, userService);
   }
 
   public ngOnInit(): void {

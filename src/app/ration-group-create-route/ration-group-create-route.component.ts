@@ -28,7 +28,7 @@ export class RationGroupCreateRouteComponent extends BaseComponent implements On
     subscriptionService: SubscriptionService,
     userService: UserService,
   ) {
-    super(subscriptionService, userService, loaderService, true);
+    super(true, loaderService, subscriptionService, userService);
   }
 
   public ngOnInit(): void {

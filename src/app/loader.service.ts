@@ -11,6 +11,11 @@ export class LoaderService {
 
   }
 
+  public endRequest(): void {
+    this.counter = this.counter - 1;
+    this.setIsLoading();
+  }
+
   public reset(): void {
     this.counter = 0;
     this.isLoading = false;
@@ -18,11 +23,6 @@ export class LoaderService {
 
   public startRequest(): void {
     this.counter = this.counter + 1;
-    this.setIsLoading();
-  }
-
-  public endRequest(): void {
-    this.counter = this.counter - 1;
     this.setIsLoading();
   }
 

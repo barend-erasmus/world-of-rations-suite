@@ -32,7 +32,7 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
     subscriptionService: SubscriptionService,
     userService: UserService,
   ) {
-    super(subscriptionService, userService, loaderService, true);
+    super(true, loaderService, subscriptionService, userService);
   }
 
   public ngOnInit(): void {

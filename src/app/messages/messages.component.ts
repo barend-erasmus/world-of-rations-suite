@@ -19,7 +19,7 @@ export class MessagesComponent extends BaseComponent implements OnInit {
     subscriptionService: SubscriptionService,
     userService: UserService,
   ) {
-    super(subscriptionService, userService, loaderService, false);
+    super(false, loaderService, subscriptionService, userService);
   }
 
   public ngOnInit(): void {

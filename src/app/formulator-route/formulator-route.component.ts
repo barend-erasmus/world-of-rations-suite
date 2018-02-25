@@ -46,7 +46,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
     private suggestedValueService: SuggestedValueService,
     userService: UserService,
   ) {
-    super(subscriptionService, userService, loaderService, true);
+    super(true, loaderService, subscriptionService, userService);
   }
 
   public ngOnInit(): void {

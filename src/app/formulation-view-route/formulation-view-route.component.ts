@@ -81,7 +81,7 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
   private loadFormulationCompositionValues(formulationId: number): void {
     this.loaderService.startRequest();
 
-    this.formulationService.composition(this.formulation)
+    this.formulationService.composition(formulationId)
       .subscribe((json: any) => {
         this.formulationCompositionValues = json;
 
@@ -92,7 +92,7 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
   private loadFormulationSupplement(formulationId: number): void {
     this.loaderService.startRequest();
 
-    this.formulationService.supplement(this.formulation)
+    this.formulationService.supplement(formulationId)
       .subscribe((json: any) => {
         this.supplement = json;
 

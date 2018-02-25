@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
 import { UserService } from '../services/user.service';
 import { SubscriptionService } from '../services/subscription.service';
+import { DietGroupService } from '../services/diet-group.service';
 
 @Component({
   selector: 'app-ration-group-create-route',
@@ -20,7 +20,14 @@ export class RationGroupCreateRouteComponent extends BaseComponent implements On
 
   public messages: string[] = [];
 
-  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+  constructor(
+    private dietGroupService: DietGroupService,
+    loaderService: LoaderService,
+    private route: ActivatedRoute,
+    private router: Router,
+    subscriptionService: SubscriptionService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, true);
   }
 
@@ -50,9 +57,7 @@ export class RationGroupCreateRouteComponent extends BaseComponent implements On
 
     this.loaderService.startRequest();
 
-    this.http.post(`${environment.api.uri}/dietgroup/create`, this.dietGroup, {
-      headers: this.getHeaders(),
-    })
+    this.dietGroupService.create(this.dietGroup)
       .subscribe((json: any) => {
         this.router.navigateByUrl(`/ration/groups/${this.parentDietGroup ? `/edit/${this.parentDietGroup.id}` : ''}`);
 
@@ -65,9 +70,7 @@ export class RationGroupCreateRouteComponent extends BaseComponent implements On
 
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/dietgroup/find?id=${dietGroupId}`, {
-      headers: this.getHeaders(),
-    })
+    this.dietGroupService.find(dietGroupId)
       .subscribe((json: any) => {
         this.parentDietGroup = json;
 

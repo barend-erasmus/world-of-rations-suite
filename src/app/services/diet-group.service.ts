@@ -10,12 +10,20 @@ export class DietGroupService extends BaseService {
     super(http);
   }
 
+  public create(dietGroup: any): Observable<any> {
+    return this.post(`/dietgroup/create`, dietGroup);
+  }
+
   public find(dietGroupId: number): Observable<any> {
     return this.get(`/dietgroup/find?id=${dietGroupId}`);
   }
 
   public list(dietGroupId: number): Observable<any> {
     return this.get(`/dietgroup/list${dietGroupId ? `?dietGroupId=${dietGroupId}` : ''}`);
+  }
+
+  public update(dietGroup: any): Observable<any> {
+    return this.post(`/dietgroup/update`, dietGroup);
   }
 
 }

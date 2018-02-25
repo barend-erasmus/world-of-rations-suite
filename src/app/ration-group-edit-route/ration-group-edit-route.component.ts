@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
 import { UserService } from '../services/user.service';
 import { SubscriptionService } from '../services/subscription.service';
+import { DietGroupService } from '../services/diet-group.service';
+import { DietService } from '../services/diet.service';
 
 @Component({
   selector: 'app-ration-group-edit-route',
@@ -22,7 +23,15 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
 
   public messages: string[] = [];
 
-  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+  constructor(
+    private dietService: DietService,
+    private dietGroupService: DietGroupService,
+    loaderService: LoaderService,
+    private route: ActivatedRoute,
+    private router: Router,
+    subscriptionService: SubscriptionService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, true);
   }
 
@@ -49,9 +58,7 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
 
     this.loaderService.startRequest();
 
-    this.http.post(`${environment.api.uri}/dietgroup/update`, this.dietGroup, {
-      headers: this.getHeaders(),
-    })
+    this.dietGroupService.update(this.dietGroup)
       .subscribe((json: any) => {
         this.router.navigateByUrl(`/ration/groups${this.dietGroup.parent ? `/edit/${this.dietGroup.parent.id}` : ''}`);
 
@@ -63,9 +70,7 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
   private loadDietGroup(dietGroupId: number): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/dietgroup/find?id=${dietGroupId}`, {
-      headers: this.getHeaders(),
-    })
+    this.dietGroupService.find(dietGroupId)
       .subscribe((json: any) => {
         this.dietGroup = json;
 
@@ -93,9 +98,7 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
   private loadSubDietGroups(): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/dietgroup/list?dietGroupId=${this.dietGroup.id}`, {
-      headers: this.getHeaders(),
-    })
+    this.dietGroupService.list(this.dietGroup.id)
       .subscribe((json: any) => {
         this.subDietGroups = json;
 
@@ -106,9 +109,7 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
   private loadDiets(): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/diet/list?dietGroupId=${this.dietGroup.id}`, {
-      headers: this.getHeaders(),
-    })
+    this.dietService.list(this.dietGroup.id)
       .subscribe((json: any) => {
         if (this.subscription.permissions.indexOf('super-user') > -1) {
           this.diets = json;

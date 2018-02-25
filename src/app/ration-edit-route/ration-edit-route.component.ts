@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
 import { UserService } from '../services/user.service';
 import { SubscriptionService } from '../services/subscription.service';
+import { DietService } from '../services/diet.service';
+import { NutrientService } from '../services/nutrient.service';
 
 @Component({
   selector: 'app-ration-edit-route',
@@ -20,7 +21,15 @@ export class RationEditRouteComponent extends BaseComponent implements OnInit {
 
   public messages: string[] = [];
 
-  constructor(private http: HttpClient, subscriptionService: SubscriptionService, userService: UserService, private router: Router, private route: ActivatedRoute, loaderService: LoaderService) {
+  constructor(
+    private dietService: DietService,
+    loaderService: LoaderService,
+    private nutrientService: NutrientService,
+    private route: ActivatedRoute,
+    private router: Router,
+    subscriptionService: SubscriptionService,
+    userService: UserService,
+  ) {
     super(subscriptionService, userService, loaderService, true);
   }
 
@@ -47,9 +56,7 @@ export class RationEditRouteComponent extends BaseComponent implements OnInit {
 
     this.loaderService.startRequest();
 
-    this.http.post(`${environment.api.uri}/diet/update`, this.diet, {
-      headers: this.getHeaders(),
-    })
+    this.dietService.update(this.diet)
       .subscribe((json: any) => {
         this.router.navigateByUrl(`/ration/groups/edit/${this.diet.group.id}`);
 
@@ -60,9 +67,7 @@ export class RationEditRouteComponent extends BaseComponent implements OnInit {
   private loadNutrients(): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/nutrient/list`, {
-      headers: this.getHeaders(),
-    })
+    this.nutrientService.list()
       .subscribe((json: any) => {
         this.nutrients = json;
 
@@ -86,9 +91,7 @@ export class RationEditRouteComponent extends BaseComponent implements OnInit {
   private loadDiet(dietId: number): void {
     this.loaderService.startRequest();
 
-    this.http.get(`${environment.api.uri}/diet/find?id=${dietId}`, {
-      headers: this.getHeaders(),
-    })
+    this.dietService.find(dietId)
       .subscribe((json: any) => {
         this.diet = json;
 

@@ -10,6 +10,10 @@ export class SuggestedValueService extends BaseService {
     super(http);
   }
 
+  public create(suggestedValue: any): Observable<any> {
+    return this.post(`/suggestedvalue/create`, suggestedValue);
+  }
+
   public find(dietId: number, ingredientId: number): Observable<any> {
     return this.get(`/suggestedvalue/find?dietId=${dietId}&ingredientId=${ingredientId}`);
   }

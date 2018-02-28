@@ -2,21 +2,31 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { SubscriptionService } from '../services/subscription.service';
 import { UserService } from '../services/user.service';
 import { DietGroupService } from '../services/diet-group.service';
 import { SuggestedValueService } from '../services/suggested-value.service';
 import { IngredientService } from '../services/ingredient.service';
+import { SuggestedValue } from '../models/suggested-value';
+import { DietGroup } from '../models/diet-group';
+import { Ingredient } from '../models/ingredient';
 
 @Component({
-  selector: 'app-suggested-value-edit-route',
-  templateUrl: './suggested-value-edit-route.component.html',
-  styleUrls: ['./suggested-value-edit-route.component.css']
+  selector: 'app-suggested-value-create-route',
+  templateUrl: './suggested-value-create-route.component.html',
+  styleUrls: ['./suggested-value-create-route.component.css']
 })
-export class SuggestedValueEditRouteComponent extends BaseComponent implements OnInit {
+export class SuggestedValueCreateRouteComponent extends BaseComponent implements OnInit {
 
-  public suggestedValue: any = null;
+  public suggestedValue: SuggestedValue = new SuggestedValue(
+    null,
+    null,
+    new DietGroup(null, null, null, null),
+    new Ingredient(null, null, null, null, null, null),
+    null,
+    null,
+  );
 
   public messages: string[] = [];
 
@@ -28,7 +38,6 @@ export class SuggestedValueEditRouteComponent extends BaseComponent implements O
     private dietGroupService: DietGroupService,
     private ingredientService: IngredientService,
     loaderService: LoaderService,
-    private route: ActivatedRoute,
     private router: Router,
     subscriptionService: SubscriptionService,
     private suggestedValueService: SuggestedValueService,
@@ -38,13 +47,11 @@ export class SuggestedValueEditRouteComponent extends BaseComponent implements O
   }
 
   public ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.initialize().subscribe(() => {
-        if (this.subscription.permissions.indexOf('view-suggested-value') > -1) {
-          this.loadSuggestedValue(params['suggestedValueId']);
-          this.loadIngredients();
-        }
-      });
+    this.initialize().subscribe(() => {
+      if (this.subscription.permissions.indexOf('create-suggested-value') > -1) {
+        this.loadDietGroupDropdown(null);
+        this.loadIngredients();
+      }
     });
   }
 
@@ -61,7 +68,7 @@ export class SuggestedValueEditRouteComponent extends BaseComponent implements O
   public onClick_Save(): void {
     this.loaderService.startRequest();
 
-    this.suggestedValueService.update(this.suggestedValue)
+    this.suggestedValueService.create(this.suggestedValue)
       .subscribe((json: any) => {
         this.router.navigateByUrl('/suggestedvalue');
 
@@ -106,19 +113,6 @@ export class SuggestedValueEditRouteComponent extends BaseComponent implements O
     this.ingredientService.list()
       .subscribe((json: any) => {
         this.ingredients = json;
-
-        this.loaderService.endRequest();
-      });
-  }
-
-  private loadSuggestedValue(id: number): void {
-    this.loaderService.startRequest();
-
-    this.suggestedValueService.findById(id)
-      .subscribe((json: any) => {
-        this.suggestedValue = json;
-
-        this.loadDietGroupDropdown(null, this.getDietGroupIds());
 
         this.loaderService.endRequest();
       });

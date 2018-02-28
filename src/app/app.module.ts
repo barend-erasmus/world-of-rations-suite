@@ -43,6 +43,7 @@ import { FormulatorService } from './services/formulator.service';
 import { NutrientService } from './services/nutrient.service';
 import { PaymentService } from './services/payment.service';
 import { SuggestedValueService } from './services/suggested-value.service';
+import { SuggestedValueCreateRouteComponent } from './suggested-value-create-route/suggested-value-create-route.component';
 
 const appRoutes: Routes = [
   {
@@ -189,6 +190,13 @@ const appRoutes: Routes = [
       AuthGuard,
     ],
   },
+  {
+    path: 'suggestedvalue/create',
+    component: SuggestedValueCreateRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
 ];
 
 @NgModule({
@@ -219,6 +227,7 @@ const appRoutes: Routes = [
     BillingRouteComponent,
     SuggestedValueRouteComponent,
     SuggestedValueEditRouteComponent,
+    SuggestedValueCreateRouteComponent,
   ],
   imports: [
     BrowserModule,

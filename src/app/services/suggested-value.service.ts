@@ -19,7 +19,7 @@ export class SuggestedValueService extends BaseService {
   }
 
   public findById(suggestedValueId: number): Observable<any> {
-    return this.get(`/suggestedvalue/findById?id=${suggestedValueId}`);
+    return this.get(`/suggestedvalue/findById?suggestedValueId=${suggestedValueId}`);
   }
 
   public list(): Observable<any> {
@@ -27,6 +27,6 @@ export class SuggestedValueService extends BaseService {
   }
 
   public update(suggestedValue: any): Observable<any> {
-    return this.post(`/suggestedvalue/update`, suggestedValue);
+    return this.put(`/suggestedvalue/update`, suggestedValue);
   }
 }

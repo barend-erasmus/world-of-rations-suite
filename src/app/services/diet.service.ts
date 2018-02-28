@@ -15,7 +15,7 @@ export class DietService extends BaseService {
   }
 
   public find(dietId: number): Observable<any> {
-    return this.get(`/diet/find?id=${dietId}`);
+    return this.get(`/diet/find?dietId=${dietId}`);
   }
 
   public list(dietGroupId: number): Observable<any> {
@@ -23,6 +23,6 @@ export class DietService extends BaseService {
   }
 
   public update(diet: any): Observable<any> {
-    return this.post(`/diet/update`, diet);
+    return this.put(`/diet/update`, diet);
   }
 }

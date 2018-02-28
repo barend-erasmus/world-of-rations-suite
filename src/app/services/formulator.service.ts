@@ -14,17 +14,4 @@ export class FormulatorService extends BaseService {
     return this.post(`/formulation/create`, input);
   }
 
-  public find(formulationId: number): Observable<any> {
-    return this.get(`/formulation/find?id=${formulationId}`);
-  }
-
-  public list(): Observable<any> {
-    return this.get(`/formulation/list`);
-  }
-
-  public supplement(formulationId: number): Observable<any> {
-    return this.get(`/formulation/supplement?id=${formulationId}`);
-  }
-
-
 }

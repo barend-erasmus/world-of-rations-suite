@@ -11,11 +11,11 @@ export class FormulationService extends BaseService {
   }
 
   public composition(formulationId: number): Observable<any> {
-    return this.get(`/formulation/composition?id=${formulationId}`);
+    return this.get(`/formulation/composition?formulationId=${formulationId}`);
   }
 
   public find(formulationId: number): Observable<any> {
-    return this.get(`/formulation/find?id=${formulationId}`);
+    return this.get(`/formulation/find?formulationId=${formulationId}`);
   }
 
   public list(): Observable<any> {
@@ -23,7 +23,7 @@ export class FormulationService extends BaseService {
   }
 
   public supplement(formulationId: number): Observable<any> {
-    return this.get(`/formulation/supplement?id=${formulationId}`);
+    return this.get(`/formulation/supplement?formulationId=${formulationId}`);
   }
 
 

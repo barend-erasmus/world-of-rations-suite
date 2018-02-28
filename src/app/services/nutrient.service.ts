@@ -23,7 +23,7 @@ export class NutrientService extends BaseService {
   }
 
   public update(nutrient: any): Observable<any> {
-    return this.post(`/nutrient/update`, nutrient);
+    return this.put(`/nutrient/update`, nutrient);
   }
 
 }

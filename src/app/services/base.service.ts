@@ -35,4 +35,12 @@ export class BaseService {
       console.log(`POST: ${uri}`);
     }));
   }
+
+  protected put<T>(uri: string, data: any): Observable<T> {
+    return this.http.put<T>(urlJoin(environment.api.uri, uri), data, {
+      headers: this.getHeaders(),
+    }).pipe(tap((result: any) => {
+      console.log(`PUT: ${uri}`);
+    }));
+  }
 }

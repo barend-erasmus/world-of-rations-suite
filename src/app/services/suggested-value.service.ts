@@ -26,6 +26,10 @@ export class SuggestedValueService extends BaseService {
     return this.get(`/suggestedvalue/list`);
   }
 
+  public remove(suggestedValueId: number): Observable<any> {
+    return this.delete(`/suggestedvalue/remove?suggestedValueId=${suggestedValueId}`);
+  }
+
   public update(suggestedValue: any): Observable<any> {
     return this.put(`/suggestedvalue/update`, suggestedValue);
   }

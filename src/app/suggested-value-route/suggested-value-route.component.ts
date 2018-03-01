@@ -5,6 +5,7 @@ import { BaseComponent } from '../base/base.component';
 import { UserService } from '../services/user.service';
 import { SubscriptionService } from '../services/subscription.service';
 import { SuggestedValueService } from '../services/suggested-value.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-suggested-value-route',
@@ -17,6 +18,7 @@ export class SuggestedValueRouteComponent extends BaseComponent implements OnIni
 
   constructor(
     loaderService: LoaderService,
+    private router: Router,
     subscriptionService: SubscriptionService,
     private suggestedValueService: SuggestedValueService,
     userService: UserService,
@@ -26,6 +28,14 @@ export class SuggestedValueRouteComponent extends BaseComponent implements OnIni
 
   public ngOnInit(): void {
     this.initialize().subscribe(() => {
+      if (this.subscription.permissions.indexOf('view-suggested-value') > -1) {
+        this.loadSuggestedValues();
+      }
+    });
+  }
+
+  public onClick_Remove(suggestedValueId: number): void {
+    this.suggestedValueService.remove(suggestedValueId).subscribe(() => {
       if (this.subscription.permissions.indexOf('view-suggested-value') > -1) {
         this.loadSuggestedValues();
       }

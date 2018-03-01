@@ -12,6 +12,14 @@ export class BaseService {
 
   }
 
+  protected delete<T>(uri: string): Observable<T> {
+    return this.http.delete<T>(urlJoin(environment.api.uri, uri), {
+      headers: this.getHeaders(),
+    }).pipe(tap((result: any) => {
+      console.log(`GET: ${uri}`);
+    }));
+  }
+
   protected get<T>(uri: string): Observable<T> {
     return this.http.get<T>(urlJoin(environment.api.uri, uri), {
       headers: this.getHeaders(),

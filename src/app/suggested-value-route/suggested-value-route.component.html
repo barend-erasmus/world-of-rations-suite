@@ -46,6 +46,7 @@
                   <td>{{ suggestedValue.maximum }}</td>
                   <td>
                     <a href="/suggestedvalue/edit/{{suggestedValue.id}}" class="btn btn-default" *ngIf="subscription.permissions.indexOf('view-suggested-value') > -1">Edit</a>
+                    <button (click)="onClick_Remove(suggestedValue.id)" class="btn btn-danger" *ngIf="subscription.permissions.indexOf('remove-suggested-value') > -1">Delete</button>
                   </td>
                 </tr>
               </tbody>

@@ -41,7 +41,6 @@ import { DietGroupService } from './services/diet-group.service';
 import { FormulationService } from './services/formulation.service';
 import { FormulatorService } from './services/formulator.service';
 import { NutrientService } from './services/nutrient.service';
-import { PaymentService } from './services/payment.service';
 import { SuggestedValueService } from './services/suggested-value.service';
 import { SuggestedValueCreateRouteComponent } from './suggested-value-create-route/suggested-value-create-route.component';
 
@@ -244,7 +243,6 @@ const appRoutes: Routes = [
     IngredientService,
     LoaderService,
     NutrientService,
-    PaymentService,
     SubscriptionService,
     SuggestedValueService,
     UserService,

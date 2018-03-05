@@ -31,12 +31,12 @@ export class MessagesComponent extends BaseComponent implements OnInit {
   private buildMessages(): void {
     if (this.subscription.expired) {
       this.messages.push({
-        text: `Your ${this.subscription.type.toUpperCase()} Subscription has expired on ${moment(this.subscription.expiryTimestamp).format('DD MMMM YYYY')}. <a href="/billing">Go to Billing</a>`,
+        text: `Your ${this.subscription.type.toUpperCase()} Subscription has expired on ${moment(this.subscription.endTimestamp).format('DD MMMM YYYY')}. <a href="/billing">Go to Billing</a>`,
         type: 'danger',
       });
-    } else if (this.subscription.expiryTimestamp && moment.duration(this.subscription.expiryTimestamp.getTime() - new Date().getTime()).days() <= 10) {
+    } else if (this.subscription.endTimestamp && moment.duration(this.subscription.endTimestamp.getTime() - new Date().getTime()).days() <= 10) {
       this.messages.push({
-        text: `Your ${this.subscription.type.toUpperCase()} Subscription expires in ${moment.duration(this.subscription.expiryTimestamp.getTime() - new Date().getTime()).days()} days.`,
+        text: `Your ${this.subscription.type.toUpperCase()} Subscription expires in ${moment.duration(this.subscription.endTimestamp.getTime() - new Date().getTime()).days()} days.`,
         type: 'info',
       });
     }

@@ -33,38 +33,6 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-12">
-        <div class="hpanel">
-          <div class="panel-heading">
-            Payments
-          </div>
-          <div class="panel-body">
-            <table class="table">
-              <tr>
-                <th>Subscription</th>
-                <th>Amount</th>
-                <th>Period</th>
-                <th>Status</th>
-                <th></th>
-              </tr>
-              <tr *ngFor="let payment of paidPayments">
-                <td>{{ payment.subscription | uppercase }}</td>
-                <td>{{ payment.amount }} {{ payment.currency }}</td>
-                <td>{{ payment.period }} days</td>
-                <td>
-                  <span *ngIf="payment.paid" class="label label-success">Paid ({{ payment.paidTimestamp | date: 'yyyy-MM-dd HH:mm' }})</span>
-                  <span *ngIf="payment.assigned" class="label label-primary">Assigned</span>
-                </td>
-                <td>
-                  <button *ngIf="payment.paid && !payment.assigned" (click)="onClick_Assign(payment.subscription)" class="btn btn-primary">Assign</button>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
       <div class="col-sm-4">
         <div class="hpanel plan-box hgreen">
           <div class="panel-heading hbuilt text-center">

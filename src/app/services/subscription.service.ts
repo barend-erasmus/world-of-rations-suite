@@ -10,8 +10,10 @@ export class SubscriptionService extends BaseService {
     super(http);
   }
 
-  public change(subscription: string): Observable<any> {
-    return this.get(`/subscription/change?subscription=${subscription}`);
+  public create(type: string): Observable<any> {
+    return this.post(`/subscription/create`, {
+      type,
+    });
   }
 
   public find(): Observable<any> {

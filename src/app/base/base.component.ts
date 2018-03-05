@@ -43,7 +43,7 @@ export class BaseComponent {
       tap((results: any[]) => {
         this.subscription = results[0];
 
-        this.subscription.expiryTimestamp = this.subscription.expiryTimestamp ? new Date(this.subscription.expiryTimestamp) : null;
+        this.subscription.endTimestamp = this.subscription.endTimestamp ? new Date(this.subscription.endTimestamp) : null;
         this.subscription.startTimestamp = this.subscription.startTimestamp ? new Date(this.subscription.startTimestamp) : null;
 
         this.user = results[1];

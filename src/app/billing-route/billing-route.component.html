@@ -14,8 +14,8 @@
           <div class="panel-body">
             <div class="text-center">
               <h3>You are currently on our {{ subscription.type | uppercase }} Plan</h3>
-              <p *ngIf="subscription.expiryTimestamp" class="text-big font-light">
-                Ends on {{ subscription.expiryTimestamp | date: 'dd MMM yyyy' }}
+              <p *ngIf="subscription.endTimestamp" class="text-big font-light">
+                Ends on {{ subscription.endTimestamp | date: 'dd MMM yyyy' }}
               </p>
             </div>
           </div>
@@ -25,7 +25,8 @@
             <div class="text-center">
               <h3>Your {{ subscription.type | uppercase }} Plan has expired</h3>
               <p class="text-big font-light">
-                Please <a (click)="selectSubscription(subscription.type)">renew</a> your subscription.
+                Please
+                <a (click)="selectSubscription(subscription.type)">renew</a> your subscription.
               </p>
             </div>
           </div>
@@ -36,14 +37,13 @@
       <div class="col-sm-4">
         <div class="hpanel plan-box hgreen">
           <div class="panel-heading hbuilt text-center">
-            <h4 class="font-bold">Basic plan</h4>
+            <h4 class="font-bold">Basic Subscription</h4>
           </div>
           <div class="panel-body">
             <p class="text-muted">
-              The Basic Plan offers its user free formulations to fully balanced rations up to the macro-nutrient stage for any of the
-              14 animal species in our list as well as to the various physiological stages of growth and/or production of
-              the selected animal. A table is provided giving the quantities (in kg) of each the feedstuffs offered that
-              the formulation requires to be used to make a one ton mix.
+              The Basic Subscription offers free formulations to fully balanced rations up to the macro-nutrient stage for any of the 14
+              animal species in our list as well as to the various physiological stages of growth and/or production of the
+              selected animal.
             </p>
             <table class="table">
               <thead>
@@ -81,16 +81,13 @@
                 </tr>
                 <tr>
                   <td>
-                    <i class="fa fa-square-o"></i> Vitamins And Trace Minerals Supplement
+                    <i class="fa fa-square-o"></i> Vitamins And Trace Minerals Supplement Mix
                   </td>
                 </tr>
               </tbody>
             </table>
             <p class="text-muted">
-              Please note that the Basic Plan does not provide its user with the nutrient composition of the formulated ration. Nor does
-              it indicate which nutrients are in adequate supply, or which are inadequately supplied or which are in excess,
-              i.e. over-supplied. Neither does it provide its user with a customized vitamin and trace mineral premix to
-              supplement any of the deficiencies found in the initial formulation at the macro-nutrient stage.
+              The Basic Subscription neither offers the nutrient composition nor the vitamins and trace minerals supplement mix.
             </p>
             <h3 class="font-bold">
               FREE
@@ -106,12 +103,7 @@
           </div>
           <div class="panel-body">
             <p class="text-muted">
-              The Standard Plan offers its user formulations to fully balanced rations up to the macro-nutrient stage for any of the 14
-              animal species in our list as well as to the various physiological stages of growth and/or production of the
-              selected animal. Not only is a table provided giving the quantities (in kg) of each the feedstuffs offered
-              that the formulation requires to be used to make a one ton mix, but it also provides a second table which gives
-              the nutrient composition of the formulated ration, indicating the nutrients that are in adequate supply, those
-              that are inadequately supplied and those that are in excess, i.e. over-supplied.
+              The Standard Subscription offers all the functionality of the Basic Subscription but includes the nutrient compostion.
             </p>
             <table class="table">
               <thead>
@@ -149,14 +141,13 @@
                 </tr>
                 <tr>
                   <td>
-                    <i class="fa fa-square-o"></i> Vitamins And Trace Minerals Supplement
+                    <i class="fa fa-square-o"></i> Vitamins And Trace Minerals Supplement Mix
                   </td>
                 </tr>
               </tbody>
             </table>
             <p class="text-muted">
-              Please note that the Standard Plan does not provide its user with a customized vitamin and trace mineral premix to supplement
-              any of the deficiencies found in the initial formulation at the macro-nutrient stage.
+              The Standard Subscription does not offer the vitamins and trace minerals supplement mix.
             </p>
             <h3 class="font-bold">
               $39.95/month
@@ -172,9 +163,8 @@
           </div>
           <div class="panel-body">
             <p class="text-muted">
-              The Premium Plan offers its user the full house of our many and unique features for as little as $19.95 per month. This plan
-              will appeal to all professional feed formulators, nutritionists and to the stock owner or farmer that takes
-              feeding and formulations seriously.
+              The Premium Subscription offers our full suite of features which includes suggested values, nutrient composition and vitamins
+              and trace minerals supplement mix.
             </p>
             <table class="table">
               <thead>
@@ -212,13 +202,13 @@
                 </tr>
                 <tr>
                   <td>
-                    <i class="fa fa-check-square-o"></i> Vitamins And Trace Minerals Supplement
+                    <i class="fa fa-check-square-o"></i> Vitamins And Trace Minerals Supplement Mix
                   </td>
                 </tr>
               </tbody>
             </table>
             <p class="text-muted">
-              As can be seen from the above list of features, there are no features barred in the Premium Plan.
+              The Premium Subscription as no limitations and includes 24/7 support and guidance.
             </p>
             <h3 class="font-bold">
               $64.95/month

@@ -13,7 +13,7 @@
         <div *ngIf="!subscription.expired" class="hpanel hbgblue">
           <div class="panel-body">
             <div class="text-center">
-              <h3>You are currently on our {{ subscription.type | uppercase }} Plan</h3>
+              <h3>You are currently on our {{ subscription.type | titlecase }} Subscription</h3>
               <p *ngIf="subscription.endTimestamp" class="text-big font-light">
                 Ends on {{ subscription.endTimestamp | date: 'dd MMM yyyy' }}
               </p>
@@ -23,7 +23,7 @@
         <div *ngIf="subscription.expired" class="hpanel hbgred">
           <div class="panel-body">
             <div class="text-center">
-              <h3>Your {{ subscription.type | uppercase }} Plan has expired</h3>
+              <h3>Your {{ subscription.type | titlecase }} Subscription has expired</h3>
               <p class="text-big font-light">
                 Please
                 <a (click)="selectSubscription(subscription.type)">renew</a> your subscription.

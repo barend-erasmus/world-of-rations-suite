@@ -33,5 +33,5 @@ export class SuggestedValueService extends BaseService {
   public update(suggestedValue: any): Observable<any> {
     return this.put(`/suggestedvalue/update`, suggestedValue);
   }
-  
+
 }

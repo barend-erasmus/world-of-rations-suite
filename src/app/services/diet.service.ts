@@ -25,5 +25,5 @@ export class DietService extends BaseService {
   public update(diet: any): Observable<any> {
     return this.put(`/diet/update`, diet);
   }
-  
+
 }

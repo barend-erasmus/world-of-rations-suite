@@ -26,5 +26,4 @@ export class FormulationService extends BaseService {
     return this.get(`/formulation/supplement?formulationId=${formulationId}`);
   }
 
-
 }

@@ -14,7 +14,7 @@ export class LoginRouteComponent implements OnInit {
   public ngOnInit(): void {
     if (this.activatedRoute) {
       this.activatedRoute.queryParams.subscribe((params: Params): void => {
-        const parameters = this.router.url.split('#').length > 1 ? this.router.url.split('#')[1].split('&').map((x) => {
+        const parameters = decodeURIComponent(this.router.url).split('#').length > 1 ? decodeURIComponent(this.router.url).split('#')[1].split('&').map((x) => {
           return {
             key: x.split('=')[0],
             value: x.split('=')[1],

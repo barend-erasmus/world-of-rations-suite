@@ -11,6 +11,8 @@ import { UserService } from '../services/user.service';
 })
 export class FooterComponent extends BaseComponent implements OnInit {
 
+  public year: number = new Date().getUTCFullYear();
+
   constructor(
     loaderService: LoaderService,
     subscriptionService: SubscriptionService,

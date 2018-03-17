@@ -43,10 +43,7 @@
             <span *ngIf="!user.verified" class="label label-warning">UNVERIFIED</span>
           </label>
           <label class="font-extra-bold m-b-xs">
-            <span class="label label-primary">{{ user.country | uppercase }}</span>
-          </label>
-          <label class="font-extra-bold m-b-xs">
-            <span class="label label-success">{{ subscription.type | uppercase }}</span>
+            <span class="label label-success">{{ subscription.type | titlecase }}</span>
           </label>
         </div>
       </div>

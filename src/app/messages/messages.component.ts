@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
+
 import { BaseComponent } from '../base/base.component';
 import { LoaderService } from '../loader.service';
-import * as moment from 'moment';
-import { UserService } from '../services/user.service';
 import { SubscriptionService } from '../services/subscription.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-messages',

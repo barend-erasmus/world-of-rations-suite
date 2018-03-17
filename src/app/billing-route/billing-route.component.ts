@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
+import { LoaderService } from '../loader.service';
 import { SubscriptionService } from '../services/subscription.service';
 import { UserService } from '../services/user.service';
 

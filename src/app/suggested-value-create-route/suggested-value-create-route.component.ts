@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { LoaderService } from '../loader.service';
-import { BaseComponent } from '../base/base.component';
 import { Router } from '@angular/router';
-import { SubscriptionService } from '../services/subscription.service';
-import { UserService } from '../services/user.service';
-import { DietGroupService } from '../services/diet-group.service';
-import { SuggestedValueService } from '../services/suggested-value.service';
-import { IngredientService } from '../services/ingredient.service';
-import { SuggestedValue } from '../models/suggested-value';
+import { environment } from '../../environments/environment';
+import { BaseComponent } from '../base/base.component';
+import { LoaderService } from '../loader.service';
 import { DietGroup } from '../models/diet-group';
 import { Ingredient } from '../models/ingredient';
+import { SuggestedValue } from '../models/suggested-value';
+import { DietGroupService } from '../services/diet-group.service';
+import { IngredientService } from '../services/ingredient.service';
+import { SubscriptionService } from '../services/subscription.service';
+import { SuggestedValueService } from '../services/suggested-value.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-suggested-value-create-route',

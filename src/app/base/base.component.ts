@@ -1,11 +1,12 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { tap } from 'rxjs/operators';
+import { HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/observable/forkJoin';
-import { LoaderService } from '../loader.service';
-import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
+
+import { environment } from '../../environments/environment';
+import { LoaderService } from '../loader.service';
 import { SubscriptionService } from '../services/subscription.service';
 import { UserService } from '../services/user.service';
 

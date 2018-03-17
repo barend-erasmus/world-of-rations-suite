@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { environment } from '../../environments/environment';
-import * as urlJoin from 'url-join';
 import { tap } from 'rxjs/operators';
+import * as urlJoin from 'url-join';
+
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class BaseService {

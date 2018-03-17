@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
-import { UserService } from '../services/user.service';
+import { LoaderService } from '../loader.service';
 import { SubscriptionService } from '../services/subscription.service';
 import { SuggestedValueService } from '../services/suggested-value.service';
-import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-suggested-value-route',

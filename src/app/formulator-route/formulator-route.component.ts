@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { LoaderService } from '../loader.service';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from '../../environments/environment';
 import { BaseComponent } from '../base/base.component';
-import { SubscriptionService } from '../services/subscription.service';
-import { UserService } from '../services/user.service';
-import { FormulatorService } from '../services/formulator.service';
-import { IngredientService } from '../services/ingredient.service';
-import { SuggestedValueService } from '../services/suggested-value.service';
+import { LoaderService } from '../loader.service';
 import { DietGroupService } from '../services/diet-group.service';
 import { DietService } from '../services/diet.service';
+import { FormulatorService } from '../services/formulator.service';
+import { IngredientService } from '../services/ingredient.service';
+import { SubscriptionService } from '../services/subscription.service';
+import { SuggestedValueService } from '../services/suggested-value.service';
+import { UserService } from '../services/user.service';
+
 declare let gtag: Function;
 
 @Component({

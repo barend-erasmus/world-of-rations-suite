@@ -24,9 +24,9 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
 
   public ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-        this.initialize().subscribe(() => {
+      this.initialize().subscribe(() => {
 
-        });
+      });
     });
   }
 
@@ -35,7 +35,9 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
 
     this.subsciptionService.create(subscription)
       .subscribe((json: any) => {
-        window.location.href = json;
+        if (json) {
+          window.location.href = json;
+        }
 
         this.loaderService.endRequest();
       });

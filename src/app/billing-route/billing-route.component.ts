@@ -26,7 +26,7 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.initialize().subscribe(() => {
 
-      });
+      }, this.httpErrorHandler);
     });
   }
 
@@ -40,7 +40,7 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
         }
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
 

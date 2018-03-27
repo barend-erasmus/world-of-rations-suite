@@ -40,7 +40,7 @@ export class RationCreateRouteComponent extends BaseComponent implements OnInit 
       this.initialize().subscribe(() => {
         this.loadDietGroup(params['dietGroupId']);
       });
-    });
+    }, this.httpErrorHandler);
   }
 
   public onClick_Save(): void {
@@ -61,7 +61,7 @@ export class RationCreateRouteComponent extends BaseComponent implements OnInit 
         this.router.navigateByUrl(`/ration/groups/edit/${this.diet.group.id}`);
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
   private loadNutrients(): void {
@@ -87,7 +87,7 @@ export class RationCreateRouteComponent extends BaseComponent implements OnInit 
         this.diet.values = this.diet.values.sort((a, b) => a.nutrient.sortOrder - b.nutrient.sortOrder);
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
   private loadDietGroup(dietGroupId: number): void {
@@ -114,6 +114,6 @@ export class RationCreateRouteComponent extends BaseComponent implements OnInit 
         this.loadNutrients();
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 }

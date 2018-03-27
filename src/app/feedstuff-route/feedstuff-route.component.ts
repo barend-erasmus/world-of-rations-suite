@@ -29,7 +29,7 @@ export class FeedstuffRouteComponent extends BaseComponent implements OnInit {
       if (this.subscription.permissions.indexOf('view-ingredient') > -1) {
         this.loadIngredients();
       }
-    });
+    }, this.httpErrorHandler);
   }
 
   private loadIngredients(): void {
@@ -40,7 +40,7 @@ export class FeedstuffRouteComponent extends BaseComponent implements OnInit {
         this.ingredients = json;
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
 }

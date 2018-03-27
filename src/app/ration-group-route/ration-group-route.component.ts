@@ -31,7 +31,7 @@ export class RationGroupRouteComponent extends BaseComponent implements OnInit {
       if (this.subscription.permissions.indexOf('view-diet-group') > -1) {
         this.loadDietGroups();
       }
-    });
+    }, this.httpErrorHandler);
   }
 
   private loadDietGroups(): void {
@@ -46,6 +46,6 @@ export class RationGroupRouteComponent extends BaseComponent implements OnInit {
         }
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 }

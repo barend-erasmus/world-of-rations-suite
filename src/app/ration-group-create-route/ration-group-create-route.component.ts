@@ -37,7 +37,7 @@ export class RationGroupCreateRouteComponent extends BaseComponent implements On
         if (params['dietGroupId']) {
           this.loadParentDietGroup(params['dietGroupId']);
         }
-      });
+      }, this.httpErrorHandler);
     });
   }
 
@@ -62,7 +62,7 @@ export class RationGroupCreateRouteComponent extends BaseComponent implements On
         this.router.navigateByUrl(`/ration/groups/${this.parentDietGroup ? `/edit/${this.parentDietGroup.id}` : ''}`);
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
 
@@ -89,6 +89,6 @@ export class RationGroupCreateRouteComponent extends BaseComponent implements On
         this.parentDietGroup.groupChart = groupChart.join(' - ');
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 }

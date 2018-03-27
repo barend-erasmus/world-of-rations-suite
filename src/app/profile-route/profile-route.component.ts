@@ -25,7 +25,7 @@ export class ProfileRouteComponent extends BaseComponent implements OnInit {
   public ngOnInit(): void {
     this.initialize().subscribe(() => {
 
-    });
+    }, this.httpErrorHandler);
   }
 
   public onClick_Save(): void {
@@ -49,7 +49,7 @@ export class ProfileRouteComponent extends BaseComponent implements OnInit {
       .subscribe((json: any) => {
         this.initialize();
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
   public onChange_PictureUpload(event: any): void {

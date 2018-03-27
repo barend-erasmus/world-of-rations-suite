@@ -59,7 +59,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
           this.loadDietGroupDropdown(null);
           this.loadIngredients();
         }
-      });
+      }, this.httpErrorHandler);
     });
   }
 
@@ -101,7 +101,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
         this.result = json;
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
   public onClick_AddIngredient(): void {
@@ -170,7 +170,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
         }
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
   private loadDietGroupDropdown(dietGroupParentId: number, selectedIds: number[] = []): void {
@@ -203,7 +203,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
         }
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
   private loadSuggestedValue(formulationIngredient: any): void {
@@ -215,7 +215,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
         formulationIngredient.suggestedValue = json;
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
   private loadIngredients(): void {
@@ -334,6 +334,6 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
         ];
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 }

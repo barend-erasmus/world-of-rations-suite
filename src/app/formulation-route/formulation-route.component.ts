@@ -29,7 +29,7 @@ export class FormulationRouteComponent extends BaseComponent implements OnInit {
       if (this.subscription.permissions.indexOf('view-formulation') > -1) {
         this.loadFormulations();
       }
-    });
+    }, this.httpErrorHandler);
   }
 
   private loadFormulations(): void {
@@ -40,6 +40,6 @@ export class FormulationRouteComponent extends BaseComponent implements OnInit {
         this.formulations = json;
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 }

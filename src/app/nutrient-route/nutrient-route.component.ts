@@ -29,7 +29,7 @@ export class NutrientRouteComponent extends BaseComponent implements OnInit {
       if (this.subscription.permissions.indexOf('view-nutrient') > -1) {
         this.loadNutrients();
       }
-    });
+    }, this.httpErrorHandler);
   }
 
   private loadNutrients(): void {
@@ -40,6 +40,6 @@ export class NutrientRouteComponent extends BaseComponent implements OnInit {
         this.nutrients = json;
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 }

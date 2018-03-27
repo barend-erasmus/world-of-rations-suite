@@ -42,7 +42,7 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
 
           this.loadFormulation(params['formulationId']);
         }
-      });
+      }, this.httpErrorHandler);
     });
   }
 
@@ -76,7 +76,7 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
         }
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
   private loadFormulationCompositionValues(formulationId: number): void {
@@ -87,7 +87,7 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
         this.formulationCompositionValues = json;
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
   private loadFormulationSupplement(formulationId: number): void {
@@ -98,8 +98,6 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
         this.supplement = json;
 
         this.loaderService.endRequest();
-      }, (error) => {
-        this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 }

@@ -52,7 +52,7 @@ export class SuggestedValueCreateRouteComponent extends BaseComponent implements
         this.loadDietGroupDropdown(null);
         this.loadIngredients();
       }
-    });
+    }, this.httpErrorHandler);
   }
 
   public onChange_DietGroupDropdown(index: number): void {
@@ -73,7 +73,7 @@ export class SuggestedValueCreateRouteComponent extends BaseComponent implements
         this.router.navigateByUrl('/suggestedvalue');
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
   private loadDietGroupDropdown(dietGroupParentId: number, selectedIds: number[] = []): void {
@@ -104,7 +104,7 @@ export class SuggestedValueCreateRouteComponent extends BaseComponent implements
         }
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
   private loadIngredients(): void {
@@ -115,7 +115,7 @@ export class SuggestedValueCreateRouteComponent extends BaseComponent implements
         this.ingredients = json;
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
   private getDietGroupIds(): number[] {

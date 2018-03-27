@@ -35,7 +35,7 @@ export class NutrientEditRouteComponent extends BaseComponent implements OnInit 
         if (this.subscription.permissions.indexOf('view-nutrient') > -1) {
           this.loadNutrient(params['nutrientId']);
         }
-      });
+      }, this.httpErrorHandler);
     });
   }
 
@@ -73,7 +73,7 @@ export class NutrientEditRouteComponent extends BaseComponent implements OnInit 
         this.router.navigateByUrl('/nutrients');
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
   private loadNutrient(nutrientId: number): void {
@@ -84,6 +84,6 @@ export class NutrientEditRouteComponent extends BaseComponent implements OnInit 
         this.nutrient = json;
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 }

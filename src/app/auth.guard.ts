@@ -23,17 +23,21 @@ export class AuthGuard implements CanActivate {
         this.http.get(`${environment.api.uri}/user/info`, {
           headers: this.getHeaders(accessToken),
         }).subscribe((json: any) => {
-            this.user = json;
-            localStorage.setItem('user', JSON.stringify(this.user));
+          this.user = json;
+          localStorage.setItem('user', JSON.stringify(this.user));
 
-            observer.next(true);
-            observer.complete();
-          }, (err) => {
-            this.redirectToAuth0();
+          observer.next(true);
+          observer.complete();
+        }, (err: any) => {
+          if (err.status === 429) {
+            window.location.href = '/TooManyRequests';
+          } else {
+             this.redirectToAuth0();
+          }
 
-            observer.next(false);
-            observer.complete();
-          });
+          observer.next(false);
+          observer.complete();
+        });
       } else {
         this.redirectToAuth0();
 
@@ -51,10 +55,10 @@ export class AuthGuard implements CanActivate {
 
   private redirectToAuth0(): void {
     window.location.href =
-          `https://worldofrations.auth0.com/authorize?` +
-          `scope=openid%20email%20profile&` +
-          `response_type=token&` +
-          `client_id=qVN7NLKDr9ap_tFr3Ri9CZlQrnkcdEwf&` +
-          `redirect_uri=${environment.application.uri}/login`;
+      `https://worldofrations.auth0.com/authorize?` +
+      `scope=openid%20email%20profile&` +
+      `response_type=token&` +
+      `client_id=qVN7NLKDr9ap_tFr3Ri9CZlQrnkcdEwf&` +
+      `redirect_uri=${environment.application.uri}/login`;
   }
 }

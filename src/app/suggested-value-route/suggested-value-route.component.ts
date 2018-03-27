@@ -31,7 +31,7 @@ export class SuggestedValueRouteComponent extends BaseComponent implements OnIni
       if (this.subscription.permissions.indexOf('view-suggested-value') > -1) {
         this.loadSuggestedValues();
       }
-    });
+    }, this.httpErrorHandler);
   }
 
   public onClick_Remove(suggestedValueId: number): void {
@@ -39,7 +39,7 @@ export class SuggestedValueRouteComponent extends BaseComponent implements OnIni
       if (this.subscription.permissions.indexOf('view-suggested-value') > -1) {
         this.loadSuggestedValues();
       }
-    });
+    }, this.httpErrorHandler);
   }
 
   private loadSuggestedValues(): void {
@@ -66,6 +66,6 @@ export class SuggestedValueRouteComponent extends BaseComponent implements OnIni
         }
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 }

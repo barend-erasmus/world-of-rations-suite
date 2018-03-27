@@ -63,7 +63,7 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
         this.router.navigateByUrl(`/ration/groups${this.dietGroup.parent ? `/edit/${this.dietGroup.parent.id}` : ''}`);
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
 
@@ -92,7 +92,7 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
         this.loadDiets();
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
   private loadSubDietGroups(): void {
@@ -103,7 +103,7 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
         this.subDietGroups = json;
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 
   private loadDiets(): void {
@@ -118,6 +118,6 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
         }
 
         this.loaderService.endRequest();
-      });
+      }, this.httpErrorHandler);
   }
 }

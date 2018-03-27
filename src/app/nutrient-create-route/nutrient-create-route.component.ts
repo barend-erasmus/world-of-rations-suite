@@ -69,6 +69,8 @@ export class NutrientCreateRouteComponent extends BaseComponent implements OnIni
 
         this.loaderService.endRequest();
       }, (err) => {
+        this.httpErrorHandler(err);
+
         this.messages.push(err.json().message);
 
         this.loaderService.endRequest();

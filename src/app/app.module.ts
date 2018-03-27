@@ -55,11 +55,19 @@ import {
     SuggestedValueRouteComponent
 } from './suggested-value-route/suggested-value-route.component';
 import { TipsRouteComponent } from './tips-route/tips-route.component';
+import { TooManyRequestsRouteComponent } from './too-many-requests-route/too-many-requests-route.component';
 
 const appRoutes: Routes = [
   {
     path: '',
     component: HomeRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
+    path: 'TooManyRequests',
+    component: TooManyRequestsRouteComponent,
     canActivate: [
       AuthGuard,
     ],
@@ -239,6 +247,7 @@ const appRoutes: Routes = [
     SuggestedValueRouteComponent,
     SuggestedValueEditRouteComponent,
     SuggestedValueCreateRouteComponent,
+    TooManyRequestsRouteComponent,
   ],
   imports: [
     BrowserModule,

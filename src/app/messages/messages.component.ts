@@ -26,7 +26,7 @@ export class MessagesComponent extends BaseComponent implements OnInit {
   public ngOnInit(): void {
     this.initialize().subscribe(() => {
       this.buildMessages();
-    });
+    }, this.httpErrorHandler);
   }
 
   private buildMessages(): void {

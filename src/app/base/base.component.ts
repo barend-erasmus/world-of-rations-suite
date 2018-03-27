@@ -26,6 +26,14 @@ export class BaseComponent {
     }
   }
 
+  protected httpErrorHandler(error: any): void {
+    if (error.status === 429) {
+      window.location.href = '/TooManyRequests';
+    }
+
+    this.loaderService.endRequest();
+  }
+
   protected getHeaders(): HttpHeaders {
     const headers = new HttpHeaders({
       'authorization': `Bearer ${localStorage.getItem('token')}`,

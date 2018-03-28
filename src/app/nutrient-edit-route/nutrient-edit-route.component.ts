@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../environments/environment';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { BaseComponent } from '../base/base.component';
 import { LoaderService } from '../loader.service';
 import { NutrientService } from '../services/nutrient.service';
@@ -14,14 +13,14 @@ import { UserService } from '../services/user.service';
 })
 export class NutrientEditRouteComponent extends BaseComponent implements OnInit {
 
-  public nutrient: any = {};
-
   public messages: string[] = [];
 
+  public nutrient: any = {};
+
   constructor(
+    private activatedRoute: ActivatedRoute,
     loaderService: LoaderService,
     private nutrientService: NutrientService,
-    private route: ActivatedRoute,
     private router: Router,
     subscriptionService: SubscriptionService,
     userService: UserService,
@@ -30,12 +29,12 @@ export class NutrientEditRouteComponent extends BaseComponent implements OnInit 
   }
 
   public ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.activatedRoute.params.subscribe((params: Params): void => {
       this.initialize().subscribe(() => {
         if (this.subscription.permissions.indexOf('view-nutrient') > -1) {
           this.loadNutrient(params['nutrientId']);
         }
-      }, this.httpErrorHandler);
+      });
     });
   }
 
@@ -66,24 +65,17 @@ export class NutrientEditRouteComponent extends BaseComponent implements OnInit 
       return;
     }
 
-    this.loaderService.startRequest();
-
     this.nutrientService.update(this.nutrient)
       .subscribe((json: any) => {
         this.router.navigateByUrl('/nutrients');
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
   private loadNutrient(nutrientId: number): void {
-    this.loaderService.startRequest();
-
     this.nutrientService.find(nutrientId)
       .subscribe((json: any) => {
         this.nutrient = json;
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
+
 }

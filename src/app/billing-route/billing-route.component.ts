@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { environment } from '../../environments/environment';
+import { ActivatedRoute, Params } from '@angular/router';
 import { BaseComponent } from '../base/base.component';
 import { LoaderService } from '../loader.service';
 import { SubscriptionService } from '../services/subscription.service';
@@ -23,25 +22,20 @@ export class BillingRouteComponent extends BaseComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params: Params): void => {
       this.initialize().subscribe(() => {
 
-      }, this.httpErrorHandler);
+      });
     });
   }
 
   public selectSubscription(subscription: string): void {
-    this.loaderService.startRequest();
-
     this.subsciptionService.create(subscription)
       .subscribe((json: any) => {
         if (json) {
           window.location.href = json;
         }
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
-
 
 }

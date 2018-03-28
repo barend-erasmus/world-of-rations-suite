@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from '../../environments/environment';
 import { BaseComponent } from '../base/base.component';
 import { LoaderService } from '../loader.service';
 import { NutrientService } from '../services/nutrient.service';
@@ -14,9 +13,9 @@ import { UserService } from '../services/user.service';
 })
 export class NutrientCreateRouteComponent extends BaseComponent implements OnInit {
 
-  public nutrient: any = {};
-
   public messages: string[] = [];
+
+  public nutrient: any = {};
 
   constructor(
     loaderService: LoaderService,
@@ -61,19 +60,13 @@ export class NutrientCreateRouteComponent extends BaseComponent implements OnIni
       return;
     }
 
-    this.loaderService.startRequest();
-
     this.nutrientService.create(this.nutrient)
       .subscribe((json: any) => {
         this.router.navigateByUrl('/nutrients');
-
-        this.loaderService.endRequest();
       }, (err) => {
-        this.httpErrorHandler(err);
-
+        // TODO: Move to validation messages
         this.messages.push(err.json().message);
-
-        this.loaderService.endRequest();
       });
   }
+
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { BaseComponent } from '../base/base.component';
 import { LoaderService } from '../loader.service';
 import { NutrientService } from '../services/nutrient.service';
@@ -29,17 +28,14 @@ export class NutrientRouteComponent extends BaseComponent implements OnInit {
       if (this.subscription.permissions.indexOf('view-nutrient') > -1) {
         this.loadNutrients();
       }
-    }, this.httpErrorHandler);
+    });
   }
 
   private loadNutrients(): void {
-    this.loaderService.startRequest();
-
     this.nutrientService.list()
       .subscribe((json: any) => {
         this.nutrients = json;
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
+
 }

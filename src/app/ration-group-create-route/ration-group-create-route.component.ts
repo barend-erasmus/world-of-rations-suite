@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../environments/environment';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { BaseComponent } from '../base/base.component';
 import { LoaderService } from '../loader.service';
 import { DietGroupService } from '../services/diet-group.service';
@@ -16,14 +15,14 @@ export class RationGroupCreateRouteComponent extends BaseComponent implements On
 
   public dietGroup: any = {};
 
-  public parentDietGroup: any = {};
-
   public messages: string[] = [];
 
+  public parentDietGroup: any = {};
+
   constructor(
+    private activatedRoute: ActivatedRoute,
     private dietGroupService: DietGroupService,
     loaderService: LoaderService,
-    private route: ActivatedRoute,
     private router: Router,
     subscriptionService: SubscriptionService,
     userService: UserService,
@@ -32,17 +31,16 @@ export class RationGroupCreateRouteComponent extends BaseComponent implements On
   }
 
   public ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.activatedRoute.params.subscribe((params: Params): void => {
       this.initialize().subscribe(() => {
         if (params['dietGroupId']) {
           this.loadParentDietGroup(params['dietGroupId']);
         }
-      }, this.httpErrorHandler);
+      });
     });
   }
 
   public onClick_Save(): void {
-
     this.messages = [];
 
     if (!this.dietGroup.name) {
@@ -55,23 +53,17 @@ export class RationGroupCreateRouteComponent extends BaseComponent implements On
 
     this.dietGroup.parent = this.parentDietGroup;
 
-    this.loaderService.startRequest();
-
     this.dietGroupService.create(this.dietGroup)
       .subscribe((json: any) => {
         this.router.navigateByUrl(`/ration/groups/${this.parentDietGroup ? `/edit/${this.parentDietGroup.id}` : ''}`);
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
 
   private loadParentDietGroup(dietGroupId: number): void {
-
-    this.loaderService.startRequest();
-
     this.dietGroupService.find(dietGroupId)
       .subscribe((json: any) => {
+        // TODO: Move to method
         this.parentDietGroup = json;
 
         const groupChart: string[] = [];
@@ -87,8 +79,7 @@ export class RationGroupCreateRouteComponent extends BaseComponent implements On
         groupChart.reverse();
 
         this.parentDietGroup.groupChart = groupChart.join(' - ');
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
+
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { BaseComponent } from '../base/base.component';
 import { LoaderService } from '../loader.service';
 import { DietGroupService } from '../services/diet-group.service';
@@ -12,8 +11,6 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./ration-group-route.component.css']
 })
 export class RationGroupRouteComponent extends BaseComponent implements OnInit {
-
-  public user: any = {};
 
   public dietGroups: any[] = [];
 
@@ -31,12 +28,10 @@ export class RationGroupRouteComponent extends BaseComponent implements OnInit {
       if (this.subscription.permissions.indexOf('view-diet-group') > -1) {
         this.loadDietGroups();
       }
-    }, this.httpErrorHandler);
+    });
   }
 
   private loadDietGroups(): void {
-    this.loaderService.startRequest();
-
     this.dietGroupService.list(null)
       .subscribe((json: any) => {
         if (this.subscription.permissions.indexOf('super-user') > -1) {
@@ -44,8 +39,7 @@ export class RationGroupRouteComponent extends BaseComponent implements OnInit {
         } else {
           this.dietGroups = json.filter((x) => x.name === 'User Defined');
         }
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
+
 }

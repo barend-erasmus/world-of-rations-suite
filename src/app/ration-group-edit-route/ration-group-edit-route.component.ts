@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../environments/environment';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { LoaderService } from '../loader.service';
 import { BaseComponent } from '../base/base.component';
 import { UserService } from '../services/user.service';
@@ -17,11 +16,11 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
 
   public dietGroup: any = {};
 
-  public subDietGroups: any[] = [];
-
   public diets: any[] = [];
 
   public messages: string[] = [];
+
+  public subDietGroups: any[] = [];
 
   constructor(
     private dietService: DietService,
@@ -36,7 +35,7 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
   }
 
   public ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params: Params): void => {
       this.initialize().subscribe(() => {
         if (this.subscription.permissions.indexOf('view-diet-group') > -1) {
           this.loadDietGroup(params['dietGroupId']);
@@ -56,22 +55,17 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
       return;
     }
 
-    this.loaderService.startRequest();
-
     this.dietGroupService.update(this.dietGroup)
       .subscribe((json: any) => {
         this.router.navigateByUrl(`/ration/groups${this.dietGroup.parent ? `/edit/${this.dietGroup.parent.id}` : ''}`);
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
 
   private loadDietGroup(dietGroupId: number): void {
-    this.loaderService.startRequest();
-
     this.dietGroupService.find(dietGroupId)
       .subscribe((json: any) => {
+        // TODO: Move to method
         this.dietGroup = json;
 
         const groupChart: string[] = [];
@@ -90,25 +84,17 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
 
         this.loadSubDietGroups();
         this.loadDiets();
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
   private loadSubDietGroups(): void {
-    this.loaderService.startRequest();
-
     this.dietGroupService.list(this.dietGroup.id)
       .subscribe((json: any) => {
         this.subDietGroups = json;
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
   private loadDiets(): void {
-    this.loaderService.startRequest();
-
     this.dietService.list(this.dietGroup.id)
       .subscribe((json: any) => {
         if (this.subscription.permissions.indexOf('super-user') > -1) {
@@ -116,8 +102,7 @@ export class RationGroupEditRouteComponent extends BaseComponent implements OnIn
         } else {
           this.diets = json.filter((x) => x.userName === this.user.email);
         }
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
+
 }

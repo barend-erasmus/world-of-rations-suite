@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { environment } from '../../environments/environment';
+import { ActivatedRoute, Params } from '@angular/router';
 import { BaseComponent } from '../base/base.component';
 import { LoaderService } from '../loader.service';
 import { DietGroupService } from '../services/diet-group.service';
@@ -20,29 +19,29 @@ declare let gtag: Function;
 })
 export class FormulatorRouteComponent extends BaseComponent implements OnInit {
 
-  public messages: string[] = [];
-
-  public ingredients: any[] = [];
-
   public dietGroupDropdowns: any[] = [];
-
-  public selectedDiet: any = null;
 
   public diets: any[] = [];
 
   public formulationIngredients: any[] = [];
 
+  public ingredients: any[] = [];
+
+  public messages: string[] = [];
+
   public mixWeight = 1000;
 
   public result: any = null;
 
+  public selectedDiet: any = null;
+
   constructor(
+    private activatedRoute: ActivatedRoute,
     private dietService: DietService,
     private dietGroupService: DietGroupService,
     private formulatorService: FormulatorService,
     private ingredientService: IngredientService,
     loaderService: LoaderService,
-    private route: ActivatedRoute,
     subscriptionService: SubscriptionService,
     private suggestedValueService: SuggestedValueService,
     userService: UserService,
@@ -51,7 +50,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.activatedRoute.params.subscribe((params: Params): void => {
       this.initialize().subscribe(() => {
         if (params['formulationId']) {
           this.loadDietGroupDropdown(null, [69, 216, 217, 859]);
@@ -59,7 +58,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
           this.loadDietGroupDropdown(null);
           this.loadIngredients();
         }
-      }, this.httpErrorHandler);
+      });
     });
   }
 
@@ -75,6 +74,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
   }
 
   public onClick_Formulate(): void {
+    // TODO: Move to usage service
     gtag('event', 'formulate', {
       'event_category': 'formulator',
       'dietId': this.selectedDiet ? this.selectedDiet.id : -1,
@@ -90,8 +90,6 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
       return;
     }
 
-    this.loaderService.startRequest();
-
     this.formulatorService.create({
       diet: this.selectedDiet,
       formulationIngredients: this.formulationIngredients,
@@ -99,12 +97,11 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
     })
       .subscribe((json: any) => {
         this.result = json;
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
   public onClick_AddIngredient(): void {
+    // TODO: Move to usage service
     gtag('event', 'add_ingredient', {
       'event_category': 'formulator',
       'dietId': this.selectedDiet ? this.selectedDiet.id : -1,
@@ -159,8 +156,6 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
   }
 
   private onDietGroupSelected(selectedId: number = null): void {
-    this.loaderService.startRequest();
-
     this.dietService.list(this.dietGroupDropdowns[this.dietGroupDropdowns.length - 1].selectedItem.id)
       .subscribe((json: any) => {
         this.diets = json;
@@ -168,14 +163,10 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
         if (selectedId) {
           this.selectedDiet = json.find((x) => x.id === selectedId);
         }
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
   private loadDietGroupDropdown(dietGroupParentId: number, selectedIds: number[] = []): void {
-    this.loaderService.startRequest();
-
     this.dietGroupService.list(dietGroupParentId)
       .subscribe((json: any) => {
         if (json.length > 0) {
@@ -201,30 +192,23 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
         } else {
           this.onDietGroupSelected(selectedIds[0]);
         }
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
   private loadSuggestedValue(formulationIngredient: any): void {
-    this.loaderService.startRequest();
-
     this.suggestedValueService.find(this.selectedDiet.id, formulationIngredient.ingredient.id)
       .subscribe((json: any) => {
 
         formulationIngredient.suggestedValue = json;
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
   private loadIngredients(): void {
-    this.loaderService.startRequest();
-
     this.ingredientService.list()
       .subscribe((json: any) => {
         this.ingredients = json;
 
+        // TODO: Move to configuration
         this.formulationIngredients = [
           {
             ingredient: this.ingredients.find((x) => x.name === 'Alfalfa Hay, Dehydrated, 17% Crude Protein'),
@@ -332,8 +316,7 @@ export class FormulatorRouteComponent extends BaseComponent implements OnInit {
             weight: null,
           },
         ];
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
+
 }

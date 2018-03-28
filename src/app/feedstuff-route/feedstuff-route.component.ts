@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { BaseComponent } from '../base/base.component';
 import { LoaderService } from '../loader.service';
 import { IngredientService } from '../services/ingredient.service';
@@ -29,18 +28,14 @@ export class FeedstuffRouteComponent extends BaseComponent implements OnInit {
       if (this.subscription.permissions.indexOf('view-ingredient') > -1) {
         this.loadIngredients();
       }
-    }, this.httpErrorHandler);
+    });
   }
 
   private loadIngredients(): void {
-    this.loaderService.startRequest();
-
     this.ingredientService.list()
       .subscribe((json: any) => {
         this.ingredients = json;
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
 }

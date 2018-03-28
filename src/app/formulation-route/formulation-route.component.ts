@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { BaseComponent } from '../base/base.component';
 import { LoaderService } from '../loader.service';
 import { FormulationService } from '../services/formulation.service';
@@ -29,17 +28,14 @@ export class FormulationRouteComponent extends BaseComponent implements OnInit {
       if (this.subscription.permissions.indexOf('view-formulation') > -1) {
         this.loadFormulations();
       }
-    }, this.httpErrorHandler);
+    });
   }
 
   private loadFormulations(): void {
-    this.loaderService.startRequest();
-
     this.formulationService.list()
       .subscribe((json: any) => {
         this.formulations = json;
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
+
 }

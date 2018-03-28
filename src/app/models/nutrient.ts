@@ -1,4 +1,5 @@
 export class Nutrient {
+
     constructor(
         public id: number,
         public name: string,
@@ -10,4 +11,5 @@ export class Nutrient {
     ) {
 
     }
+
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from '../../environments/environment';
 import { BaseComponent } from '../base/base.component';
 import { LoaderService } from '../loader.service';
 import { SubscriptionService } from '../services/subscription.service';
@@ -31,7 +30,7 @@ export class SuggestedValueRouteComponent extends BaseComponent implements OnIni
       if (this.subscription.permissions.indexOf('view-suggested-value') > -1) {
         this.loadSuggestedValues();
       }
-    }, this.httpErrorHandler);
+    });
   }
 
   public onClick_Remove(suggestedValueId: number): void {
@@ -39,17 +38,16 @@ export class SuggestedValueRouteComponent extends BaseComponent implements OnIni
       if (this.subscription.permissions.indexOf('view-suggested-value') > -1) {
         this.loadSuggestedValues();
       }
-    }, this.httpErrorHandler);
+    });
   }
 
   private loadSuggestedValues(): void {
-    this.loaderService.startRequest();
-
     this.suggestedValueService.list()
       .subscribe((json: any) => {
         this.suggestedValues = json;
 
         for (const suggestedValue of this.suggestedValues) {
+          // TODO: move to method
           const groupChart: string[] = [];
 
           let group: any = suggestedValue.dietGroup;
@@ -64,8 +62,7 @@ export class SuggestedValueRouteComponent extends BaseComponent implements OnIni
 
           suggestedValue.dietGroup.groupChart = groupChart.join(' - ');
         }
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
+
 }

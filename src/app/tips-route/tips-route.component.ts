@@ -22,6 +22,7 @@ export class TipsRouteComponent extends BaseComponent implements OnInit {
   public ngOnInit(): void {
     this.initialize().subscribe(() => {
 
-    }, this.httpErrorHandler);
+    });
   }
+
 }

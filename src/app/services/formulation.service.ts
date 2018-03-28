@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { BaseService } from './base.service';
+import { LoaderService } from '../loader.service';
 
 @Injectable()
 export class FormulationService extends BaseService {
 
-  constructor(http: HttpClient) {
-    super(http);
+  constructor(http: HttpClient, loaderService: LoaderService) {
+    super(http, loaderService);
   }
 
   public composition(formulationId: number): Observable<any> {

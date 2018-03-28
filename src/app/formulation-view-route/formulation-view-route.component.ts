@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { environment } from '../../environments/environment';
+import { ActivatedRoute, Params } from '@angular/router';
 import { BaseComponent } from '../base/base.component';
 import { LoaderService } from '../loader.service';
 import { FormulationService } from '../services/formulation.service';
@@ -17,13 +16,15 @@ declare let gtag: Function;
 export class FormulationViewRouteComponent extends BaseComponent implements OnInit {
 
   public formulation: any = {};
+
   public formulationCompositionValues: any[] = [];
+
   public supplement: any = [];
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private formulationService: FormulationService,
     loaderService: LoaderService,
-    private route: ActivatedRoute,
     subscriptionService: SubscriptionService,
     userService: UserService,
   ) {
@@ -31,10 +32,11 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
   }
 
   public ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.activatedRoute.params.subscribe((params: Params): void => {
       this.initialize().subscribe(() => {
         if (this.subscription.permissions.indexOf('view-formulation') > -1) {
 
+          // TODO: Move to usage service
           gtag('event', 'view_formulation', {
             'event_category': 'formulator',
             'formulationId': params['formulationId'],
@@ -42,13 +44,11 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
 
           this.loadFormulation(params['formulationId']);
         }
-      }, this.httpErrorHandler);
+      });
     });
   }
 
   private loadFormulation(formulationId: number): void {
-    this.loaderService.startRequest();
-
     this.formulationService.find(formulationId)
       .subscribe((json: any) => {
         this.formulation = json;
@@ -74,30 +74,21 @@ export class FormulationViewRouteComponent extends BaseComponent implements OnIn
         if (this.subscription.permissions.indexOf('view-formulation-supplement') > -1) {
           this.loadFormulationSupplement(formulationId);
         }
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
   private loadFormulationCompositionValues(formulationId: number): void {
-    this.loaderService.startRequest();
-
     this.formulationService.composition(formulationId)
       .subscribe((json: any) => {
         this.formulationCompositionValues = json;
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
   private loadFormulationSupplement(formulationId: number): void {
-    this.loaderService.startRequest();
-
     this.formulationService.supplement(formulationId)
       .subscribe((json: any) => {
         this.supplement = json;
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
+
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-
 import { BaseComponent } from '../base/base.component';
 import { LoaderService } from '../loader.service';
 import { SubscriptionService } from '../services/subscription.service';
@@ -26,7 +25,7 @@ export class MessagesComponent extends BaseComponent implements OnInit {
   public ngOnInit(): void {
     this.initialize().subscribe(() => {
       this.buildMessages();
-    }, this.httpErrorHandler);
+    });
   }
 
   private buildMessages(): void {
@@ -42,4 +41,5 @@ export class MessagesComponent extends BaseComponent implements OnInit {
       });
     }
   }
+
 }

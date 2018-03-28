@@ -24,6 +24,7 @@ export class FooterComponent extends BaseComponent implements OnInit {
   public ngOnInit(): void {
     this.initialize().subscribe(() => {
 
-    }, this.httpErrorHandler);
+    });
   }
+
 }

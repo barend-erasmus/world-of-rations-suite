@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../environments/environment';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { BaseComponent } from '../base/base.component';
 import { LoaderService } from '../loader.service';
 import { DietGroupService } from '../services/diet-group.service';
@@ -16,19 +15,19 @@ import { UserService } from '../services/user.service';
 })
 export class SuggestedValueEditRouteComponent extends BaseComponent implements OnInit {
 
-  public suggestedValue: any = null;
-
-  public messages: string[] = [];
-
   public dietGroupDropdowns: any[] = [];
 
   public ingredients: any[] = [];
 
+  public messages: string[] = [];
+
+  public suggestedValue: any = null;
+
   constructor(
+    private activatedRoute: ActivatedRoute,
     private dietGroupService: DietGroupService,
     private ingredientService: IngredientService,
     loaderService: LoaderService,
-    private route: ActivatedRoute,
     private router: Router,
     subscriptionService: SubscriptionService,
     private suggestedValueService: SuggestedValueService,
@@ -38,13 +37,13 @@ export class SuggestedValueEditRouteComponent extends BaseComponent implements O
   }
 
   public ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.activatedRoute.params.subscribe((params: Params): void => {
       this.initialize().subscribe(() => {
         if (this.subscription.permissions.indexOf('view-suggested-value') > -1) {
           this.loadSuggestedValue(params['suggestedValueId']);
           this.loadIngredients();
         }
-      }, this.httpErrorHandler);
+      });
     });
   }
 
@@ -59,19 +58,13 @@ export class SuggestedValueEditRouteComponent extends BaseComponent implements O
   }
 
   public onClick_Save(): void {
-    this.loaderService.startRequest();
-
     this.suggestedValueService.update(this.suggestedValue)
       .subscribe((json: any) => {
         this.router.navigateByUrl('/suggestedvalue');
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
   private loadDietGroupDropdown(dietGroupParentId: number, selectedIds: number[] = []): void {
-    this.loaderService.startRequest();
-
     this.dietGroupService.list(dietGroupParentId)
       .subscribe((json: any) => {
         if (json.length > 0) {
@@ -95,33 +88,23 @@ export class SuggestedValueEditRouteComponent extends BaseComponent implements O
             });
           }
         }
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
   private loadIngredients(): void {
-    this.loaderService.startRequest();
-
     this.ingredientService.list()
       .subscribe((json: any) => {
         this.ingredients = json;
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
   private loadSuggestedValue(id: number): void {
-    this.loaderService.startRequest();
-
     this.suggestedValueService.findById(id)
       .subscribe((json: any) => {
         this.suggestedValue = json;
 
         this.loadDietGroupDropdown(null, this.getDietGroupIds());
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
   private getDietGroupIds(): number[] {

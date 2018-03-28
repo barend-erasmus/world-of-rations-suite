@@ -1,4 +1,5 @@
 export class DietGroup {
+
     constructor(
         public id: number,
         public name: string,
@@ -7,4 +8,5 @@ export class DietGroup {
     ) {
 
     }
+
 }

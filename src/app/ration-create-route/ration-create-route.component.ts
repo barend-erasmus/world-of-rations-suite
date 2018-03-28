@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../environments/environment';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { BaseComponent } from '../base/base.component';
 import { LoaderService } from '../loader.service';
 import { DietGroupService } from '../services/diet-group.service';
@@ -16,18 +15,18 @@ import { UserService } from '../services/user.service';
 })
 export class RationCreateRouteComponent extends BaseComponent implements OnInit {
 
-  public nutrients: any[] = [];
-
   public diet: any = {};
 
   public messages: string[] = [];
 
+  public nutrients: any[] = [];
+
   constructor(
+    private activatedRoute: ActivatedRoute,
     private dietService: DietService,
     private dietGroupService: DietGroupService,
     loaderService: LoaderService,
     private nutrientService: NutrientService,
-    private route: ActivatedRoute,
     private router: Router,
     subscriptionService: SubscriptionService,
     userService: UserService,
@@ -36,11 +35,11 @@ export class RationCreateRouteComponent extends BaseComponent implements OnInit 
   }
 
   public ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.activatedRoute.params.subscribe((params: Params): void => {
       this.initialize().subscribe(() => {
         this.loadDietGroup(params['dietGroupId']);
       });
-    }, this.httpErrorHandler);
+    });
   }
 
   public onClick_Save(): void {
@@ -54,19 +53,13 @@ export class RationCreateRouteComponent extends BaseComponent implements OnInit 
       return;
     }
 
-    this.loaderService.startRequest();
-
     this.dietService.create(this.diet)
       .subscribe((json: any) => {
         this.router.navigateByUrl(`/ration/groups/edit/${this.diet.group.id}`);
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
   private loadNutrients(): void {
-    this.loaderService.startRequest();
-
     this.nutrientService.list()
       .subscribe((json: any) => {
         this.nutrients = json;
@@ -85,16 +78,13 @@ export class RationCreateRouteComponent extends BaseComponent implements OnInit 
         }
 
         this.diet.values = this.diet.values.sort((a, b) => a.nutrient.sortOrder - b.nutrient.sortOrder);
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
 
   private loadDietGroup(dietGroupId: number): void {
-    this.loaderService.startRequest();
-
     this.dietGroupService.find(dietGroupId)
       .subscribe((json: any) => {
+        // TODO: Move to method
         this.diet.group = json;
 
         const groupChart: string[] = [];
@@ -112,8 +102,7 @@ export class RationCreateRouteComponent extends BaseComponent implements OnInit 
         this.diet.groupChart = groupChart.join(' - ');
 
         this.loadNutrients();
-
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+      });
   }
+
 }

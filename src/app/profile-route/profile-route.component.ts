@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { BaseComponent } from '../base/base.component';
 import { LoaderService } from '../loader.service';
 import { SubscriptionService } from '../services/subscription.service';
@@ -25,7 +24,7 @@ export class ProfileRouteComponent extends BaseComponent implements OnInit {
   public ngOnInit(): void {
     this.initialize().subscribe(() => {
 
-    }, this.httpErrorHandler);
+    });
   }
 
   public onClick_Save(): void {
@@ -43,13 +42,10 @@ export class ProfileRouteComponent extends BaseComponent implements OnInit {
       return;
     }
 
-    this.loaderService.startRequest();
-
     this.userService.update(this.user)
       .subscribe((json: any) => {
-        this.initialize();
-        this.loaderService.endRequest();
-      }, this.httpErrorHandler);
+        this.ngOnInit();
+      });
   }
 
   public onChange_PictureUpload(event: any): void {
@@ -65,4 +61,5 @@ export class ProfileRouteComponent extends BaseComponent implements OnInit {
       };
     }
   }
+
 }
